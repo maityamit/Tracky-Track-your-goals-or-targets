@@ -4,6 +4,20 @@
 
  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="Java" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank"> <img src="https://github.com/devicons/devicon/blob/master/icons/android/android-plain.svg" alt="Android" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank">  
   
+ 
+ ## 🤔 Real Life Problem
+
+If you are preparing to achive any goal or target then , one of the importance portion is consistency . 
+ <br>But you real life you can't track or measure the consistency so easily. So , creating an android application which can measure and visulize our consistency as easily and we can track our goals or target. 
+
+ 
+ ## 💡 Features Used
+
+1. Used Firebase as a Backend
+2. Google Sign In Service used of firebase
+3. Recycler View with Simple and attractive UI Layout
+4. Pie Chart
+
   
   
   
