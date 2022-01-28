@@ -2,14 +2,29 @@ package achivementtrackerbyamit.example.achivetracker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,6 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,10 +48,12 @@ public class DashboardActivity extends AppCompatActivity {
     TextView name,consis,left,goal_lft_pert;
     String id = "";
     String currentUserID;
-    DatabaseReference RootRef;
+    RecyclerView recyclerView;
+    DatabaseReference RootRef,HelloREf;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
     private Handler handler = new Handler();
     private Runnable runnable;
+    ExtendedFloatingActionButton extendedFloatingActionButton;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
 
@@ -49,22 +68,123 @@ public class DashboardActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
+        HelloREf = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Win");
 
         name = findViewById(R.id.desc_goal_name);
+        extendedFloatingActionButton = findViewById(R.id.share_Sss);
         consis = findViewById(R.id.desc_goal_const);
         left = findViewById(R.id.desc_goal_left);
         goal_lft_pert = findViewById(R.id.desc_goal_leftper);
 
+        recyclerView = findViewById(R.id.history_recyler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(DashboardActivity.this));
 
 
 
         RetriveData();
+
+        extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+                share(screenShot(rootView));
+            }
+        });
 
 
 
 
 
     }
+
+
+
+    private Bitmap screenShot(View view) {
+        View screenView = view.getRootView();
+        screenView.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
+        screenView.setDrawingCacheEnabled(false);
+        return bitmap;
+    }
+
+    private void share(Bitmap bitmap){
+        String pathofBmp=
+                MediaStore.Images.Media.insertImage(getContentResolver(),
+                        bitmap,"title", null);
+        Uri uri = Uri.parse(pathofBmp);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("image/*");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Star App");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(shareIntent, "hello hello"));
+    }
+
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart ();
+
+        FirebaseRecyclerOptions<HistoryClass> options =
+                new FirebaseRecyclerOptions.Builder<HistoryClass> ()
+                        .setQuery ( HelloREf,HistoryClass.class )
+                        .build ();
+
+
+        FirebaseRecyclerAdapter<HistoryClass, StudentViewHolder2> adapter =
+                new FirebaseRecyclerAdapter<HistoryClass,StudentViewHolder2> (options) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull final StudentViewHolder2 holder, final int position, @NonNull final HistoryClass model) {
+
+                        String listPostKey = getRef(position).getKey();
+
+                        holder.text.setText(listPostKey+" is your day ..");
+
+
+
+
+                    }
+
+                    @NonNull
+                    @Override
+                    public StudentViewHolder2 onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+                        View view  = LayoutInflater.from ( viewGroup.getContext () ).inflate ( R.layout.history_layout,viewGroup,false );
+                        StudentViewHolder2 viewHolder  = new StudentViewHolder2(  view);
+                        return viewHolder;
+
+                    }
+
+                    @Override
+                    public void onDataChanged() {
+                        super.onDataChanged();
+
+
+
+                    }
+
+
+                };
+        recyclerView.setAdapter ( adapter );
+        adapter.startListening ();
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     private void RetriveData() {
 
@@ -210,6 +330,17 @@ public class DashboardActivity extends AppCompatActivity {
         int iu = Math.round(fl);
         return String.valueOf(iu);
 
+    }
+
+    public static class StudentViewHolder2 extends  RecyclerView.ViewHolder
+    {
+
+        TextView text;
+        public StudentViewHolder2(@NonNull View itemView) {
+            super ( itemView );
+            text = itemView.findViewById ( R.id.history_yourday);
+
+        }
     }
 
 

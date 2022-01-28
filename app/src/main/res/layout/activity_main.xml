@@ -6,40 +6,63 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/handlee"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal">
 
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_height="50dp">
-
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"/>
-
-        </androidx.cardview.widget.CardView>
-
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="2sp"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:textColor="#283593"
-            android:text="Tracky : Track your goal"/>
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
 
 
-    </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="40dp">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/main_kogo"
+                    android:scaleType="fitXY"/>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="2sp"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="#283593"
+                android:text="Tracky : Track your goal"/>
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/logout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/ic_baseline_logout_24" />
+
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

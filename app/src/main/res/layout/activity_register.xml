@@ -9,25 +9,29 @@
 
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/handlee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:gravity="center_horizontal"
         android:background="@android:color/transparent"
         android:orientation="vertical">
 
 
         <androidx.cardview.widget.CardView
-            android:layout_width="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_height="50dp">
+            android:layout_width="100dp"
+            android:id="@+id/hyyyyyyyyyyyy"
+            android:layout_centerHorizontal="true"
+            android:elevation="12dp"
+            app:cardCornerRadius="12dp"
+            android:layout_height="100dp">
 
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:src="@drawable/main_kogo"
                 android:scaleType="fitXY"/>
 
         </androidx.cardview.widget.CardView>
@@ -35,16 +39,17 @@
 
         <TextView
             android:layout_width="wrap_content"
+            android:layout_marginTop="15sp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="2sp"
+            android:layout_below="@id/hyyyyyyyyyyyy"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="19sp"
+            android:layout_centerHorizontal="true"
             android:textColor="#283593"
             android:text="Tracky : Track your goal"/>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/gotoGoogleBtn"

@@ -243,20 +243,19 @@
 
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="2"
         android:layout_marginTop="15sp">
 
+
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:orientation="vertical"
-            android:layout_weight="2">
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="150dp"
@@ -286,6 +285,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/history_recyler"
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
@@ -297,9 +297,21 @@
         </LinearLayout>
 
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/share_Sss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="25sp"
+            android:layout_marginBottom="50sp"
+            app:icon="@drawable/ic_baseline_share_24"
+            android:textAllCaps="false"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
 
 
-    </LinearLayout>
 
 
 

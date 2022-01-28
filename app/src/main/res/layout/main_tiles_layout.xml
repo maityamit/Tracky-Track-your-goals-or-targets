@@ -27,6 +27,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:src="@drawable/goals"
                     android:scaleType="fitXY"/>
 
 
@@ -53,7 +54,7 @@
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
                         android:layout_weight="4"
-                        android:textSize="22sp"
+                        android:textSize="16sp"
                         android:text="Goal Name"/>
 
                     <TextView
