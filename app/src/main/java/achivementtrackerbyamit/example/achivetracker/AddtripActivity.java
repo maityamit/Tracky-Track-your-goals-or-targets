@@ -101,9 +101,6 @@ public class AddtripActivity extends AppCompatActivity
     private void YESONCLICK() {
         String trip_key = RootRef.child("Goals").child("Active").push().getKey();
         CreteATripNew(trip_key);
-        Intent loginIntent = new Intent ( AddtripActivity.this,MainActivity.class );
-        loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-        startActivity ( loginIntent );
     }
 
     private void CreteATripNew(String string_trip) {
@@ -145,6 +142,7 @@ public class AddtripActivity extends AppCompatActivity
         {
 
 
+
                             HashMap<String,Object> onlineStat = new HashMap<> (  );
                             onlineStat.put ( "GoalName", string);
                             onlineStat.put ( "GoalType", string_priority);
@@ -155,6 +153,10 @@ public class AddtripActivity extends AppCompatActivity
 
                        RootRef.child("Goals").child("Active").child(string_trip)
                                     .updateChildren ( onlineStat );
+
+            Intent loginIntent = new Intent ( AddtripActivity.this,MainActivity.class );
+            loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+            startActivity ( loginIntent );
 
 
         }

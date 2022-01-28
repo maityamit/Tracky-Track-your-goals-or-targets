@@ -23,11 +23,12 @@ import org.eazegraph.lib.models.PieModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    TextView name,consis,left;
+    TextView name,consis,left,goal_lft_pert;
     String id = "";
     String currentUserID;
     DatabaseReference RootRef;
@@ -52,6 +53,7 @@ public class DashboardActivity extends AppCompatActivity {
         name = findViewById(R.id.desc_goal_name);
         consis = findViewById(R.id.desc_goal_const);
         left = findViewById(R.id.desc_goal_left);
+        goal_lft_pert = findViewById(R.id.desc_goal_leftper);
 
 
 
@@ -71,46 +73,53 @@ public class DashboardActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String goal_string = snapshot.child ( "GoalName" ).getValue ().toString ();
-                String goal_const = snapshot.child ( "Consistency" ).getValue ().toString ();
                 String goal_end = snapshot.child ( "EndTime" ).getValue ().toString ();
                 String goal_create = snapshot.child ( "TodayTime" ).getValue ().toString ();
-
-                name.setText(goal_string);
-                consis.setText(goal_const);
-                EVENT_DATE_TIME = goal_end;
-                countDownStart();
-
-
-                int const_int = Integer.parseInt(String.valueOf(goal_const));
-
-                PieChart mPieChart = (PieChart) findViewById(R.id.piechart1);
-
-                mPieChart.addPieSlice(new PieModel("Done", const_int, Color.parseColor("#558B2F")));
-                mPieChart.addPieSlice(new PieModel("Not Done", (100-const_int), Color.parseColor("#C62828")));
-
-                mPieChart.startAnimation();
-
-
-
-
-
 
                 Date today = new Date();
                 String todaay = simpleDateFormat.format(today);
 
-                float hu = (float)((DayReturn(todaay,goal_create)*100)/DayReturn(goal_end,goal_create));
-                int io = Math.round(hu);
+
+
+                int count_nodes = (int) snapshot.child("Win").getChildrenCount();
+
+                int io = 0;
+
+                if((DayReturn(todaay,goal_create))>=0){
+                    String dt = ConsistentFn(count_nodes,todaay,goal_create);
+                    io = GoalCOmpleteFn(todaay,goal_create,goal_end);
+                    HashMap<String,Object> onlineStat = new HashMap<> (  );
+                    onlineStat.put ( "Consistency", dt);
+                    RootRef.child(id)
+                            .updateChildren ( onlineStat );
+                }
+
+
+                String goal_const = snapshot.child ( "Consistency" ).getValue ().toString ();
+                int const_int = Integer.parseInt(String.valueOf(goal_const));
+
+                PieChart mPieChart = (PieChart) findViewById(R.id.piechart1);
+
+                mPieChart.addPieSlice(new PieModel("Done", const_int, Color.parseColor("#0F9D58")));
+                mPieChart.addPieSlice(new PieModel("Not Done", (100-const_int), Color.parseColor("#DB4437")));
+
+                mPieChart.startAnimation();
+
+                goal_lft_pert.setText("Completed :" +String.valueOf(io)+" %");
 
 
                 PieChart mPieChart2 = (PieChart) findViewById(R.id.piechart2);
 
-                mPieChart2.addPieSlice(new PieModel("Done", io, Color.parseColor("#558B2F")));
-                mPieChart2.addPieSlice(new PieModel("Not Done", (100-io), Color.parseColor("#C62828")));
+                mPieChart2.addPieSlice(new PieModel("Done", io, Color.parseColor("#4285F4")));
+                mPieChart2.addPieSlice(new PieModel("Not Done", (100-io), Color.parseColor("#F4B400")));
 
                 mPieChart2.startAnimation();
 
 
-
+                name.setText(goal_string);
+                consis.setText("Consistency :" +goal_const+" %");
+                EVENT_DATE_TIME = goal_end;
+                countDownStart();
 
 
 
@@ -124,6 +133,12 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private int GoalCOmpleteFn(String todaay, String goal_create, String goal_end) {
+
+        float gh = (DayReturn(todaay,goal_create)+1)*100/(DayReturn(goal_end,goal_create)+1);
+        return Math.round(gh);
     }
 
     private void countDownStart() {
@@ -162,10 +177,12 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public  long DayReturn(String high,String low){
+
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd/M/yyyy");
         Date date1=null,date2 = null;
         try {
-            date2 = simpleDateFormat.parse(low);
-            date1 = simpleDateFormat.parse(high);
+            date2 = simpleDateFormat2.parse(low);
+            date1 = simpleDateFormat2.parse(high);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -183,6 +200,16 @@ public class DashboardActivity extends AppCompatActivity {
         different = different % daysInMilli;
 
         return elapsedDays;
+    }
+
+
+    public String ConsistentFn(int node,String today_date,String create_date){
+
+
+        float fl  = (float)(node*100)/(DayReturn(today_date,create_date)+1);
+        int iu = Math.round(fl);
+        return String.valueOf(iu);
+
     }
 
 

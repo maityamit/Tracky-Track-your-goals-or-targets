@@ -21,12 +21,12 @@
             <EditText
                 android:id="@+id/edit_text_trip_name"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/quary_input"
                 android:padding="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="25dp"
                 android:textColor="@android:color/black"
                 android:inputType="textShortMessage"
                 android:paddingStart="10dp"
@@ -62,9 +62,21 @@
             </LinearLayout>
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:text="Goal Target Date : "/>
+
+
             <DatePicker
                 android:id="@+id/edit_text_trip_date"
                 android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="10dp"

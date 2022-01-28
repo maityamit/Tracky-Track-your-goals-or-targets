@@ -34,7 +34,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="2sp"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textColor="#283593"
             android:text="Tracky : Track your goal"/>
 
@@ -46,23 +46,21 @@
         android:layout_height="match_parent"
         android:id="@+id/fragment_container"
         android:layout_below="@+id/handlee"
-        android:layout_above="@id/chip_mni"
         android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/going_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
 
 
     </LinearLayout>
-
-    <com.ismaeldivita.chipnavigation.ChipNavigationBar
-        android:id="@+id/chip_mni"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:padding="10dp"
-        android:background="@color/white"
-        android:layout_alignParentBottom="true"
-        app:cnb_menuResource="@menu/bottom_menu" />
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -74,7 +72,7 @@
         android:textColor="@android:color/white"
         app:iconTint="#ffffff"
         android:layout_marginEnd="25sp"
-        android:layout_marginBottom="75sp"
+        android:layout_marginBottom="50sp"
         app:icon="@drawable/create_trip"
         android:text="New Goal"
         android:textAllCaps="false"
