@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     String currentUserID;
     DatabaseReference RootRef;
     ImageView logout;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +70,24 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                <input type="button" value="LogOut" onclick="alert('Are you sure you want to exit')">
+               final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context MainActivity.this);
+                alertDialog.setTitle("Do you want to exit?");
+                alertDialog.setCancelable(false);
+                
+                alertDialog.setPositiveButton(text "Yes", new DialogInterface.OnClickListener(){
+                 @Override
+                    public void onClick(DialogInterface dialogInterface,int i){
+                        moveTaskBack(nonRoot false);
+                    }
+                });
+                alertDialog.setNegativeButton(text "No", new DialogInterface.OnClickListener(){
+                 @Override
+                   public void onClick(DialogInterface dialogueface,int i){
+                    dialogInterface.dismiss();
+                   }
+                });
+                AlertDialog alertDialog1=alertDialog.create();
+                alertDialog1.show();
                 mAuth.signOut();
                 Intent loginIntenttt = new Intent ( MainActivity.this,SplasshActivity.class );
                 loginIntenttt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
