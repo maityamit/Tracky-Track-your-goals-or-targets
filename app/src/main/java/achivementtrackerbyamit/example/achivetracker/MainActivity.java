@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               
                 mAuth.signOut();
                 Intent loginIntenttt = new Intent ( MainActivity.this,SplasshActivity.class );
                 loginIntenttt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
