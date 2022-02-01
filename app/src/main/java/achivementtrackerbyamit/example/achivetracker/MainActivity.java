@@ -185,7 +185,12 @@ public class MainActivity extends AppCompatActivity {
                         long elapsedDays = different / daysInMilli;
                         different = different % daysInMilli;
 
-                        holder.left_day.setText(elapsedDays+" days"+"\nleft");
+                        if (elapsedDays==1){
+                            holder.left_day.setText(elapsedDays+" day"+"\nleft");
+                        }
+                        else {
+                            holder.left_day.setText(elapsedDays + " days" + "\nleft");
+                        }
 
 
 
