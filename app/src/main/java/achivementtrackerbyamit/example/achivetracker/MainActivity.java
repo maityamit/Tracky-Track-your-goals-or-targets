@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -47,9 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button = findViewById(R.id.create_button);
-
         logout = findViewById(R.id.logout_btn);
-
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
@@ -70,35 +70,28 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                builder.setMessage(R.string.dialog_message) .setTitle(R.string.dialog_title);
-                builder.setMessage("Are you sure,you want to logout?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Are you sure want to Logout ? ")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
                                 mAuth.signOut();
                                 Intent loginIntenttt = new Intent ( MainActivity.this,SplasshActivity.class );
                                 loginIntenttt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
                                 startActivity ( loginIntenttt );
                                 finish ();
-
-            }
-        });
-
                             }
-
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                                Toast.makeText(getApplicationContext(),"Thank you for Staying here",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
+
+
     }
+
 
     @Override
     public void onStart() {
@@ -211,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public StudentViewHolder2 onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
                         View view  = LayoutInflater.from ( viewGroup.getContext () ).inflate ( R.layout.main_tiles_layout,viewGroup,false );
-                       StudentViewHolder2 viewHolder  = new StudentViewHolder2(  view);
+                        StudentViewHolder2 viewHolder  = new StudentViewHolder2(  view);
                         return viewHolder;
 
                     }
