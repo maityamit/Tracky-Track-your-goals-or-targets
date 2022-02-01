@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -49,6 +50,8 @@ public class DashboardActivity extends AppCompatActivity {
     String id = "";
     String currentUserID;
     RecyclerView recyclerView;
+    ProgressDialog progressDialog;
+    public static int confirmation = 0;
     DatabaseReference RootRef,HelloREf;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
     private Handler handler = new Handler();
@@ -62,6 +65,7 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        showProgressDialog();      // making a function to call the progress dialog box
         Intent intent = getIntent();
         id = intent.getStringExtra("LISTKEY");
 
@@ -98,6 +102,26 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
+    // Here is the second progress Dialog Box
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(DashboardActivity.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_diaglog);
+        progressDialog.setCanceledOnTouchOutside(false);
+        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        Runnable progressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (confirmation != 1) {
+                    progressDialog.cancel();
+                    Toast.makeText(DashboardActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 5000);
+    }
 
 
     private Bitmap screenShot(View view) {
