@@ -65,7 +65,8 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        showProgressDialog();      // making a function to call the progress dialog box
+
+        showProgressDialog();
         Intent intent = getIntent();
         id = intent.getStringExtra("LISTKEY");
 
@@ -109,18 +110,18 @@ public class DashboardActivity extends AppCompatActivity {
         progressDialog.setContentView(R.layout.progress_diaglog);
         progressDialog.setCanceledOnTouchOutside(false);
         Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-        Runnable progressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                if (confirmation != 1) {
-                    progressDialog.cancel();
-                    Toast.makeText(DashboardActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
-
-        Handler pdCanceller = new Handler();
-        pdCanceller.postDelayed(progressRunnable, 5000);
+//        Runnable progressRunnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                if (confirmation != 1) {
+//                    progressDialog.cancel();
+//                    Toast.makeText(DashboardActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        };
+//
+//        Handler pdCanceller = new Handler();
+//        pdCanceller.postDelayed(progressRunnable, 5000);
     }
 
 
@@ -265,6 +266,8 @@ public class DashboardActivity extends AppCompatActivity {
                 EVENT_DATE_TIME = goal_end;
                 countDownStart();
 
+                progressDialog.dismiss();
+
 
 
 
@@ -273,6 +276,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+                progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Fail to get data.", Toast.LENGTH_SHORT).show();
             }
         });

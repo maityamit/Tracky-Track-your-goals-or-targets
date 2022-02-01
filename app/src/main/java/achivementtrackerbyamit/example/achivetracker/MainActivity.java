@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        showProgressDialog();
-
         button = findViewById(R.id.create_button);
         logout = findViewById(R.id.logout_btn);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -105,24 +103,26 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setContentView(R.layout.progress_diaglog);
         progressDialog.setCanceledOnTouchOutside(false);
         Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-        Runnable progressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                if (confirmation != 1) {
-                    progressDialog.cancel();
-                    Toast.makeText(MainActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
-
-        Handler pdCanceller = new Handler();
-        pdCanceller.postDelayed(progressRunnable, 5000);
+//        Runnable progressRunnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                if (confirmation != 1) {
+//                    progressDialog.cancel();
+//                    Toast.makeText(MainActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        };
+//
+//        Handler pdCanceller = new Handler();
+//        pdCanceller.postDelayed(progressRunnable, 5000);
     }
 
 
     @Override
     public void onStart() {
         super.onStart ();
+
+        showProgressDialog();
 
         FirebaseRecyclerOptions<GoingCLass> options =
                 new FirebaseRecyclerOptions.Builder<GoingCLass> ()
@@ -259,6 +259,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChanged() {
                         super.onDataChanged();
 
+                        progressDialog.dismiss();
 
 
                     }
