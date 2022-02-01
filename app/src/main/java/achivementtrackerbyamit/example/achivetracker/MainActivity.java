@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -174,24 +175,37 @@ public class MainActivity extends AppCompatActivity {
                         holder.checkBox_true.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
                         {
                             @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-                            {
-                                if ( isChecked )
-                                {
-                                    // perform logic
-                                    HashMap<String,Object> onlineStat = new HashMap<> (  );
-                                    onlineStat.put ( "Value", "true");
-
-                                    RootRef.child(listPostKey).child("Win").child(jys_da)
-                                            .updateChildren ( onlineStat );
-
-
-
-
-
-                                    holder.checkBox_true.setVisibility(View.INVISIBLE);
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) {
+                                    //Alert Dialog Box Added
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                    builder.setMessage("Confirm Goal Completion?");
+                                    builder.setTitle("Alert !");
+                                    builder.setCancelable(false);
+                                    builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) { //For True
+                                            // perform logic
+                                            HashMap<String, Object> onlineStat = new HashMap<>();
+                                            onlineStat.put("Value", "true");
+                                            RootRef.child(listPostKey).child("Win").child(jys_da)
+                                                    .updateChildren(onlineStat);
+                                            holder.checkBox_true.setVisibility(View.INVISIBLE);
+                                        }
+                                    });
+                                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //False
+                                            dialog.cancel(); //Removes AlertDialog Box
+                                        }
+                                    });
+                                    AlertDialog alertDialog = builder.create();
+                                    alertDialog.show();
+                                } else {
+                                    //Fail
+                                    Toast.makeText(MainActivity.this, "Not Checked", Toast.LENGTH_SHORT).show(); //Just to Inform the user
                                 }
-
                             }
                         });
 
