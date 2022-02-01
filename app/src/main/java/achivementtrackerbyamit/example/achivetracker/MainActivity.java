@@ -70,17 +70,32 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
-                Intent loginIntenttt = new Intent ( MainActivity.this,SplasshActivity.class );
-                loginIntenttt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-                startActivity ( loginIntenttt );
-                finish ();
+                builder.setMessage(R.string.dialog_message) .setTitle(R.string.dialog_title);
+                builder.setMessage("Are you sure,you want to logout?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                mAuth.signOut();
+                                Intent loginIntenttt = new Intent ( MainActivity.this,SplasshActivity.class );
+                                loginIntenttt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+                                startActivity ( loginIntenttt );
+                                finish ();
+
+                            }
+
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                Toast.makeText(getApplicationContext(),"Thank you for Staying here",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
-
-
     }
-
 
     @Override
     public void onStart() {
