@@ -198,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             //False
                                             dialog.cancel(); //Removes AlertDialog Box
+                                            holder.checkBox_true.setChecked(false);
                                         }
                                     });
                                     AlertDialog alertDialog = builder.create();

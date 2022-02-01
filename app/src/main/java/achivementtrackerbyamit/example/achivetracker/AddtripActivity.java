@@ -103,6 +103,9 @@ public class AddtripActivity extends AppCompatActivity
         CreteATripNew(trip_key);
     }
 
+
+
+
     private void CreteATripNew(String string_trip) {
 
 
@@ -111,6 +114,9 @@ public class AddtripActivity extends AppCompatActivity
         SimpleDateFormat format = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
         SimpleDateFormat format1_only = new SimpleDateFormat("yyyy-M-dd");
         String today_only = format1_only.format(today);
+
+
+        //String todaay is Today's Date
         String todaay = format.format(today);
 
 
@@ -124,6 +130,7 @@ public class AddtripActivity extends AppCompatActivity
 
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatt = new SimpleDateFormat("dd/M/yyyy");
+        //String strDate is Selected Date
         String strDate = formatt.format(calendar.getTime())+" 23:59:59";
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatt_only = new SimpleDateFormat("yyyy-M-dd");
