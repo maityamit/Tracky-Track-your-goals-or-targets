@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="achivementtrackerbyamit.example.achivetracker">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,15 +15,29 @@
         android:roundIcon="@drawable/main_kogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
-        <activity android:name=".AddtripActivity"></activity>
-        <activity android:name=".SplasshActivity">
+        <activity
+            android:name=".SignupActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ForgetpassActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SigninActivity"
+            android:exported="true" />
+        <activity android:name=".AddtripActivity" />
+        <activity
+            android:name=".SplasshActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".DashboardActivity" />
         <activity android:name=".MainActivity" />
     </application>

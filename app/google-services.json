@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "266570976970",
-    "firebase_url": "https://tracky---track-the-goal-default-rtdb.firebaseio.com",
-    "project_id": "tracky---track-the-goal",
-    "storage_bucket": "tracky---track-the-goal.appspot.com"
+    "project_number": "719290826708",
+    "firebase_url": "https://achive-tracker-testing-default-rtdb.firebaseio.com",
+    "project_id": "achive-tracker-testing",
+    "storage_bucket": "achive-tracker-testing.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:266570976970:android:0d426690a29ca748936e33",
+        "mobilesdk_app_id": "1:719290826708:android:2453591d2f50eb6ab7a041",
         "android_client_info": {
           "package_name": "achivementtrackerbyamit.example.achivetracker"
         }
       },
       "oauth_client": [
         {
-          "client_id": "266570976970-pindr20utbjr6atgfam2u9tiem3scq6n.apps.googleusercontent.com",
+          "client_id": "719290826708-vjetrfoqj033neofbo7eom7k3iuf9mau.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "achivementtrackerbyamit.example.achivetracker",
-            "certificate_hash": "c5cb33311a1250d56c4cc100c52638626ea70cdb"
+            "certificate_hash": "7e22addac941a074b74516d07e3b358ba21538ff"
           }
         },
         {
-          "client_id": "266570976970-hqpuvsol8ojfn4m0j9usrhfa580p4mj5.apps.googleusercontent.com",
+          "client_id": "719290826708-bru65hlmemg8822l90gjjsp300iikpmf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDeQdhbrIUFfaSEX-1hCJVtNiY8QrlQ82k"
+          "current_key": "AIzaSyCkZSaRjGPZcZCF8GYPxs2jxQbJwPH9k2c"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "266570976970-hqpuvsol8ojfn4m0j9usrhfa580p4mj5.apps.googleusercontent.com",
+              "client_id": "719290826708-bru65hlmemg8822l90gjjsp300iikpmf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
