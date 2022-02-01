@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <RelativeLayout
         android:id="@+id/handlee"
         android:layout_width="match_parent"
@@ -71,6 +72,8 @@
         android:layout_below="@+id/handlee"
         android:orientation="vertical">
 
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/going_recycler_view"
             android:layout_width="match_parent"
@@ -78,12 +81,12 @@
 
 
 
-
         </androidx.recyclerview.widget.RecyclerView>
 
 
-
     </LinearLayout>
+
+
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

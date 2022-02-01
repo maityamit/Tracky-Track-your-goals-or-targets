@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,11 +45,15 @@ public class MainActivity extends AppCompatActivity {
     String currentUserID;
     DatabaseReference RootRef;
     ImageView logout;
+    ProgressDialog progressDialog;
+    public static int confirmation = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        showProgressDialog();
 
         button = findViewById(R.id.create_button);
         logout = findViewById(R.id.logout_btn);
@@ -57,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.going_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +96,27 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    // Here is a first progress Dialog Box
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_diaglog);
+        progressDialog.setCanceledOnTouchOutside(false);
+        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        Runnable progressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (confirmation != 1) {
+                    progressDialog.cancel();
+                    Toast.makeText(MainActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 5000);
     }
 
 
