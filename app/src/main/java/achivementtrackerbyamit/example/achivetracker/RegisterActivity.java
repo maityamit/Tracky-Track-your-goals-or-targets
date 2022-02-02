@@ -123,9 +123,9 @@ public class RegisterActivity extends AppCompatActivity {
                 if (!(dataSnapshot.child("Username").exists()))
                 {
                     HashMap userMap=new HashMap();
-                    userMap.put("Username",userName);
-                    userMap.put("Email ID",email);
-                    userMap.put("Phone Number",phone);
+                    userMap.put("name",userName);
+                    userMap.put("email",email);
+                    userMap.put("Phone_Number",phone);
                     //userMap.put("Password",passwd);
 
                     UsersReference.child(UID).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
