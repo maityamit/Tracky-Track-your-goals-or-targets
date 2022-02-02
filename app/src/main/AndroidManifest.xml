@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ForgetpassActivity"
             android:exported="false" />
         <activity
