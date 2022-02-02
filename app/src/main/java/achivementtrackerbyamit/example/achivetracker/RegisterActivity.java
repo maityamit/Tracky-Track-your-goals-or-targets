@@ -49,10 +49,19 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         gotoGoogle=findViewById(R.id.gotoGoogleBtn);
+        LinearLayout emailSignin = findViewById(R.id.emailsignin);
 
 
         firestore = FirebaseFirestore.getInstance();
 
+        emailSignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterActivity.this,SigninActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         gotoGoogle.setOnClickListener(new View.OnClickListener() {

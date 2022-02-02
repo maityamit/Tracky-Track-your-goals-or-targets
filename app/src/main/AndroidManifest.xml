@@ -14,7 +14,16 @@
         android:roundIcon="@drawable/main_kogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
-        <activity android:name=".AddtripActivity"></activity>
+        <activity
+            android:name=".ForgetpassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SigninActivity"
+            android:exported="false" />
+        <activity android:name=".AddtripActivity" />
         <activity android:name=".SplasshActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".MainActivity" />
     </application>

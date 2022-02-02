@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignupActivity">
+
+    <EditText
+        android:id="@+id/signupemail"
+        android:layout_width="306dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:hint="Email"
+        android:paddingLeft="15dp"
+        android:background="@drawable/stroke"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/black"
+        android:textColorHint="#302F2F"
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <EditText
+        android:id="@+id/signuppass"
+        android:layout_width="306dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:textColor="@color/black"
+        android:textColorHint="#302F2F"
+        android:background="@drawable/stroke"
+        android:hint="Password"
+        android:paddingLeft="15dp"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/signupemail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/signupemail"
+        app:layout_constraintTop_toBottomOf="@+id/signupemail" />
+
+    <EditText
+        android:id="@+id/confpass"
+        android:layout_width="306dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:textColor="@color/black"
+        android:textColorHint="#302F2F"
+        android:background="@drawable/stroke"
+        android:hint="Confirm Password"
+        android:paddingLeft="15dp"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/signuppass"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/signuppass"
+        app:layout_constraintTop_toBottomOf="@+id/signuppass" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="306dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:background="@drawable/stroke"
+        android:textColor="@color/black"
+        android:textColorHint="#302F2F"
+        android:inputType="textPersonName"
+        android:hint="Name"
+        android:paddingLeft="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/signupbtn"
+        android:layout_width="156dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="56dp"
+        android:text="Sign up"
+        android:background="@drawable/rounded_button"
+        app:layout_constraintEnd_toEndOf="@+id/confpass"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/confpass"
+        app:layout_constraintTop_toBottomOf="@+id/confpass" />
+
+    <TextView
+        android:id="@+id/gotosignin"
+        android:layout_width="294dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Already have an account? Sign in"
+        android:textSize="20dp"
+        android:textColor="#302F2F"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/signupbtn"
+        app:layout_constraintStart_toStartOf="@+id/signupbtn"
+        app:layout_constraintTop_toBottomOf="@+id/signupbtn" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
