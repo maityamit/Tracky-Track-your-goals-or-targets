@@ -65,7 +65,4 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.0.0'
     implementation 'com.google.firebase:firebase-core:20.0.0'
     implementation 'com.firebaseui:firebase-ui-firestore:4.1.0'
-
-    // Circular Image
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
