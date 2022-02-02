@@ -138,14 +138,31 @@ public class AddtripActivity extends AppCompatActivity
 
         String string = tripname.getText().toString();
 
+        //MyCode Begins Here
+        //Today's Date
+        SimpleDateFormat todayFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String todaysDate = todayFormat.format(today);
 
+        //Added Date
+        // SimpleDateFormat addFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String calendarDate = todayFormat.format(calendar.getTime());
+
+        //Conerting Strings to Date of same format
+        LocalDate current = LocalDate.parse(todaysDate);
+        LocalDate selected = LocalDate.parse(calendarDate);
+
+        //Comparing Dates and storing them in Boolean Variables
+        Boolean bool1 = current.isAfter(selected); //Past Date
+        Boolean bool2 = current.isBefore(selected); //Future Date
+        Boolean bool3 = current.isEqual(selected); ///Today'S Date
+        //Code Ends
 
 
         if (TextUtils.isEmpty (string))
         {
             Toast.makeText(AddtripActivity.this, "Enter any Trip name ..", Toast.LENGTH_SHORT).show();
         }
-        else
+        else if(bool2 || bool3) //If the selected date is Future or Today's Date
         {
 
 
@@ -166,6 +183,8 @@ public class AddtripActivity extends AppCompatActivity
             startActivity ( loginIntent );
 
 
+        } else if(bool1) { //If the selected date is Past date
+            Toast.makeText(this, "Invalid Date Selected", Toast.LENGTH_SHORT).show();
         }
 
 
