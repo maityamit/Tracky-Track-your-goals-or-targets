@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SignupActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    EditText name,email,pass,confpass;
+    EditText name,email,pass;
     Button signup;
     TextView gotosignin;
     String emailtext,passtext,confpasstext,nametext;
@@ -37,7 +37,6 @@ public class SignupActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         email = findViewById(R.id.signupemail);
         pass = findViewById(R.id.signuppass);
-        confpass = findViewById(R.id.confpass);
         signup = findViewById(R.id.signupbtn);
         gotosignin = findViewById(R.id.gotosignin);
         progressBar = findViewById(R.id.progressBar);
@@ -55,7 +54,6 @@ public class SignupActivity extends AppCompatActivity {
                 nametext = name.getText().toString().trim();
                 emailtext = email.getText().toString().trim();
                 passtext = pass.getText().toString().trim();
-                confpasstext = confpass.getText().toString().trim();
 
                 if (nametext.isEmpty()){
                     name.setError("Field can't be empty");
@@ -81,16 +79,6 @@ public class SignupActivity extends AppCompatActivity {
                 else if (passtext.length()<6){
                     pass.setError("Password must be atleast 6 characters");
                     pass.requestFocus();
-                    return;
-                }
-                else if (confpasstext.isEmpty()){
-                    confpass.setError("Field can't be empty");
-                    confpass.requestFocus();
-                    return;
-                }
-                else if (!confpasstext.equals(passtext)){
-                    confpass.setError("Password did not match");
-                    confpass.requestFocus();
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
