@@ -49,13 +49,13 @@
         android:textSize="19dp"
         android:textColor="@color/black"
         android:textColorHint="#302F2F"
-        app:layout_constraintEnd_toEndOf="@+id/user_name"
+        app:layout_constraintEnd_toEndOf="@+id/users_name"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/user_name"
-        app:layout_constraintTop_toBottomOf="@+id/user_name" />
+        app:layout_constraintStart_toStartOf="@+id/users_name"
+        app:layout_constraintTop_toBottomOf="@+id/users_name" />
 
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/users_name"
         android:layout_width="330dp"
         android:layout_height="55dp"
         android:layout_marginTop="36dp"

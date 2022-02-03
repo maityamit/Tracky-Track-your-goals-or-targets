@@ -50,7 +50,7 @@
             android:textSize="15dp" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
+            android:layout_width="107dp"
             android:layout_height="107dp"
             android:layout_alignBottom="@+id/relativeLayout"
             android:layout_alignParentStart="true"
