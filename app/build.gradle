@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.nineoldandroids:library:2.4.0'
 
     //Firebase
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation 'com.google.firebase:firebase-database:20.0.2'

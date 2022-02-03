@@ -74,22 +74,10 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Are you sure want to Logout ? ")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                mAuth.signOut();
-                                Intent loginIntenttt = new Intent ( MainActivity.this,SplasshActivity.class );
-                                loginIntenttt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-                                startActivity ( loginIntenttt );
-                                finish ();
-                            }
-                        })
 
-                        // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                      Intent loginIntenttt = new Intent ( MainActivity.this,ProfileActivity.class );
+                       startActivity ( loginIntenttt );
+
             }
         });
 

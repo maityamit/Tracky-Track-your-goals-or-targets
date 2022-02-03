@@ -60,7 +60,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="25dp"
-            android:src="@drawable/ic_baseline_logout_24" />
+            android:src="@drawable/user" />
 
 
     </RelativeLayout>
