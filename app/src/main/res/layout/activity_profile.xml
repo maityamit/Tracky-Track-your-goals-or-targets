@@ -1,75 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top2c" />
+    </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:background="@drawable/circle"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:src="@drawable/user"
+        android:id="@+id/circleImageView"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"/>
-
-    <ImageView
-        android:id="@+id/backk_btn"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:background="@drawable/back_btn"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
-
-    <TextView
-        android:id="@+id/users_name"
-        android:layout_width="290dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="280dp"
-        android:background="@drawable/box"
-        android:drawableRight="@drawable/edit"
-        android:gravity="center_vertical"
-        android:hint="User's Name"
-        android:paddingLeft="20dp"
-        android:paddingRight="15dp"
-        android:textAllCaps="false"
-        android:textColorHint="@color/black"
-        android:textSize="15dp" />
+        android:layout_centerVertical="true"
+        android:src="@drawable/profile"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
     <TextView
         android:id="@+id/users_email"
-        android:layout_width="290dp"
-        android:layout_height="50dp"
-        android:textColorHint="@color/black"
+        android:layout_width="330dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittextbox"
+        android:ems="10"
+        android:hint="Your Email ID"
+        android:inputType="textEmailAddress"
         android:gravity="center_vertical"
-        android:paddingRight="15dp"
-        android:hint="User's Email"
+        android:paddingLeft="15dp"
+        android:textSize="19dp"
+        android:textColor="@color/black"
+        android:textColorHint="#302F2F"
+        app:layout_constraintEnd_toEndOf="@+id/user_name"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/user_name"
+        app:layout_constraintTop_toBottomOf="@+id/user_name" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="330dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/edittextbox"
+        android:ems="10"
+        android:hint="Your Name"
+        android:gravity="center_vertical"
+        android:textSize="19dp"
         android:drawableRight="@drawable/edit"
         android:paddingLeft="20dp"
-        android:textAllCaps="false"
-        android:textSize="15dp"
-        android:background="@drawable/box"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="350dp"/>
+        android:paddingRight="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="#302F2F"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
 
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logout"
         android:layout_width="120dp"
-        android:layout_height="43dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="450dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/logout_button"
-        android:drawableRight="@drawable/logout_btn"
-        android:gravity="center_vertical"
-        android:hint="Log Out"
-        android:paddingLeft="28dp"
-        android:paddingRight="4dp"
+        android:text="Log Out"
         android:textAllCaps="false"
-        android:textColorHint="@color/red"
-        android:textSize="15dp" />
-</RelativeLayout>
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/users_email"
+        app:layout_constraintStart_toStartOf="@+id/users_email"
+        app:layout_constraintTop_toBottomOf="@+id/users_email" />
+
+    <TextView
+        android:id="@+id/about_us"
+        android:layout_width="70dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="-5dp"
+        android:gravity="center_horizontal"
+        android:text="About us"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/logout"
+        app:layout_constraintVertical_bias="0.39" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="320dp"
+        android:layout_marginBottom="97dp"
+        android:src="@drawable/man"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/users_email"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <TextView
+        android:id="@+id/contact_us"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginBottom="-5dp"
+        android:gravity="center_horizontal"
+        android:text="Contact us"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/logout"
+        app:layout_constraintVertical_bias="0.392" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="112dp"
+        android:src="@drawable/communicate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/users_email"
+        app:layout_constraintVertical_bias="0.982" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+        app:layout_constraintEnd_toEndOf="@+id/circleImageView"
+        android:background="@drawable/plus" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
