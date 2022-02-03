@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,7 +82,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Getting profile picture to set in the profile button
+        FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Object pfpUrl = snapshot.child("user_image").getValue();
+                if(pfpUrl != null)
+                {
+                    Picasso.get().load(pfpUrl.toString()).into(logout);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     // Here is a first progress Dialog Box
