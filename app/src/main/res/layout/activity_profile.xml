@@ -22,7 +22,7 @@
     </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageView"
+        android:id="@+id/profile_pic"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_centerHorizontal="true"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_pic" />
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -146,11 +146,11 @@
         app:layout_constraintVertical_bias="0.982" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/profile_pic_button"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
-        app:layout_constraintEnd_toEndOf="@+id/circleImageView"
+        app:layout_constraintBottom_toBottomOf="@id/profile_pic"
+        app:layout_constraintEnd_toEndOf="@id/profile_pic"
         android:background="@drawable/plus" />
 
 
