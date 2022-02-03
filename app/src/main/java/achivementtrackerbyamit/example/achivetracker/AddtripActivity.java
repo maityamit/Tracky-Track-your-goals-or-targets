@@ -172,7 +172,7 @@ public class AddtripActivity extends AppCompatActivity
                             onlineStat.put ( "GoalType", string_priority);
                             onlineStat.put ( "EndTime", strDate);
                             onlineStat.put ( "TodayTime", todaay);
-                            onlineStat.put ( "Consistency","100");
+                            onlineStat.put ( "Consistency","0");
                             onlineStat.put ( "Win","");
 
                        RootRef.child("Goals").child("Active").child(string_trip)
