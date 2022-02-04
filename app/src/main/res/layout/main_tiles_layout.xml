@@ -9,6 +9,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="15dp"
         android:layout_margin="15sp"
         app:cardCornerRadius="11dp">
 
@@ -18,8 +19,8 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_margin="12dp"
                 android:elevation="5dp"
                 app:cardCornerRadius="10dp">
@@ -91,6 +92,7 @@
                             android:layout_height="wrap_content">
 
                             <RelativeLayout
+                                android:id="@+id/goal_type_layout"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="#D3D8FB">
@@ -156,6 +158,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/check_in_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">

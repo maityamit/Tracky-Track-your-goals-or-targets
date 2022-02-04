@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +41,8 @@ import java.util.Objects;
 
 
 public class ActiveGoalFragment extends Fragment {
+
+
 
     RecyclerView recyclerView;
     String currentUserID;
@@ -109,7 +115,22 @@ public class ActiveGoalFragment extends Fragment {
                         String jys_da = simpleDateFormat2.format(today);
 
                         holder.goal_name.setText(model.getGoalName());
-                        holder.goal_priority.setText(model.getGoalType());
+
+                        if (model.getGoalType().equals("High")){
+                            holder.goal_priority.setText("Priority: "+model.getGoalType());
+                            holder.goal_type_layout.setBackgroundColor(Color.parseColor("#FFD7D7"));
+                            holder.goal_priority.setTextColor(Color.parseColor("#FF0000"));
+                        }else if (model.getGoalType().equals("Medium")) {
+                            holder.goal_priority.setText("Priority: "+model.getGoalType());
+                            holder.goal_type_layout.setBackgroundColor(Color.parseColor("#FDFFD7"));
+                            holder.goal_priority.setTextColor(Color.parseColor("#FFE000"));
+                        }else{
+                            holder.goal_priority.setText("Priority: "+model.getGoalType());
+                            holder.goal_type_layout.setBackgroundColor(Color.parseColor("#98FF9D"));
+                            holder.goal_priority.setTextColor(Color.parseColor("#00C325"));
+                        }
+
+
                         holder.const_text.setText("Consistency :" +model.getConsistency()+" %");
 
 
@@ -117,7 +138,7 @@ public class ActiveGoalFragment extends Fragment {
                             @Override
                             public void onDataChange(DataSnapshot snapshot) {
                                 if (snapshot.hasChild(jys_da)) {
-                                    holder.checkBox_true.setVisibility(View.INVISIBLE);
+                                    holder.check_in_layout.setVisibility(View.INVISIBLE);
                                 }
                             }
 
@@ -242,12 +263,17 @@ public class ActiveGoalFragment extends Fragment {
     {
 
         TextView goal_name,goal_priority,left_day,const_text;
+        RelativeLayout goal_type_layout;
+        LinearLayout check_in_layout;
         CheckBox checkBox_true;
         public StudentViewHolder2(@NonNull View itemView) {
             super ( itemView );
             goal_name = itemView.findViewById ( R.id.lay_goal_name);
             goal_priority = itemView.findViewById ( R.id.lay_goal_priority);
             left_day = itemView.findViewById ( R.id.lay_goal_left);
+            goal_type_layout = itemView.findViewById(R.id.goal_type_layout);
+
+            check_in_layout = itemView.findViewById(R.id.check_in_layout);
             const_text = itemView.findViewById ( R.id.lay_goal_const);
             checkBox_true = itemView.findViewById ( R.id.true_checkbox);
         }

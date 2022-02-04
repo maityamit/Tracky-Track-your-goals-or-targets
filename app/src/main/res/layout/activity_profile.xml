@@ -89,61 +89,69 @@
         app:layout_constraintStart_toStartOf="@+id/users_email"
         app:layout_constraintTop_toBottomOf="@+id/users_email" />
 
-    <TextView
-        android:id="@+id/about_us"
-        android:layout_width="70dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="-5dp"
-        android:gravity="center_horizontal"
-        android:text="About us"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/logout"
-        app:layout_constraintVertical_bias="0.39" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="320dp"
-        android:layout_marginBottom="97dp"
-        android:src="@drawable/man"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/users_email"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintTop_toBottomOf="@+id/logout">
 
-    <TextView
-        android:id="@+id/contact_us"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="184dp"
-        android:layout_marginBottom="-5dp"
-        android:gravity="center_horizontal"
-        android:text="Contact us"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/logout"
-        app:layout_constraintVertical_bias="0.392" />
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="140dp"
-        android:layout_marginBottom="112dp"
-        android:src="@drawable/communicate"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/users_email"
-        app:layout_constraintVertical_bias="0.982" />
+        <TextView
+            android:id="@+id/contrubter_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:layout_centerHorizontal="true"
+            android:text="This is an Open Source ❤ project"/>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_margin="15sp"
+            android:layout_below="@id/contrubter_text"
+            android:layout_centerHorizontal="true"
+            app:cardCornerRadius="12dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:background="@drawable/backgroud_grad"
+                android:onClick="GithubLinkClick"
+                android:orientation="horizontal">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="40dp"
+                    android:layout_margin="5dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/github_image"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textSize="18sp"
+                    android:textColor="#283593"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:text="Github Repo"/>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+    </RelativeLayout>
+
 
     <ImageButton
         android:id="@+id/profile_pic_button"
