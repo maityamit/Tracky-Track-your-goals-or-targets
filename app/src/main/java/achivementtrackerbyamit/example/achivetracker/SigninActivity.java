@@ -89,7 +89,7 @@ public class SigninActivity extends AppCompatActivity {
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 if (user.isEmailVerified()){
                                     progressBar.setVisibility(View.GONE);
-                                    Intent intent2 = new Intent(SigninActivity.this,MainActivity.class);
+                                    Intent intent2 = new Intent(SigninActivity.this,HomeActivity.class);
                                     startActivity(intent2);
                                     finishAffinity();
                                 }

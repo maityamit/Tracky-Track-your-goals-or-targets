@@ -50,30 +50,8 @@ public class AddtripActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addtrip);
 
-        Spinner spino = findViewById(R.id.priority_spinner);
-        spino.setOnItemSelectedListener(this);
-        ArrayAdapter ad
-                = new ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                courses);
-        ad.setDropDownViewResource(
-                android.R.layout
-                        .simple_spinner_dropdown_item);
-        spino.setAdapter(ad);
 
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
-        RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID);
-
-
-        yes = (Button) findViewById(R.id.create_trip_submit_butyyon);
-        no = (Button) findViewById(R.id.cancel_trip_submit_butyyon);
-        tripname = (EditText)findViewById(R.id.edit_text_trip_name);
-        datepicker = (DatePicker) findViewById(R.id.edit_text_trip_date);
-
-
+        InitializationMethod();
 
 
         yes.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +70,33 @@ public class AddtripActivity extends AppCompatActivity
 
     }
 
+    private void InitializationMethod() {
+
+        Spinner spino = findViewById(R.id.priority_spinner);
+        spino.setOnItemSelectedListener(this);
+        ArrayAdapter ad = new ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                courses);
+        ad.setDropDownViewResource(
+                android.R.layout
+                        .simple_spinner_dropdown_item);
+        spino.setAdapter(ad);
+
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
+        RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID);
+
+
+        yes = (Button) findViewById(R.id.create_trip_submit_butyyon);
+        no = (Button) findViewById(R.id.cancel_trip_submit_butyyon);
+        tripname = (EditText)findViewById(R.id.edit_text_trip_name);
+        datepicker = (DatePicker) findViewById(R.id.edit_text_trip_date);
+    }
+
     private void NOONCLICK() {
-        Intent loginIntent = new Intent ( AddtripActivity.this,MainActivity.class );
+        Intent loginIntent = new Intent ( AddtripActivity.this,HomeActivity.class );
         loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
         startActivity ( loginIntent );
     }
@@ -178,7 +181,7 @@ public class AddtripActivity extends AppCompatActivity
                        RootRef.child("Goals").child("Active").child(string_trip)
                                     .updateChildren ( onlineStat );
 
-            Intent loginIntent = new Intent ( AddtripActivity.this,MainActivity.class );
+            Intent loginIntent = new Intent ( AddtripActivity.this,HomeActivity.class );
             loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
             startActivity ( loginIntent );
 

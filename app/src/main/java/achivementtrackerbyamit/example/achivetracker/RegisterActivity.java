@@ -180,7 +180,7 @@ public class RegisterActivity extends AppCompatActivity {
                             storeUserOnFireBase(name,email,"+91 - ","",currentUserID);
                             Toast.makeText(RegisterActivity.this, "Authentication pass.",
                                     Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                             startActivity(intent);
                             RegisterActivity.this.finish();
                         }

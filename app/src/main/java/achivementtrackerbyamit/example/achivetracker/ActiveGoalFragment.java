@@ -1,36 +1,33 @@
 package achivementtrackerbyamit.example.achivetracker;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,71 +35,34 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
 
+public class ActiveGoalFragment extends Fragment {
 
-    ExtendedFloatingActionButton button;
     RecyclerView recyclerView;
     String currentUserID;
     DatabaseReference RootRef;
-    ImageView logout;
     ProgressDialog progressDialog;
     public static int confirmation = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_active_goal, container, false);
 
-        button = findViewById(R.id.create_button);
-        logout = findViewById(R.id.logout_btn);
+
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
 
-        recyclerView = findViewById(R.id.going_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        recyclerView = view.findViewById(R.id.going_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,AddtripActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                      Intent loginIntenttt = new Intent ( MainActivity.this,ProfileActivity.class );
-                       startActivity ( loginIntenttt );
-
-            }
-        });
-
-        // Getting profile picture to set in the profile button
-        FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Object pfpUrl = snapshot.child("user_image").getValue();
-                if(pfpUrl != null)
-                {
-                    Picasso.get().load(pfpUrl.toString()).into(logout);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        return  view;
     }
 
-    // Here is a first progress Dialog Box
     private void showProgressDialog() {
-        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog = new ProgressDialog(getContext());
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_diaglog);
         progressDialog.setCanceledOnTouchOutside(false);
@@ -201,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(MainActivity.this,DashboardActivity.class);
+                                Intent intent = new Intent(getContext(),DashboardActivity.class);
                                 intent.putExtra("LISTKEY",listPostKey);
                                 startActivity(intent);
                             }
@@ -213,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (isChecked) {
                                     //Alert Dialog Box Added
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                                     builder.setMessage("Confirm Goal Completion?");
                                     builder.setTitle("Alert !");
                                     builder.setCancelable(false);
@@ -240,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                                     alertDialog.show();
                                 } else {
                                     //Fail
-                                    Toast.makeText(MainActivity.this, "Not Checked", Toast.LENGTH_SHORT).show(); //Just to Inform the user
+                                    Toast.makeText(getContext(), "Not Checked", Toast.LENGTH_SHORT).show(); //Just to Inform the user
                                 }
                             }
                         });
@@ -292,6 +252,5 @@ public class MainActivity extends AppCompatActivity {
             checkBox_true = itemView.findViewById ( R.id.true_checkbox);
         }
     }
-
 
 }

@@ -56,7 +56,7 @@ public class SplasshActivity extends AppCompatActivity {
                 currentUserID = mAuth.getCurrentUser ().getUid ();
 
 
-                Intent loginIntentt = new Intent ( SplasshActivity.this,MainActivity.class );
+                Intent loginIntentt = new Intent ( SplasshActivity.this,HomeActivity.class );
                 loginIntentt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
                 startActivity ( loginIntentt );
                 finish ();

@@ -61,9 +61,13 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         showProgressDialog();
 
-        welcome1 = findViewById(R.id.user_name);
+        welcome1 = findViewById(R.id.users_name);
         welcome2 = findViewById(R.id.users_email);
         Logout = findViewById(R.id.logout);
+
+        // Button for adding profile pic
+        profilePicButton = (ImageButton) findViewById(R.id.profile_pic_button);
+        profilePic = (CircleImageView) findViewById(R.id.profile_pic);
 
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -116,7 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if(pfpUrl != null)
                 {
                     // If the url is not null, then adding the image
-                    Picasso.get().load(pfpUrl.toString()).into(profilePic);
+                    Picasso.get().load(pfpUrl.toString()).placeholder(R.drawable.profile).error(R.drawable.profile).into(profilePic);
                 }
 
                 progressDialog.dismiss();
@@ -127,10 +131,6 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this, "Cannot fetch data", Toast.LENGTH_SHORT).show();
             }
         });
-
-        // Button for adding profile pic
-        profilePicButton = (ImageButton) findViewById(R.id.profile_pic_button);
-        profilePic = (CircleImageView) findViewById(R.id.profile_pic);
 
         // OnClickListener for Profile Pic Button
         profilePicButton.setOnClickListener(new View.OnClickListener() {
@@ -144,21 +144,24 @@ public class ProfileActivity extends AppCompatActivity {
                         {
                             // Choosing image from gallery
                             case 0:
-                                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                galleryIntent.setType("image/*");
-                                if(galleryIntent.resolveActivity(getPackageManager())!=null)
-                                {
-                                    startActivityForResult(galleryIntent,GALLERY_INTENT_CODE);
-                                }
+                                // Defining Implicit Intent to mobile gallery
+                                Intent intent = new Intent();
+                                intent.setType("image/*");
+                                intent.setAction(Intent.ACTION_GET_CONTENT);
+                                startActivityForResult(
+                                        Intent.createChooser(
+                                                intent,
+                                                "Select Image from here..."),
+                                        GALLERY_INTENT_CODE);
                                 break;
 
                             // Clicking a new picture using camera
                             case 1:
                                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                if(cameraIntent.resolveActivity(getPackageManager())!=null)
-                                {
+                                if (cameraIntent.resolveActivity(getPackageManager()) != null) {
                                     startActivityForResult(cameraIntent,CAMERA_INTENT_CODE);
                                 }
+                                startActivityForResult(cameraIntent,CAMERA_INTENT_CODE);
                                 break;
                         }
                     }

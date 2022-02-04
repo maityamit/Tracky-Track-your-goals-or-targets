@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    tools:context=".HomeActivity">
 
     <RelativeLayout
         android:id="@+id/handlee"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="#008AFF"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -25,6 +26,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="40dp"
                 android:layout_marginStart="20dp"
+                app:cardCornerRadius="12dp"
                 android:layout_gravity="center_vertical"
                 android:layout_height="40dp">
 
@@ -42,10 +44,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="2sp"
+                android:layout_marginStart="12sp"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:textColor="#283593"
+                android:textColor="#FFFFFF"
                 android:text="Tracky : Track your goal"/>
 
         </LinearLayout>
@@ -53,40 +55,35 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/logout_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:scaleType="centerCrop"
             android:layout_alignParentEnd="true"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@android:color/white"
             android:layout_centerVertical="true"
             android:layout_gravity="end"
             android:layout_marginEnd="25dp"
-            android:src="@drawable/user" />
+            android:src="@drawable/profile" />
 
 
     </RelativeLayout>
 
-    <LinearLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_container"
-        android:layout_below="@+id/handlee"
-        android:orientation="vertical">
+        android:layout_below="@id/handlee"
+        android:layout_height="wrap_content"
+        android:background="#008AFF">
+    </com.google.android.material.tabs.TabLayout>
 
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/going_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-
-    </LinearLayout>
-
-
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabLayout"
+        android:layout_centerInParent="true"
+        tools:layout_editor_absoluteX="8dp" />
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -106,7 +103,6 @@
 
 
     </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
-
 
 
 
