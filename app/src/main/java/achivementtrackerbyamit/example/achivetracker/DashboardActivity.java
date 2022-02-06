@@ -140,8 +140,8 @@ public class DashboardActivity extends AppCompatActivity {
         Uri uri = Uri.parse(pathofBmp);
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("image/*");
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Star App");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Tracky : track your Goal");
+        // Here You need to add code for issue
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
         startActivity(Intent.createChooser(shareIntent, "hello hello"));
     }
