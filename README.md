@@ -62,6 +62,8 @@ If you are preparing to achive any goal or target then , one of the importance p
    <tr>
     <td align="center"><a href="https://github.com/ken1000minus7"><img src="https://avatars.githubusercontent.com/u/78747188?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Manjot Singh Oberoi
 </b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/shubhankar-bt"><img src="https://avatars.githubusercontent.com/u/78974094?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Shubhankar Das
+</b></sub></a><br /></td>
    </tr>
    
    </p>
