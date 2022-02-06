@@ -2,8 +2,10 @@ package achivementtrackerbyamit.example.achivetracker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -34,6 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import soup.neumorphism.NeumorphShapeAppearanceModel;
+
 public class AddtripActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener  {
 
@@ -44,6 +51,7 @@ public class AddtripActivity extends AppCompatActivity
     private DatePicker datepicker;
     private DatabaseReference RootRef;
     String string_priority = "Less" ;
+    Spinner spino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +69,28 @@ public class AddtripActivity extends AppCompatActivity
                 YESONCLICK();
             }
         });
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NOONCLICK();
-            }
-        });
+//        no.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                NOONCLICK();
+        //           }
+        //      });
 
     }
 
     private void InitializationMethod() {
 
-        Spinner spino = findViewById(R.id.priority_spinner);
+        ImageView spinnerImageView = findViewById(R.id.spinnerImageView);
+        spinnerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spino.performClick();
+            }
+        });
+
+
+
+        spino = findViewById(R.id.priority_spinner);
         spino.setOnItemSelectedListener(this);
         ArrayAdapter ad = new ArrayAdapter(
                 this,
@@ -90,7 +108,7 @@ public class AddtripActivity extends AppCompatActivity
 
 
         yes = (Button) findViewById(R.id.create_trip_submit_butyyon);
-        no = (Button) findViewById(R.id.cancel_trip_submit_butyyon);
+        //  no = (Button) findViewById(R.id.cancel_trip_submit_butyyon);
         tripname = (EditText)findViewById(R.id.edit_text_trip_name);
         datepicker = (DatePicker) findViewById(R.id.edit_text_trip_date);
     }
@@ -107,6 +125,10 @@ public class AddtripActivity extends AppCompatActivity
     }
 
 
+    //DatePicker color change
+
+
+
 
 
     private void CreteATripNew(String string_trip) {
@@ -121,7 +143,6 @@ public class AddtripActivity extends AppCompatActivity
 
         //String todaay is Today's Date
         String todaay = format.format(today);
-
 
 
         int year = datepicker.getYear();
@@ -170,16 +191,16 @@ public class AddtripActivity extends AppCompatActivity
 
 
 
-                            HashMap<String,Object> onlineStat = new HashMap<> (  );
-                            onlineStat.put ( "GoalName", string);
-                            onlineStat.put ( "GoalType", string_priority);
-                            onlineStat.put ( "EndTime", strDate);
-                            onlineStat.put ( "TodayTime", todaay);
-                            onlineStat.put ( "Consistency","0");
-                            onlineStat.put ( "Win","");
+            HashMap<String,Object> onlineStat = new HashMap<> (  );
+            onlineStat.put ( "GoalName", string);
+            onlineStat.put ( "GoalType", string_priority);
+            onlineStat.put ( "EndTime", strDate);
+            onlineStat.put ( "TodayTime", todaay);
+            onlineStat.put ( "Consistency","0");
+            onlineStat.put ( "Win","");
 
-                       RootRef.child("Goals").child("Active").child(string_trip)
-                                    .updateChildren ( onlineStat );
+            RootRef.child("Goals").child("Active").child(string_trip)
+                    .updateChildren ( onlineStat );
 
             Intent loginIntent = new Intent ( AddtripActivity.this,HomeActivity.class );
             loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );

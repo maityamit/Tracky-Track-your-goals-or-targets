@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="blue">#008AFF</color>
+
+    <color name="background_neumor">#FAF9F6</color>
+    <color name="theme_color">#4d9dff</color>
 </resources>
