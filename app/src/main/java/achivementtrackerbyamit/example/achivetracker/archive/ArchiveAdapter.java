@@ -9,7 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import achivementtrackerbyamit.example.achivetracker.R;
 
@@ -36,8 +39,11 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
     public void onBindViewHolder(@NonNull ArchiveViewHolder holder, int position) {
 
         ArchiveClass data= archiveDataList.get(position);
+
+        String firstWord= data.getEndTime().substring(0, data.getEndTime().indexOf(" "));
+
         holder.goal_name_text.setText(data.getGoalName());
-        holder.target_date_text.setText(data.getEndTime());
+        holder.target_date_text.setText(firstWord);
         holder.consistency_text.setText("Consistency :" +data.getConsistency()+" %");
     }
 
