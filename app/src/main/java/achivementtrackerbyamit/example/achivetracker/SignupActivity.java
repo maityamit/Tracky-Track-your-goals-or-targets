@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class SignupActivity extends AppCompatActivity {
     TextView gotosignin;
     String emailtext,passtext,confpasstext,nametext;
     ProgressBar progressBar;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class SignupActivity extends AppCompatActivity {
         signup = findViewById(R.id.signupbtn);
         gotosignin = findViewById(R.id.gotosignin);
         progressBar = findViewById(R.id.progressBar);
+        checkBox = findViewById(R.id.checkBox);
 
         gotosignin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +82,10 @@ public class SignupActivity extends AppCompatActivity {
                 else if (passtext.length()<6){
                     pass.setError("Password must be atleast 6 characters");
                     pass.requestFocus();
+                    return;
+                }
+                else if (!checkBox.isChecked()){
+                    Toast.makeText(SignupActivity.this, "Please accept Terms and Conditions", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);

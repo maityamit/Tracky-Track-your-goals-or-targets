@@ -76,4 +76,7 @@ dependencies {
 
     implementation 'com.github.fornewid:neumorphism:0.3.0'
     implementation("androidx.multidex:multidex:2.0.1")
+
+    //Material Design Dependencies
+    implementation 'com.google.android.material:material:1.5.0'
 }

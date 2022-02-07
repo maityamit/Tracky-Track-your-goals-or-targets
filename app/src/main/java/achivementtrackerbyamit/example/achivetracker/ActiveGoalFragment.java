@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -193,10 +194,11 @@ public class ActiveGoalFragment extends Fragment {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (isChecked) {
-                                    //Alert Dialog Box Added
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    //Material Alert Dialog Box Added
+                                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext(),R.style.AlertDialogTheme1);
+                                    builder.setTitle("Alert!");
                                     builder.setMessage("Confirm Goal Completion?");
-                                    builder.setTitle("Alert !");
+                                    builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
                                     builder.setCancelable(false);
                                     builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                         @Override
@@ -217,8 +219,7 @@ public class ActiveGoalFragment extends Fragment {
                                             holder.checkBox_true.setChecked(false);
                                         }
                                     });
-                                    AlertDialog alertDialog = builder.create();
-                                    alertDialog.show();
+                                    builder.show();
                                 } else {
                                     //Fail
                                     Toast.makeText(getContext(), "Not Checked", Toast.LENGTH_SHORT).show(); //Just to Inform the user
