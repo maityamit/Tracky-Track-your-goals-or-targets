@@ -133,9 +133,12 @@
                         android:id="@+id/desc_goal_const"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:textColor="#00838F"
-                        android:text="Consistency : 98.0"/>
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:text="Consistency : 98.0"
+                        android:textColor="#00838F" />
 
 
                 </RelativeLayout>
@@ -271,10 +274,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
                         android:layout_centerInParent="true"
-                        android:textColor="#2E7D32"
-                        android:text="Wining History"/>
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:text="Wining History"
+                        android:textColor="#2E7D32" />
 
 
                 </RelativeLayout>
