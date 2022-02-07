@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +21,8 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,14 +36,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
+import achivementtrackerbyamit.example.achivetracker.archive.ArchiveClass;
+
 
 public class ActiveGoalFragment extends Fragment {
 
     RecyclerView recyclerView;
     String currentUserID;
-    DatabaseReference RootRef;
+    DatabaseReference RootRef,archiveDataRef;
     ProgressDialog progressDialog;
-    public static int confirmation = 0;
+    public static int maxId = 0;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +58,8 @@ public class ActiveGoalFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
+        // set data base reference for archieve data
+        archiveDataRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Archive_Goals");
 
         recyclerView = view.findViewById(R.id.going_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -139,8 +145,6 @@ public class ActiveGoalFragment extends Fragment {
                         }
 
                         long different = date2.getTime() - date1.getTime();
-
-
                         long secondsInMilli = 1000;
                         long minutesInMilli = secondsInMilli * 60;
                         long hoursInMilli = minutesInMilli * 60;
@@ -149,10 +153,32 @@ public class ActiveGoalFragment extends Fragment {
                         long elapsedDays = different / daysInMilli;
                         different = different % daysInMilli;
 
-                        if (elapsedDays==1){
+                        // TODO: implemented (Complete)
+
+                         if(different<0){
+
+                             postDataIntoArchive();
+                             ArchiveClass goal= new ArchiveClass(model.getConsistency(), model.getEndTime(), model.getGoalName());
+
+                            archiveDataRef.child(String.valueOf(maxId+1)).setValue(goal).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    // Delete the data from current fragment
+                                    deleteArchieveData(listPostKey);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+
+                        }
+
+                         if (elapsedDays==1){
                             holder.left_day.setText(elapsedDays+" day"+"\nleft");
                         }
-                        else {
+                        else{
                             holder.left_day.setText(elapsedDays + " days" + "\nleft");
                         }
 
@@ -251,6 +277,29 @@ public class ActiveGoalFragment extends Fragment {
             const_text = itemView.findViewById ( R.id.lay_goal_const);
             checkBox_true = itemView.findViewById ( R.id.true_checkbox);
         }
+    }
+
+    private void postDataIntoArchive() {
+
+        archiveDataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    maxId= (int)snapshot.getChildrenCount();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void deleteArchieveData(String listPostKey) {
+        // remove the data from current fragment
+        RootRef.child(listPostKey).removeValue();
+
     }
 
 }
