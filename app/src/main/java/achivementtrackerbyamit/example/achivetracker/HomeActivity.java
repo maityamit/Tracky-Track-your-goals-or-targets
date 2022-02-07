@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -109,5 +112,27 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public void onBackPressed(){
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(HomeActivity.this,R.style.AlertDialogTheme);
+        builder.setTitle("Confirm Exit");
+        builder.setIcon(R.drawable.main_kogo);
+        builder.setMessage("Do you really want to exit?");
+        builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
+        builder.setCancelable(false);
+        builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(HomeActivity.this, "Exit cancelled", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.show();
     }
 }
