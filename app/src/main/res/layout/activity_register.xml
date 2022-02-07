@@ -24,6 +24,8 @@
             android:id="@+id/hyyyyyyyyyyyy"
             android:layout_centerHorizontal="true"
             android:elevation="12dp"
+            android:layout_margin="20dp"
+            app:cardElevation="12dp"
             app:cardCornerRadius="12dp"
             android:layout_height="110dp">
 
