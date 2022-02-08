@@ -315,6 +315,21 @@
             android:textAllCaps="false"
             android:textSize="16sp"/>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/button"
+            android:onClick="AlarmAct"
+            android:text="Alarm"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+
     </RelativeLayout>
 
 
