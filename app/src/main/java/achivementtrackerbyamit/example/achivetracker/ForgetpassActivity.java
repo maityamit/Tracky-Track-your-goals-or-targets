@@ -37,41 +37,46 @@ public class ForgetpassActivity extends AppCompatActivity {
         resetpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String emailnew = email.getText().toString().trim();
-                if (emailnew.isEmpty()){
-                    email.setError("Field can't be empty");
-                    email.requestFocus();
-                    return;
-                }
-                else if (!Patterns.EMAIL_ADDRESS.matcher(emailnew).matches()){
-                    email.setError("Please enter a valid Email id");
-                    email.requestFocus();
-                    return;
-                }
-                else{
 
-                    Auth2.sendPasswordResetEmail(emailnew)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    try{
-                                        if (task.isSuccessful()){
-                                            Toast.makeText(ForgetpassActivity.this, "Password Reset email sent!", Toast.LENGTH_SHORT).show();
-
-                                        }
-                                        else{
-                                            Toast.makeText(ForgetpassActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                    catch (Exception e){
-                                        e.printStackTrace();
-                                        Log.d(TAG,"Email sent");
-                                        return;
-                                    }
-                                }
-                            });
-                }
+                FOrgotPassMethod();
             }
         });
+    }
+
+    private void FOrgotPassMethod() {
+        String emailnew = email.getText().toString().trim();
+        if (emailnew.isEmpty()){
+            email.setError("Field can't be empty");
+            email.requestFocus();
+            return;
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(emailnew).matches()){
+            email.setError("Please enter a valid Email id");
+            email.requestFocus();
+            return;
+        }
+        else{
+
+            Auth2.sendPasswordResetEmail(emailnew)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            try{
+                                if (task.isSuccessful()){
+                                    Toast.makeText(ForgetpassActivity.this, "Password Reset email sent!", Toast.LENGTH_SHORT).show();
+
+                                }
+                                else{
+                                    Toast.makeText(ForgetpassActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            catch (Exception e){
+                                e.printStackTrace();
+                                Log.d(TAG,"Email sent");
+                                return;
+                            }
+                        }
+                    });
+        }
     }
 }

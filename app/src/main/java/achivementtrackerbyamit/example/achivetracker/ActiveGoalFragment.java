@@ -1,7 +1,6 @@
 package achivementtrackerbyamit.example.achivetracker;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -34,6 +33,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.leo.simplearcloader.ArcConfiguration;
+import com.leo.simplearcloader.SimpleArcDialog;
+import com.leo.simplearcloader.SimpleArcLoader;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,8 +53,8 @@ public class ActiveGoalFragment extends Fragment {
     RecyclerView recyclerView;
     String currentUserID;
     DatabaseReference RootRef,archiveDataRef;
-    ProgressDialog progressDialog;
     public static int maxId = 0;
+    SimpleArcLoader mDialog;
 
 
     @Override
@@ -60,6 +62,9 @@ public class ActiveGoalFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_active_goal, container, false);
+
+        mDialog = view.findViewById(R.id.loader_active_goal);
+
 
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -74,32 +79,15 @@ public class ActiveGoalFragment extends Fragment {
         return  view;
     }
 
-    private void showProgressDialog() {
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_diaglog);
-        progressDialog.setCanceledOnTouchOutside(false);
-        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-//        Runnable progressRunnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                if (confirmation != 1) {
-//                    progressDialog.cancel();
-//                    Toast.makeText(MainActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        };
-//
-//        Handler pdCanceller = new Handler();
-//        pdCanceller.postDelayed(progressRunnable, 5000);
-    }
 
 
     @Override
     public void onStart() {
         super.onStart ();
 
-        showProgressDialog();
+
+        mDialog.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
 
         FirebaseRecyclerOptions<GoingCLass> options =
                 new FirebaseRecyclerOptions.Builder<GoingCLass> ()
@@ -254,8 +242,6 @@ public class ActiveGoalFragment extends Fragment {
                         });
 
 
-
-
                     }
 
                     @NonNull
@@ -271,13 +257,14 @@ public class ActiveGoalFragment extends Fragment {
                     public void onDataChanged() {
                         super.onDataChanged();
 
-                        progressDialog.dismiss();
-
-
+                        mDialog.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
                     }
 
 
                 };
+
+
         recyclerView.setAdapter ( adapter );
         adapter.startListening ();
 

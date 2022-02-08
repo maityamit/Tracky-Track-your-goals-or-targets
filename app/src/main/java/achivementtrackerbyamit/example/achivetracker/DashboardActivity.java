@@ -66,22 +66,8 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
 
-        showProgressDialog();
-        Intent intent = getIntent();
-        id = intent.getStringExtra("LISTKEY");
+        InitializationMethod();
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
-        RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
-        HelloREf = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Win");
-
-        name = findViewById(R.id.desc_goal_name);
-        extendedFloatingActionButton = findViewById(R.id.share_Sss);
-        consis = findViewById(R.id.desc_goal_const);
-        left = findViewById(R.id.desc_goal_left);
-        goal_lft_pert = findViewById(R.id.desc_goal_leftper);
-
-        recyclerView = findViewById(R.id.history_recyler);
         recyclerView.setLayoutManager(new LinearLayoutManager(DashboardActivity.this));
 
 
@@ -101,6 +87,24 @@ public class DashboardActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void InitializationMethod() {
+        Intent intent = getIntent();
+        id = intent.getStringExtra("LISTKEY");
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
+        RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
+        HelloREf = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Win");
+
+        name = findViewById(R.id.desc_goal_name);
+        extendedFloatingActionButton = findViewById(R.id.share_Sss);
+        consis = findViewById(R.id.desc_goal_const);
+        left = findViewById(R.id.desc_goal_left);
+        goal_lft_pert = findViewById(R.id.desc_goal_leftper);
+
+        recyclerView = findViewById(R.id.history_recyler);
     }
 
     // Here is the second progress Dialog Box
@@ -153,6 +157,8 @@ public class DashboardActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart ();
 
+        showProgressDialog();
+
         FirebaseRecyclerOptions<HistoryClass> options =
                 new FirebaseRecyclerOptions.Builder<HistoryClass> ()
                         .setQuery ( HelloREf,HistoryClass.class )
@@ -167,8 +173,6 @@ public class DashboardActivity extends AppCompatActivity {
                         String listPostKey = getRef(position).getKey();
 
                         holder.text.setText(listPostKey+" is your day ..");
-
-
 
 
                     }
@@ -199,15 +203,6 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-
-
-
-
 
 
 

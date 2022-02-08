@@ -18,73 +18,30 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.leo.simplearcloader.SimpleArcLoader;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 import achivementtrackerbyamit.example.achivetracker.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ArchiveGoalFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ArchiveGoalFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     RecyclerView recyclerView;
     String currentUserID;
     DatabaseReference archiveDataRef;
     ArchiveAdapter archiveAdapter;
     ArrayList<ArchiveClass> dataList;
-    //public static int confirmation=0;
-    //FirebaseRecyclerAdapter<ArchiveCLass, ArchiveGoalFragment.StudentViewHolder3> adapter;
-    ProgressDialog progressDialog;
-
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ArchiveGoalFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ArchiveGoalFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ArchiveGoalFragment newInstance(String param1, String param2) {
-        ArchiveGoalFragment fragment = new ArchiveGoalFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    SimpleArcLoader mDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_archive_goal, container, false);
+
+        mDialog = view.findViewById(R.id.loader_archive_goal);
+
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
@@ -96,19 +53,14 @@ public class ArchiveGoalFragment extends Fragment {
         return view;
     }
 
-    private void showProgressDialog() {
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_diaglog);
-        progressDialog.setCanceledOnTouchOutside(false);
-        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
 
-    }
 
     @Override
     public void onStart() {
         super.onStart();
-        showProgressDialog();
+
+        mDialog.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
 
         dataList= new ArrayList<>();
         archiveAdapter= new ArchiveAdapter(getContext(),dataList);
@@ -117,6 +69,11 @@ public class ArchiveGoalFragment extends Fragment {
         archiveDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (!snapshot.exists()){
+                    mDialog.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
                 //fetch all the data
                 if(snapshot.exists()){
 
@@ -126,7 +83,9 @@ public class ArchiveGoalFragment extends Fragment {
                         dataList.add(itemData);
                     }
                     archiveAdapter.notifyDataSetChanged();
-                    progressDialog.dismiss();
+                    mDialog.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+
                 }
             }
 

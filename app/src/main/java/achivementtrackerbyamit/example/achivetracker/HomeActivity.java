@@ -3,8 +3,6 @@ package achivementtrackerbyamit.example.achivetracker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -35,7 +33,6 @@ public class HomeActivity extends AppCompatActivity {
     String currentUserID;
     DatabaseReference RootRef;
     ImageView profile_button;
-    ProgressDialog progressDialog;
     ExtendedFloatingActionButton button;
     public static int confirmation = 0;
 
@@ -50,6 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         tabLayout.addTab(tabLayout.newTab().setText("Current"));
         tabLayout.addTab(tabLayout.newTab().setText("Archive"));
+        tabLayout.setTabRippleColor(ColorStateList.valueOf(Color.parseColor("#000000")));
         tabLayout.setTabTextColors(ColorStateList.valueOf(Color.parseColor("#ffffff")));
 
         profile_button = findViewById(R.id.logout_btn);
@@ -75,12 +73,14 @@ public class HomeActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
+
         profile_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent loginIntenttt = new Intent ( HomeActivity.this,ProfileActivity.class );
-                startActivity ( loginIntenttt );
+                Intent ProfileIntent = new Intent ( HomeActivity.this,ProfileActivity.class );
+                startActivity ( ProfileIntent );
 
             }
         });
@@ -96,6 +96,12 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
+        RetriveUserImage();
+
+    }
+
+    private void RetriveUserImage() {
         // Getting profile picture to set in the profile button
         FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -113,6 +119,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
     public void onBackPressed(){
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(HomeActivity.this,R.style.AlertDialogTheme);
         builder.setTitle("Confirm Exit");

@@ -60,8 +60,29 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        showProgressDialog();
 
+        InitializationMethod();
+        getUserDatafromFirebase();
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                LogOutMethod();
+
+            }
+        });
+        profilePicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ShowOptionsforProfilePic();
+
+                 }
+        });
+
+    }
+
+    private void InitializationMethod() {
         welcome1 = findViewById(R.id.users_name);
         welcome2 = findViewById(R.id.users_email);
         Logout = findViewById(R.id.logout);
@@ -76,32 +97,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
 
-        Logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(ProfileActivity.this)
-                        .setTitle("Are you sure want to Logout ? ")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+    }
 
-
-                                FirebaseAuth.getInstance().signOut();
-                                Intent loginIntenttt = new Intent ( ProfileActivity.this,SplasshActivity.class );
-                                loginIntenttt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-                                startActivity ( loginIntenttt );
-                                finish ();
-                            }
-                        })
-
-                        // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-
-
-            }
-        });
-
+    private void getUserDatafromFirebase() {
+        showProgressDialog();
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -132,45 +131,68 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this, "Cannot fetch data", Toast.LENGTH_SHORT).show();
             }
         });
-
-        // OnClickListener for Profile Pic Button
-        profilePicButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Showing options for getting image to set as profile picture
-                new MaterialAlertDialogBuilder(ProfileActivity.this).setBackground(getResources().getDrawable(R.drawable.material_dialog_box)).setTitle("Change profile photo").setItems(new String[]{"Choose from gallery", "Take a new picture"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i)
-                        {
-                            // Choosing image from gallery
-                            case 0:
-                                // Defining Implicit Intent to mobile gallery
-                                Intent intent = new Intent();
-                                intent.setType("image/*");
-                                intent.setAction(Intent.ACTION_GET_CONTENT);
-                                startActivityForResult(
-                                        Intent.createChooser(
-                                                intent,
-                                                "Select Image from here..."),
-                                        GALLERY_INTENT_CODE);
-                                break;
-
-                            // Clicking a new picture using camera
-                            case 1:
-                                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-                                    startActivityForResult(cameraIntent,CAMERA_INTENT_CODE);
-                                }
-                                startActivityForResult(cameraIntent,CAMERA_INTENT_CODE);
-                                break;
-                        }
-                    }
-                }).show();
-            }
-        });
     }
 
+
+    // Showing options for getting image to set as profile picture
+    private void ShowOptionsforProfilePic() {
+
+        new MaterialAlertDialogBuilder(ProfileActivity.this).setBackground(getResources().getDrawable(R.drawable.material_dialog_box)).setTitle("Change profile photo").setItems(new String[]{"Choose from gallery", "Take a new picture"}, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i)
+                {
+                    // Choosing image from gallery
+                    case 0:
+                        // Defining Implicit Intent to mobile gallery
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(
+                                Intent.createChooser(
+                                        intent,
+                                        "Select Image from here..."),
+                                GALLERY_INTENT_CODE);
+                        break;
+
+                    // Clicking a new picture using camera
+                    case 1:
+                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                            startActivityForResult(cameraIntent,CAMERA_INTENT_CODE);
+                        }
+                        startActivityForResult(cameraIntent,CAMERA_INTENT_CODE);
+                        break;
+                }
+            }
+        }).show();
+
+    }
+
+    // Function for logout method
+    private void LogOutMethod() {
+        new AlertDialog.Builder(ProfileActivity.this)
+                .setTitle("Are you sure want to Logout ? ")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                        FirebaseAuth.getInstance().signOut();
+                        Intent loginIntenttt = new Intent ( ProfileActivity.this,SplasshActivity.class );
+                        loginIntenttt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+                        startActivity ( loginIntenttt );
+                        finish ();
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
+    }
+
+    // Function for progress dialoge bar
     private void showProgressDialog() {
         progressDialog = new ProgressDialog(ProfileActivity.this);
         progressDialog.show();
@@ -279,6 +301,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    // Function for github link view
     public void GithubLinkClick(View view) {
 
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/maityamit/Tracky-Track-your-goals-or-targets"));

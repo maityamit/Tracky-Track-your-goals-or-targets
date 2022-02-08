@@ -61,20 +61,12 @@ public class AddtripActivity extends AppCompatActivity
 
         InitializationMethod();
 
-
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 YESONCLICK();
             }
         });
-//        no.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                NOONCLICK();
-        //           }
-        //      });
 
     }
 
@@ -113,21 +105,11 @@ public class AddtripActivity extends AppCompatActivity
         datepicker = (DatePicker) findViewById(R.id.edit_text_trip_date);
     }
 
-    private void NOONCLICK() {
-        Intent loginIntent = new Intent ( AddtripActivity.this,HomeActivity.class );
-        loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-        startActivity ( loginIntent );
-    }
 
     private void YESONCLICK() {
         String trip_key = RootRef.child("Goals").child("Active").push().getKey();
         CreteATripNew(trip_key);
     }
-
-
-    //DatePicker color change
-
-
 
 
 
