@@ -59,6 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
     ExtendedFloatingActionButton extendedFloatingActionButton;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
+    String GoalName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,6 +258,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
                 name.setText(goal_string);
+                GoalName = goal_string;
                 consis.setText("Consistency :" +goal_const+" %");
                 EVENT_DATE_TIME = goal_end;
                 countDownStart();
@@ -366,5 +368,10 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
+    public void AlarmAct(View view) {
+        Intent i = new Intent(getApplicationContext(), AlarmActivity.class); //Pass to AlarmActivity Class
+        i.putExtra("GoalName", GoalName); //Passing Goal Name
+        startActivity(i);
+    }
 
 }
