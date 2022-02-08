@@ -7,6 +7,17 @@
     android:orientation="vertical"
     tools:context=".DashboardActivity">
 
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/testing_lay"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+
+
     <TextView
         android:id="@+id/desc_goal_name"
         android:layout_width="wrap_content"
@@ -53,10 +64,12 @@
     </androidx.cardview.widget.CardView>
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="7dp"
         android:weightSum="2">
 
 
@@ -238,6 +251,10 @@
 
 
     </LinearLayout>
+
+
+    </LinearLayout>
+
 
 
 

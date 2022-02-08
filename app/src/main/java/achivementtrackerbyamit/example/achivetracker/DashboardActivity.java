@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,8 +55,8 @@ public class DashboardActivity extends AppCompatActivity {
     String currentUserID;
     RecyclerView recyclerView;
     ProgressDialog progressDialog;
-    public static int confirmation = 0;
     DatabaseReference RootRef,HelloREf,newRef;
+    @SuppressLint("SimpleDateFormat")
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
     private Handler handler = new Handler();
     private Runnable runnable;
@@ -79,9 +82,9 @@ public class DashboardActivity extends AppCompatActivity {
         extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                View gh = findViewById(R.id.testing_lay);
                 View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-                share(screenShot(rootView));
+                share(screenShot(gh));
             }
         });
 
@@ -133,7 +136,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     private Bitmap screenShot(View view) {
-        View screenView = view.getRootView();
+        View screenView = view;
         screenView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
         screenView.setDrawingCacheEnabled(false);
@@ -148,7 +151,7 @@ public class DashboardActivity extends AppCompatActivity {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("image/*");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Tracky : track your Goal");
-        //Retreive value of completed goal using shared preferences from RetreiveData() function
+        //Retrieve value of completed goal using shared preferences from RetreiveData() function
         String goal_cmpltd = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("goal_completed","");
         //Retreive value of consistency using shared preferences from RetreiveData() function
         String goal_consistency = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("consistency","");
