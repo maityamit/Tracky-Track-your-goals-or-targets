@@ -22,7 +22,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // we will use vibrator first
         Vibrator vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
-        vibrator.vibrate(6000);
+        vibrator.vibrate(5000);
 
         Toast.makeText(context, "Reminder: "+GoalName, Toast.LENGTH_LONG).show();
 

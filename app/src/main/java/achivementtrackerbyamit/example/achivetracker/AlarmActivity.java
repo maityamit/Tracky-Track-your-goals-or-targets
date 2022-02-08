@@ -101,4 +101,12 @@ public class AlarmActivity extends AppCompatActivity implements DatePickerDialog
         alarmManager.cancel(pendingIntent); //cancels alarm
         Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(AlarmActivity.this,HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
