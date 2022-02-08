@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,7 @@ public class DashboardActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ProgressDialog progressDialog;
     public static int confirmation = 0;
-    DatabaseReference RootRef,HelloREf;
+    DatabaseReference RootRef,HelloREf,newRef;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
     private Handler handler = new Handler();
     private Runnable runnable;
@@ -99,6 +100,7 @@ public class DashboardActivity extends AppCompatActivity {
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
         HelloREf = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Win");
 
+        newRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         name = findViewById(R.id.desc_goal_name);
         extendedFloatingActionButton = findViewById(R.id.share_Sss);
         consis = findViewById(R.id.desc_goal_const);
@@ -146,6 +148,19 @@ public class DashboardActivity extends AppCompatActivity {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("image/*");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Tracky : track your Goal");
+        //Retreive value of completed goal using shared preferences from RetreiveData() function
+        String goal_cmpltd = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("goal_completed","");
+        //Retreive value of consistency using shared preferences from RetreiveData() function
+        String goal_consistency = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("consistency","");
+        //Retreive goal name using shared preferences from RetreiveData() function
+        String goal_name = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("goal_name","");
+        //Retreive name using Shared preference from Retrieve data function
+        String user_name = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("name","");
+        //Code to add Text with image
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hi , I am "+user_name+" using this Tracky : Track your goal Application" +
+                " and by using this I measured my "+goal_name+" goal and be happy that I keep my consistency as "+goal_consistency+
+                "%. And I have also completed my goal "+goal_cmpltd+"%.So happy to share with you . #tracky #track #goal"
+        );
         // Here You need to add code for issue
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
         startActivity(Intent.createChooser(shareIntent, "hello hello"));
@@ -214,6 +229,8 @@ public class DashboardActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String goal_string = snapshot.child ( "GoalName" ).getValue ().toString ();
+                //Shared Preference to use the goal name in share() function
+                PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("goal_name",goal_string).commit();
                 String goal_end = snapshot.child ( "EndTime" ).getValue ().toString ();
                 String goal_create = snapshot.child ( "TodayTime" ).getValue ().toString ();
 
@@ -229,6 +246,9 @@ public class DashboardActivity extends AppCompatActivity {
                 if((DayReturn(todaay,goal_create))>=0){
                     String dt = ConsistentFn(count_nodes,todaay,goal_create);
                     io = GoalCOmpleteFn(todaay,goal_create,goal_end);
+                    //Shared Preference to use the value of 'io' in share() function
+                    PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("goal_completed", String.valueOf(io)).commit();
+
                     HashMap<String,Object> onlineStat = new HashMap<> (  );
                     onlineStat.put ( "Consistency", dt);
                     RootRef.child(id)
@@ -237,6 +257,9 @@ public class DashboardActivity extends AppCompatActivity {
 
 
                 String goal_const = snapshot.child ( "Consistency" ).getValue ().toString ();
+                //Shared Preference to use the value of 'goal_const' in share() function
+                PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("consistency", goal_const).commit();
+
                 int const_int = Integer.parseInt(String.valueOf(goal_const));
 
                 PieChart mPieChart = (PieChart) findViewById(R.id.piechart1);
@@ -275,6 +298,19 @@ public class DashboardActivity extends AppCompatActivity {
 
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Fail to get data.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Name fetching from Firebase to use in share() function
+        newRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String username = snapshot.child("name").getValue ().toString ();
+                PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("name",username).commit();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(DashboardActivity.this, "Error!", Toast.LENGTH_SHORT).show();
             }
         });
 
