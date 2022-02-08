@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -59,6 +60,8 @@ public class DashboardActivity extends AppCompatActivity {
     ExtendedFloatingActionButton extendedFloatingActionButton;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
+    Button Alarm;
+    String GoalName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class DashboardActivity extends AppCompatActivity {
         HelloREf = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Win");
 
         name = findViewById(R.id.desc_goal_name);
+        Alarm = findViewById(R.id.alarm);
         extendedFloatingActionButton = findViewById(R.id.share_Sss);
         consis = findViewById(R.id.desc_goal_const);
         left = findViewById(R.id.desc_goal_left);
@@ -83,7 +87,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.history_recyler);
         recyclerView.setLayoutManager(new LinearLayoutManager(DashboardActivity.this));
-
 
 
         RetriveData();
@@ -262,6 +265,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
                 name.setText(goal_string);
+                GoalName = goal_string;
                 consis.setText("Consistency :" +goal_const+" %");
                 EVENT_DATE_TIME = goal_end;
                 countDownStart();
@@ -370,6 +374,9 @@ public class DashboardActivity extends AppCompatActivity {
 
         }
     }
-
-
+    public void AlarmAct(View view) {
+        Intent i = new Intent(getApplicationContext(), AlarmActivity.class); //Pass to AlarmActivity Class
+        i.putExtra("GoalName", GoalName); //Passing Goal Name
+        startActivity(i);
+    }
 }
