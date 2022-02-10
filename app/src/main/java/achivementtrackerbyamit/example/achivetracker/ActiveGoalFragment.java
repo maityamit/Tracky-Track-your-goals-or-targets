@@ -48,6 +48,7 @@ public class ActiveGoalFragment extends Fragment {
     String currentUserID;
     DatabaseReference RootRef;
     ProgressDialog progressDialog;
+    FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> adapter;
     public static int confirmation = 0;
 
     @Override
@@ -100,8 +101,7 @@ public class ActiveGoalFragment extends Fragment {
                         .build ();
 
 
-        FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> adapter =
-                new FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> (options) {
+        adapter = new FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> (options) {
                     @Override
                     protected void onBindViewHolder(@NonNull final StudentViewHolder2 holder, final int position, @NonNull final GoingCLass model) {
 
