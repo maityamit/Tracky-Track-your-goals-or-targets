@@ -3,30 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     tools:context=".ActiveGoalFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_container"
-        android:orientation="vertical">
-        <androidx.appcompat.widget.SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/goal_search"
-            android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="5dp"/>
+
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/going_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+           >
 
 
 
         </androidx.recyclerview.widget.RecyclerView>
 
 
-    </LinearLayout>
+    <com.leo.simplearcloader.SimpleArcLoader
+        android:visibility="visible"
+        android:id="@+id/loader_active_goal"
+        android:layout_centerInParent="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        custom:arc_style="simple_arc"
+        custom:arc_speed="medium"
+        custom:arc_margin="3dp">
+    </com.leo.simplearcloader.SimpleArcLoader>
 
 
 </RelativeLayout>

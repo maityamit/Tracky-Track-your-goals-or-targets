@@ -7,9 +7,9 @@
     android:orientation="vertical"
     tools:context=".AddtripActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <View
@@ -29,16 +29,20 @@
             android:layout_height="wrap_content"
             android:text="Create a new goal"
             android:layout_gravity="center"
+            android:layout_marginTop="20sp"
+            android:layout_centerHorizontal="true"
             android:textSize="24dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="#283593"
             android:fontFamily="sans-serif"
             android:textStyle="bold"
             />
 
         <soup.neumorphism.NeumorphCardView
+            android:id="@+id/goal_enter_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/view4"
             app:neumorph_shapeType="basin"
             android:layout_marginHorizontal="10dp">
 
@@ -50,7 +54,7 @@
                 android:gravity="center"
                 android:hint="Enter your Goal Name"
                 android:background="@color/background_neumor"
-                android:textSize="16dp"
+                android:textSize="17sp"
                 android:id="@+id/edit_text_trip_name"
                 android:inputType="textShortMessage"
                 android:textStyle="normal"
@@ -61,6 +65,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_margin="10dp"
+            android:layout_below="@id/goal_enter_card"
             android:layout_height="wrap_content">
 
             <LinearLayout
@@ -158,9 +163,9 @@
                     android:id="@+id/edit_text_trip_date"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginEnd="20dp"/>
 
 
@@ -176,7 +181,7 @@
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center"
                     />
 
@@ -188,7 +193,7 @@
 
         </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </ScrollView>

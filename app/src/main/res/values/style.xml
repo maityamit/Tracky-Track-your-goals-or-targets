@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--For Home Activity-->
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">#0F9D58</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">#DB4437</item>
+    </style>
+
+
+    <!--For Activity Goal Fragment-->
+    <style name="AlertDialogTheme1" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle1</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle1</item>
+    </style>
+
+    <style name="NegativeButtonStyle1" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">#DB4437</item>
+    </style>
+
+    <style name="PositiveButtonStyle1" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">#0F9D58</item>
+    </style>
+</resources>

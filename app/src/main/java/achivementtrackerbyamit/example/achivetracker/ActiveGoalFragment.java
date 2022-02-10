@@ -1,7 +1,6 @@
 package achivementtrackerbyamit.example.achivetracker;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -12,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,18 +24,26 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.leo.simplearcloader.ArcConfiguration;
+import com.leo.simplearcloader.SimpleArcDialog;
+import com.leo.simplearcloader.SimpleArcLoader;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
+
+import achivementtrackerbyamit.example.achivetracker.archive.ArchiveClass;
 
 
 public class ActiveGoalFragment extends Fragment {
@@ -46,10 +52,10 @@ public class ActiveGoalFragment extends Fragment {
 
     RecyclerView recyclerView;
     String currentUserID;
-    DatabaseReference RootRef;
-    ProgressDialog progressDialog;
-    FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> adapter;
-    public static int confirmation = 0;
+    DatabaseReference RootRef,archiveDataRef;
+    public static int maxId = 0;
+    SimpleArcLoader mDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,10 +63,15 @@ public class ActiveGoalFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_active_goal, container, false);
 
+        mDialog = view.findViewById(R.id.loader_active_goal);
+
+
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
+        // set data base reference for archieve data
+        archiveDataRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Archive_Goals");
 
         recyclerView = view.findViewById(R.id.going_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -68,32 +79,15 @@ public class ActiveGoalFragment extends Fragment {
         return  view;
     }
 
-    private void showProgressDialog() {
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_diaglog);
-        progressDialog.setCanceledOnTouchOutside(false);
-        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-//        Runnable progressRunnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                if (confirmation != 1) {
-//                    progressDialog.cancel();
-//                    Toast.makeText(MainActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        };
-//
-//        Handler pdCanceller = new Handler();
-//        pdCanceller.postDelayed(progressRunnable, 5000);
-    }
 
 
     @Override
     public void onStart() {
         super.onStart ();
 
-        showProgressDialog();
+
+        mDialog.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
 
         FirebaseRecyclerOptions<GoingCLass> options =
                 new FirebaseRecyclerOptions.Builder<GoingCLass> ()
@@ -101,7 +95,8 @@ public class ActiveGoalFragment extends Fragment {
                         .build ();
 
 
-        adapter = new FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> (options) {
+        FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> adapter =
+                new FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> (options) {
                     @Override
                     protected void onBindViewHolder(@NonNull final StudentViewHolder2 holder, final int position, @NonNull final GoingCLass model) {
 
@@ -160,8 +155,6 @@ public class ActiveGoalFragment extends Fragment {
                         }
 
                         long different = date2.getTime() - date1.getTime();
-
-
                         long secondsInMilli = 1000;
                         long minutesInMilli = secondsInMilli * 60;
                         long hoursInMilli = minutesInMilli * 60;
@@ -170,10 +163,32 @@ public class ActiveGoalFragment extends Fragment {
                         long elapsedDays = different / daysInMilli;
                         different = different % daysInMilli;
 
-                        if (elapsedDays==1){
+                        // TODO: implemented (Complete)
+
+                         if(different<0){
+
+                             postDataIntoArchive();
+                             ArchiveClass goal= new ArchiveClass(model.getConsistency(), model.getEndTime(), model.getGoalName());
+
+                            archiveDataRef.child(String.valueOf(maxId+1)).setValue(goal).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    // Delete the data from current fragment
+                                    deleteArchieveData(listPostKey);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+
+                        }
+
+                         if (elapsedDays==1){
                             holder.left_day.setText(elapsedDays+" day"+"\nleft");
                         }
-                        else {
+                        else{
                             holder.left_day.setText(elapsedDays + " days" + "\nleft");
                         }
 
@@ -193,10 +208,11 @@ public class ActiveGoalFragment extends Fragment {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (isChecked) {
-                                    //Alert Dialog Box Added
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    //Material Alert Dialog Box Added
+                                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext(),R.style.AlertDialogTheme1);
+                                    builder.setTitle("Alert!");
                                     builder.setMessage("Confirm Goal Completion?");
-                                    builder.setTitle("Alert !");
+                                    builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
                                     builder.setCancelable(false);
                                     builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                         @Override
@@ -217,16 +233,13 @@ public class ActiveGoalFragment extends Fragment {
                                             holder.checkBox_true.setChecked(false);
                                         }
                                     });
-                                    AlertDialog alertDialog = builder.create();
-                                    alertDialog.show();
+                                    builder.show();
                                 } else {
                                     //Fail
                                     Toast.makeText(getContext(), "Not Checked", Toast.LENGTH_SHORT).show(); //Just to Inform the user
                                 }
                             }
                         });
-
-
 
 
                     }
@@ -244,13 +257,14 @@ public class ActiveGoalFragment extends Fragment {
                     public void onDataChanged() {
                         super.onDataChanged();
 
-                        progressDialog.dismiss();
-
-
+                        mDialog.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
                     }
 
 
                 };
+
+
         recyclerView.setAdapter ( adapter );
         adapter.startListening ();
 
@@ -277,6 +291,29 @@ public class ActiveGoalFragment extends Fragment {
             const_text = itemView.findViewById ( R.id.lay_goal_const);
             checkBox_true = itemView.findViewById ( R.id.true_checkbox);
         }
+    }
+
+    private void postDataIntoArchive() {
+
+        archiveDataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    maxId= (int)snapshot.getChildrenCount();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void deleteArchieveData(String listPostKey) {
+        // remove the data from current fragment
+        RootRef.child(listPostKey).removeValue();
+
     }
 
 }

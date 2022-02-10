@@ -100,9 +100,11 @@ public class RegisterActivity extends AppCompatActivity {
                 Uri personPhoto = acct.getPhotoUrl();
                 String personPhoneURL = acct.getPhotoUrl().toString();
 
+                String st = String.valueOf(personPhoto);
 
 
-                firebaseAuthWithGoogle(acct,personName,personEmail);
+
+                firebaseAuthWithGoogle(acct,personName,personEmail,st);
 
 
             } else {
@@ -112,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    public void storeUserOnFireBase(String userName,String email,String phone,String passwd,String UID){
+    public void storeUserOnFireBase(String userName,String email,String phone,String passwd,String UID,String st){
         final FirebaseDatabase database=FirebaseDatabase.getInstance();
         UsersReference = database.getReference().child("Users");
 
@@ -126,6 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
                     userMap.put("name",userName);
                     userMap.put("email",email);
                     userMap.put("Phone_Number",phone);
+                    userMap.put("user_image",st);
                     //userMap.put("Password",passwd);
 
                     UsersReference.child(UID).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
@@ -159,7 +162,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct,String name,String email) {
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct,String name,String email,String st) {
         mAuth = FirebaseAuth.getInstance();
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -177,7 +180,7 @@ public class RegisterActivity extends AppCompatActivity {
                             mAuth = FirebaseAuth.getInstance();
                             String currentUserID = mAuth.getCurrentUser().getUid().toString();
 
-                            storeUserOnFireBase(name,email,"+91 - ","",currentUserID);
+                            storeUserOnFireBase(name,email,"+91 - ","",currentUserID,st);
                             Toast.makeText(RegisterActivity.this, "Authentication pass.",
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);

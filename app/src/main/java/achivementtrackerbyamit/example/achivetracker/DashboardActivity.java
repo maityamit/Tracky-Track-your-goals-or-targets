@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -14,12 +16,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,14 +55,15 @@ public class DashboardActivity extends AppCompatActivity {
     String currentUserID;
     RecyclerView recyclerView;
     ProgressDialog progressDialog;
-    public static int confirmation = 0;
-    DatabaseReference RootRef,HelloREf;
+    DatabaseReference RootRef,HelloREf,newRef;
+    @SuppressLint("SimpleDateFormat")
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
     private Handler handler = new Handler();
     private Runnable runnable;
     ExtendedFloatingActionButton extendedFloatingActionButton;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
+    String GoalName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,22 +71,8 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
 
-        showProgressDialog();
-        Intent intent = getIntent();
-        id = intent.getStringExtra("LISTKEY");
+        InitializationMethod();
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
-        RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
-        HelloREf = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Win");
-
-        name = findViewById(R.id.desc_goal_name);
-        extendedFloatingActionButton = findViewById(R.id.share_Sss);
-        consis = findViewById(R.id.desc_goal_const);
-        left = findViewById(R.id.desc_goal_left);
-        goal_lft_pert = findViewById(R.id.desc_goal_leftper);
-
-        recyclerView = findViewById(R.id.history_recyler);
         recyclerView.setLayoutManager(new LinearLayoutManager(DashboardActivity.this));
 
 
@@ -91,9 +82,9 @@ public class DashboardActivity extends AppCompatActivity {
         extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                View gh = findViewById(R.id.testing_lay);
                 View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-                share(screenShot(rootView));
+                share(screenShot(gh));
             }
         });
 
@@ -101,6 +92,25 @@ public class DashboardActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void InitializationMethod() {
+        Intent intent = getIntent();
+        id = intent.getStringExtra("LISTKEY");
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
+        RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
+        HelloREf = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Win");
+
+        newRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+        name = findViewById(R.id.desc_goal_name);
+        extendedFloatingActionButton = findViewById(R.id.share_Sss);
+        consis = findViewById(R.id.desc_goal_const);
+        left = findViewById(R.id.desc_goal_left);
+        goal_lft_pert = findViewById(R.id.desc_goal_leftper);
+
+        recyclerView = findViewById(R.id.history_recyler);
     }
 
     // Here is the second progress Dialog Box
@@ -126,7 +136,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     private Bitmap screenShot(View view) {
-        View screenView = view.getRootView();
+        View screenView = view;
         screenView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
         screenView.setDrawingCacheEnabled(false);
@@ -140,8 +150,21 @@ public class DashboardActivity extends AppCompatActivity {
         Uri uri = Uri.parse(pathofBmp);
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("image/*");
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Star App");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Tracky : track your Goal");
+        //Retrieve value of completed goal using shared preferences from RetreiveData() function
+        String goal_cmpltd = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("goal_completed","");
+        //Retreive value of consistency using shared preferences from RetreiveData() function
+        String goal_consistency = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("consistency","");
+        //Retreive goal name using shared preferences from RetreiveData() function
+        String goal_name = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("goal_name","");
+        //Retreive name using Shared preference from Retrieve data function
+        String user_name = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("name","");
+        //Code to add Text with image
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hi , I am "+user_name+" using this Tracky : Track your goal Application" +
+                " and by using this I measured my "+goal_name+" goal and be happy that I keep my consistency as "+goal_consistency+
+                "%. And I have also completed my goal "+goal_cmpltd+"%.So happy to share with you . #tracky #track #goal"
+        );
+        // Here You need to add code for issue
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
         startActivity(Intent.createChooser(shareIntent, "hello hello"));
     }
@@ -152,6 +175,8 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart ();
+
+        showProgressDialog();
 
         FirebaseRecyclerOptions<HistoryClass> options =
                 new FirebaseRecyclerOptions.Builder<HistoryClass> ()
@@ -167,8 +192,6 @@ public class DashboardActivity extends AppCompatActivity {
                         String listPostKey = getRef(position).getKey();
 
                         holder.text.setText(listPostKey+" is your day ..");
-
-
 
 
                     }
@@ -202,15 +225,6 @@ public class DashboardActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
     private void RetriveData() {
 
        RootRef.child(id).addValueEventListener(new ValueEventListener() {
@@ -218,6 +232,8 @@ public class DashboardActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String goal_string = snapshot.child ( "GoalName" ).getValue ().toString ();
+                //Shared Preference to use the goal name in share() function
+                PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("goal_name",goal_string).commit();
                 String goal_end = snapshot.child ( "EndTime" ).getValue ().toString ();
                 String goal_create = snapshot.child ( "TodayTime" ).getValue ().toString ();
 
@@ -233,6 +249,9 @@ public class DashboardActivity extends AppCompatActivity {
                 if((DayReturn(todaay,goal_create))>=0){
                     String dt = ConsistentFn(count_nodes,todaay,goal_create);
                     io = GoalCOmpleteFn(todaay,goal_create,goal_end);
+                    //Shared Preference to use the value of 'io' in share() function
+                    PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("goal_completed", String.valueOf(io)).commit();
+
                     HashMap<String,Object> onlineStat = new HashMap<> (  );
                     onlineStat.put ( "Consistency", dt);
                     RootRef.child(id)
@@ -241,6 +260,9 @@ public class DashboardActivity extends AppCompatActivity {
 
 
                 String goal_const = snapshot.child ( "Consistency" ).getValue ().toString ();
+                //Shared Preference to use the value of 'goal_const' in share() function
+                PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("consistency", goal_const).commit();
+
                 int const_int = Integer.parseInt(String.valueOf(goal_const));
 
                 PieChart mPieChart = (PieChart) findViewById(R.id.piechart1);
@@ -262,6 +284,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
                 name.setText(goal_string);
+                GoalName = goal_string;
                 consis.setText("Consistency :" +goal_const+" %");
                 EVENT_DATE_TIME = goal_end;
                 countDownStart();
@@ -278,6 +301,19 @@ public class DashboardActivity extends AppCompatActivity {
 
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Fail to get data.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Name fetching from Firebase to use in share() function
+        newRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String username = snapshot.child("name").getValue ().toString ();
+                PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("name",username).commit();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(DashboardActivity.this, "Error!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -371,5 +407,10 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
+    public void AlarmAct(View view) {
+        Intent i = new Intent(getApplicationContext(), AlarmActivity.class); //Pass to AlarmActivity Class
+        i.putExtra("GoalName", GoalName); //Passing Goal Name
+        startActivity(i);
+    }
 
 }

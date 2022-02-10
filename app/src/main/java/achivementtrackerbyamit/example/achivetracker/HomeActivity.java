@@ -3,15 +3,16 @@ package achivementtrackerbyamit.example.achivetracker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
-import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +33,6 @@ public class HomeActivity extends AppCompatActivity {
     String currentUserID;
     DatabaseReference RootRef;
     ImageView profile_button;
-    ProgressDialog progressDialog;
     ExtendedFloatingActionButton button;
     public static int confirmation = 0;
 
@@ -47,6 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         tabLayout.addTab(tabLayout.newTab().setText("Current"));
         tabLayout.addTab(tabLayout.newTab().setText("Archive"));
+        tabLayout.setTabRippleColor(ColorStateList.valueOf(Color.parseColor("#000000")));
         tabLayout.setTabTextColors(ColorStateList.valueOf(Color.parseColor("#ffffff")));
 
         profile_button = findViewById(R.id.logout_btn);
@@ -72,12 +73,14 @@ public class HomeActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
+
         profile_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent loginIntenttt = new Intent ( HomeActivity.this,ProfileActivity.class );
-                startActivity ( loginIntenttt );
+                Intent ProfileIntent = new Intent ( HomeActivity.this,ProfileActivity.class );
+                startActivity ( ProfileIntent );
 
             }
         });
@@ -93,6 +96,12 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
+        RetriveUserImage();
+
+    }
+
+    private void RetriveUserImage() {
         // Getting profile picture to set in the profile button
         FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,5 +118,28 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void onBackPressed(){
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(HomeActivity.this,R.style.AlertDialogTheme);
+        builder.setTitle("Confirm Exit");
+        builder.setIcon(R.drawable.main_kogo);
+        builder.setMessage("Do you really want to exit?");
+        builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
+        builder.setCancelable(false);
+        builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(HomeActivity.this, "Exit cancelled", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.show();
     }
 }
