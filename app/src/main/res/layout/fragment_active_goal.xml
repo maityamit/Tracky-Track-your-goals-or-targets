@@ -4,20 +4,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ActiveGoalFragment">
 
-
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardElevation="6dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="30dp"
+            android:layout_marginHorizontal="10dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/goal_search"
+                android:hint="Search your goals...."
+                android:drawableLeft="@drawable/ic_search"
+                android:textSize="20dp"
+                android:inputType="textCapSentences"
+                android:singleLine="true"
+                android:scrollbars="horizontal"
+                android:background="@null"
+                android:padding="10dp"
+                />
+        </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/going_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-           >
+            />
+    </LinearLayout>
 
 
 
-        </androidx.recyclerview.widget.RecyclerView>
+
 
 
     <com.leo.simplearcloader.SimpleArcLoader
