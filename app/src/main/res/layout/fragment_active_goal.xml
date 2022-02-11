@@ -38,10 +38,20 @@
             android:id="@+id/going_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/no_result"
+        android:text="No results found"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:textSize="30sp"/>
 
 
 

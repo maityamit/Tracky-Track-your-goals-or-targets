@@ -12,11 +12,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,14 +30,17 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.leo.simplearcloader.ArcConfiguration;
 import com.leo.simplearcloader.SimpleArcDialog;
@@ -39,9 +48,15 @@ import com.leo.simplearcloader.SimpleArcLoader;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Queue;
+import java.util.function.Consumer;
 
 import achivementtrackerbyamit.example.achivetracker.archive.ArchiveClass;
 
@@ -55,7 +70,10 @@ public class ActiveGoalFragment extends Fragment {
     DatabaseReference RootRef,archiveDataRef;
     public static int maxId = 0;
     SimpleArcLoader mDialog;
-
+    FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> adapter;
+    GoalAdapter goalAdapter;
+    EditText goalSearch;
+    ArrayList<Pair<String,GoingCLass>> goalList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +94,36 @@ public class ActiveGoalFragment extends Fragment {
         recyclerView = view.findViewById(R.id.going_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+
+        goalSearch = (EditText) view.findViewById(R.id.goal_search);
+        TextView noResultText = (TextView) view.findViewById(R.id.no_result);
+        goalSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                ArrayList<Pair<String,GoingCLass>> newList = new ArrayList<>();
+                for(int i=0;i<goalList.size();i++)
+                {
+                    GoingCLass item = goalList.get(i).second;
+                    if(item.getGoalName().toLowerCase().contains(editable.toString().toLowerCase()))
+                    {
+                        newList.add(goalList.get(i));
+                    }
+                }
+                goalAdapter.setGoalList(newList);
+                if(!editable.toString().isEmpty() && newList.size()==0) noResultText.setVisibility(View.VISIBLE);
+                else noResultText.setVisibility(View.GONE);
+            }
+        });
         return  view;
     }
 
@@ -94,9 +142,8 @@ public class ActiveGoalFragment extends Fragment {
                         .setQuery ( RootRef,GoingCLass.class )
                         .build ();
 
+        adapter = new FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2>  (options) {
 
-        FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> adapter =
-                new FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> (options) {
                     @Override
                     protected void onBindViewHolder(@NonNull final StudentViewHolder2 holder, final int position, @NonNull final GoingCLass model) {
 
@@ -262,15 +309,36 @@ public class ActiveGoalFragment extends Fragment {
                     }
 
 
+
                 };
 
+        RootRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Pair<String,GoingCLass>> currList = new ArrayList<>();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    GoingCLass goal = dataSnapshot.getValue(GoingCLass.class);
+                    currList.add(new Pair<>(dataSnapshot.getKey(),goal ));
+                }
+                goalList=currList;
+                goalAdapter.setGoalList(goalList);
+                mDialog.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+            }
 
-        recyclerView.setAdapter ( adapter );
-        adapter.startListening ();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
 
+//        recyclerView.setAdapter ( adapter );
+//        adapter.startListening ();
 
-
+        goalAdapter = new GoalAdapter(this,goalList);
+        recyclerView.setAdapter ( goalAdapter );
+        goalSearch.setText("");
     }
 
     public static class StudentViewHolder2 extends  RecyclerView.ViewHolder
@@ -293,7 +361,7 @@ public class ActiveGoalFragment extends Fragment {
         }
     }
 
-    private void postDataIntoArchive() {
+    public void postDataIntoArchive() {
 
         archiveDataRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -310,7 +378,7 @@ public class ActiveGoalFragment extends Fragment {
         });
     }
 
-    private void deleteArchieveData(String listPostKey) {
+    public void deleteArchieveData(String listPostKey) {
         // remove the data from current fragment
         RootRef.child(listPostKey).removeValue();
 
