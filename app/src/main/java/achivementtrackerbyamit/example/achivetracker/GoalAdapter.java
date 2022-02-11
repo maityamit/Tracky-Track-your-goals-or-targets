@@ -37,14 +37,19 @@ import java.util.List;
 
 import achivementtrackerbyamit.example.achivetracker.archive.ArchiveClass;
 
+// Custom adapter for the RecyclerView for displaying goals
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHolder2> {
+
+    // List of goals, goals are stored as a pair of the key of the goal and the goal object
     ArrayList<Pair<String,GoingCLass>> goalList;
     ActiveGoalFragment fragment;
+
     GoalAdapter(ActiveGoalFragment fragment, ArrayList<Pair<String,GoingCLass>> goalList)
     {
         this.fragment=fragment;
         this.goalList=goalList;
     }
+
     @NonNull
     @Override
     public StudentViewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -54,9 +59,15 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder2 holder, int position) {
-//        String listPostKey = getRef(position).getKey();
+
+        // Key of the goal is the first element of the pair
         String listPostKey = goalList.get(position).first;
+
+        // Goal object is the second element of the pair
         GoingCLass model=goalList.get(position).second;
+
+
+        // Same code as the old adapter
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd-M-yyyy");
 
@@ -203,12 +214,15 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         return goalList.size();
     }
 
+    // Changing the list when searching is carried out and notifying the change
     public void setGoalList(ArrayList<Pair<String,GoingCLass>> list)
     {
         goalList= list;
         notifyDataSetChanged();
     }
 
+
+    // Same ViewHolder as the old adapter
     public class StudentViewHolder2 extends  RecyclerView.ViewHolder
     {
 

@@ -71,6 +71,8 @@ public class ActiveGoalFragment extends Fragment {
     public static int maxId = 0;
     SimpleArcLoader mDialog;
     FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> adapter;
+
+    // Used for carrying out goal search using the GoalAdapter
     GoalAdapter goalAdapter;
     EditText goalSearch;
     ArrayList<Pair<String,GoingCLass>> goalList = new ArrayList<>();
@@ -95,9 +97,13 @@ public class ActiveGoalFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
+        // Goal and NoResult EditText Views
         goalSearch = (EditText) view.findViewById(R.id.goal_search);
         TextView noResultText = (TextView) view.findViewById(R.id.no_result);
+
+        // Carrying out search when text is added to the goalSearch
         goalSearch.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -110,16 +116,22 @@ public class ActiveGoalFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
+
+                // Creating new list of goals based on the entered value in the goalSearch
                 ArrayList<Pair<String,GoingCLass>> newList = new ArrayList<>();
                 for(int i=0;i<goalList.size();i++)
                 {
                     GoingCLass item = goalList.get(i).second;
+
+                    // Checking if the entered text matches with the goal name
                     if(item.getGoalName().toLowerCase().contains(editable.toString().toLowerCase()))
                     {
                         newList.add(goalList.get(i));
                     }
                 }
                 goalAdapter.setGoalList(newList);
+
+                // Making the no result text visible based on the size of the new list
                 if(!editable.toString().isEmpty() && newList.size()==0) noResultText.setVisibility(View.VISIBLE);
                 else noResultText.setVisibility(View.GONE);
             }
@@ -142,6 +154,7 @@ public class ActiveGoalFragment extends Fragment {
                         .setQuery ( RootRef,GoingCLass.class )
                         .build ();
 
+        // Old FirebaseRecyclerAdapter
         adapter = new FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2>  (options) {
 
                     @Override
@@ -312,9 +325,12 @@ public class ActiveGoalFragment extends Fragment {
 
                 };
 
+        // Getting the list of goals
         RootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                // Getting the latest list of goals and updating the goalList
                 ArrayList<Pair<String,GoingCLass>> currList = new ArrayList<>();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
@@ -322,7 +338,11 @@ public class ActiveGoalFragment extends Fragment {
                     currList.add(new Pair<>(dataSnapshot.getKey(),goal ));
                 }
                 goalList=currList;
+
+                // Updating the adapter with the new goal list
                 goalAdapter.setGoalList(goalList);
+
+                // Making the recycler view appear and the loading dialog disappear
                 mDialog.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
             }
@@ -333,9 +353,11 @@ public class ActiveGoalFragment extends Fragment {
             }
         });
 
+        // Setting the old adapter, old adapter can be used by uncommenting these lines and commenting the lines below them
 //        recyclerView.setAdapter ( adapter );
 //        adapter.startListening ();
 
+        // Setting the new custom adapter
         goalAdapter = new GoalAdapter(this,goalList);
         recyclerView.setAdapter ( goalAdapter );
         goalSearch.setText("");
