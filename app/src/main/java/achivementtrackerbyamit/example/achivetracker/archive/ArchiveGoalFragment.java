@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +34,7 @@ public class ArchiveGoalFragment extends Fragment {
     ArchiveAdapter archiveAdapter;
     ArrayList<ArchiveClass> dataList;
     SimpleArcLoader mDialog;
+    ImageView emptyArchive;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +44,8 @@ public class ArchiveGoalFragment extends Fragment {
 
         mDialog = view.findViewById(R.id.loader_archive_goal);
 
+        // ImageView displaying the empty archive message
+        emptyArchive = (ImageView) view.findViewById(R.id.empty_archive_img);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
@@ -87,6 +91,10 @@ public class ArchiveGoalFragment extends Fragment {
                     recyclerView.setVisibility(View.VISIBLE);
 
                 }
+
+                // Making the empty archive message visible when the archive list is empty
+                if(dataList.size()==0) emptyArchive.setVisibility(View.VISIBLE);
+                else emptyArchive.setVisibility(View.GONE);
             }
 
             @Override

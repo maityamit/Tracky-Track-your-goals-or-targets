@@ -23,6 +23,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -77,6 +78,8 @@ public class ActiveGoalFragment extends Fragment {
     EditText goalSearch;
     ArrayList<Pair<String,GoingCLass>> goalList = new ArrayList<>();
 
+    ImageView emptyGoal;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,6 +99,8 @@ public class ActiveGoalFragment extends Fragment {
         recyclerView = view.findViewById(R.id.going_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // ImageView for displaying the empty goal message
+        emptyGoal = (ImageView) view.findViewById(R.id.empty_goal_img);
 
         // Goal and NoResult EditText Views
         goalSearch = (EditText) view.findViewById(R.id.goal_search);
@@ -132,8 +137,14 @@ public class ActiveGoalFragment extends Fragment {
                 goalAdapter.setGoalList(newList);
 
                 // Making the no result text visible based on the size of the new list
-                if(!editable.toString().isEmpty() && newList.size()==0) noResultText.setVisibility(View.VISIBLE);
-                else noResultText.setVisibility(View.GONE);
+                if(!editable.toString().isEmpty() && newList.size()==0 && !(goalList.size() ==0))
+                {
+                    noResultText.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    noResultText.setVisibility(View.GONE);
+                }
             }
         });
         return  view;
@@ -345,6 +356,10 @@ public class ActiveGoalFragment extends Fragment {
                 // Making the recycler view appear and the loading dialog disappear
                 mDialog.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
+
+                // Making the empty goal message visible when goal list is empty
+                if(goalList.size()==0) emptyGoal.setVisibility(View.VISIBLE);
+                else emptyGoal.setVisibility(View.GONE);
             }
 
             @Override
