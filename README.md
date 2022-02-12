@@ -90,19 +90,19 @@ If you think that you can add a new feature or want to fix a bug, we invite you 
 5. Clone your forked repository of project.
 
 ```git clone
-git clone https://github.com/<your_username>/FunwithScience.git
+git clone https://github.com/<your_username>/Tracky-Track-your-goals-or-targets.git
 ```
 
 6. Navigate to the project directory.
 
 ```
-cd FunwithScience
+cd Tracky-Track-your-goals-or-targets
 ```
 
 7. Add a reference(remote) to the original repository.
 
 ```
-git remote add upstream https://github.com/Tech-N-Science/FunwithScience.git
+git remote add upstream https://github.com/maityamit/Tracky-Track-your-goals-or-targets.git
 ```
 
 8. Check the remotes for this repository.
@@ -162,28 +162,6 @@ git push -u origin <your_branch_name>
 Congratulations🎉, you have made a PR to the FunwithPhysics.
 Wait for your submission to be accepted and your PR to be merged by a maintainer.
 
-# How to run the webpage on your local system
 
-1. Go to the `funwithpysics` directory.
-
-```
-cd funwithpysics
-```
-
-2. Write the command.
-
-```
-npm install react-scripts --save
-```
-
-3. Write the command.
-
-```
-yarn start
-```
-
-If you have any doubts, please let us know in the comments.
-
----
   
   
