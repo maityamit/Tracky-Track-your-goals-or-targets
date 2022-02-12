@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -87,6 +88,9 @@ public class ActiveGoalFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_active_goal, container, false);
 
         mDialog = view.findViewById(R.id.loader_active_goal);
+
+       
+
 
 
 
