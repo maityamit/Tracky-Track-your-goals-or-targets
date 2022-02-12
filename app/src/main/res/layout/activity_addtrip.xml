@@ -25,18 +25,18 @@
             android:background="@drawable/ic_wave__9" />
 
         <soup.neumorphism.NeumorphTextView
+            android:id="@+id/create_goal_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create a new goal"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="20sp"
-            android:layout_centerHorizontal="true"
-            android:textSize="24dp"
             android:layout_marginBottom="10dp"
-            android:textColor="#283593"
             android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            />
+            android:text="Create a new goal"
+            android:textColor="#283593"
+            android:textSize="24dp"
+            android:textStyle="bold" />
 
         <soup.neumorphism.NeumorphCardView
             android:id="@+id/goal_enter_card"

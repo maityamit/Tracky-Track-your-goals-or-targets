@@ -60,10 +60,13 @@ public class DashboardActivity extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
     private Handler handler = new Handler();
     private Runnable runnable;
-    ExtendedFloatingActionButton extendedFloatingActionButton;
+    ExtendedFloatingActionButton extendedFloatingShareButton,extendedFloatingEditButton;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
     String GoalName;
+    public static final String ADD_TRIP_VALUE= DashboardActivity.class.getName();
+    public static final String ADD_TRIP_TAG="ADD_TRIP_TAG";
+    public static final String ADD_TRIP_DATA_KEY="ADD_TRIP_DATA_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +82,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         RetriveData();
 
-        extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+        extendedFloatingShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 View gh = findViewById(R.id.testing_lay);
@@ -88,11 +91,20 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-
-
+        extendedFloatingEditButton.setOnClickListener(view-> sendData());
 
 
     }
+
+    private void sendData() {
+
+        Intent intent= new Intent(DashboardActivity.this,AddtripActivity.class);
+        intent.putExtra(ADD_TRIP_TAG,ADD_TRIP_VALUE);
+        intent.putExtra(ADD_TRIP_DATA_KEY,id);
+        startActivity(intent);
+
+    }
+
 
     private void InitializationMethod() {
         Intent intent = getIntent();
@@ -105,7 +117,8 @@ public class DashboardActivity extends AppCompatActivity {
 
         newRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         name = findViewById(R.id.desc_goal_name);
-        extendedFloatingActionButton = findViewById(R.id.share_Sss);
+        extendedFloatingShareButton = findViewById(R.id.share_Sss);
+        extendedFloatingEditButton= findViewById(R.id.edit_goal_btn);
         consis = findViewById(R.id.desc_goal_const);
         left = findViewById(R.id.desc_goal_left);
         goal_lft_pert = findViewById(R.id.desc_goal_leftper);
@@ -412,5 +425,7 @@ public class DashboardActivity extends AppCompatActivity {
         i.putExtra("GoalName", GoalName); //Passing Goal Name
         startActivity(i);
     }
+
+
 
 }
