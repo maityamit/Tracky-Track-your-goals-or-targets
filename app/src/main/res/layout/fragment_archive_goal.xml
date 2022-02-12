@@ -20,6 +20,15 @@
         </androidx.recyclerview.widget.RecyclerView>
 
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/empty_archive_image"
+        android:id="@+id/empty_archive_img"
+        android:layout_marginHorizontal="90dp"
+        android:paddingBottom="30dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
 
     <com.leo.simplearcloader.SimpleArcLoader
         android:visibility="visible"
