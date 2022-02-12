@@ -70,6 +70,14 @@ If you are preparing to achive any goal or target then , one of the importance p
    </p>
  </table>
   
+ 
+ <br>
+ 
+ ## 📸 Screenshots
+ 
+||||
+|:----------------------------------------:|:-----------------------------------------:|:-----------------------------------------: |
+| ![Imgur](Images%20Demo/1.png) | ![Imgur](Images%20Demo/2.png) | ![Imgur](Images%20Demo/3.png) |
   
   
   
