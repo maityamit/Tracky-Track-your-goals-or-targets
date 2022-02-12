@@ -13,18 +13,20 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,8 +39,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.BitSet;
-import java.util.HashMap;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -46,7 +46,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseUser user;
-    TextView welcome1,welcome2;
+    TextView welcome1, welcome2;
     private DatabaseReference reference;
     ProgressDialog progressDialog;
     private String userID;
@@ -55,6 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
     CircleImageView profilePic;
     private final int GALLERY_INTENT_CODE = 993;
     private final int CAMERA_INTENT_CODE = 990;
+    private String DISPLAY_NAME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +78,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                 ShowOptionsforProfilePic();
 
-                 }
+            }
         });
-
     }
 
     private void InitializationMethod() {
@@ -93,7 +93,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
+        userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -106,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users userprofile = snapshot.getValue(Users.class);
 
-                if (userprofile != null){
+                if (userprofile != null) {
                     String fullname = userprofile.name;
                     String email = userprofile.email;
 
@@ -117,8 +117,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 // Getting the url of profile picture
                 Object pfpUrl = snapshot.child("user_image").getValue();
-                if(pfpUrl != null)
-                {
+                if (pfpUrl != null) {
                     // If the url is not null, then adding the image
                     Picasso.get().load(pfpUrl.toString()).placeholder(R.drawable.profile).error(R.drawable.profile).into(profilePic);
                 }
@@ -140,8 +139,7 @@ public class ProfileActivity extends AppCompatActivity {
         new MaterialAlertDialogBuilder(ProfileActivity.this).setBackground(getResources().getDrawable(R.drawable.material_dialog_box)).setTitle("Change profile photo").setItems(new String[]{"Choose from gallery", "Take a new picture"}, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                switch (i)
-                {
+                switch (i) {
                     // Choosing image from gallery
                     case 0:
                         // Defining Implicit Intent to mobile gallery
@@ -159,9 +157,9 @@ public class ProfileActivity extends AppCompatActivity {
                     case 1:
                         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-                            startActivityForResult(cameraIntent,CAMERA_INTENT_CODE);
+                            startActivityForResult(cameraIntent, CAMERA_INTENT_CODE);
                         }
-                        startActivityForResult(cameraIntent,CAMERA_INTENT_CODE);
+                        startActivityForResult(cameraIntent, CAMERA_INTENT_CODE);
                         break;
                 }
             }
@@ -178,10 +176,10 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                         FirebaseAuth.getInstance().signOut();
-                        Intent loginIntenttt = new Intent ( ProfileActivity.this,SplasshActivity.class );
-                        loginIntenttt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-                        startActivity ( loginIntenttt );
-                        finish ();
+                        Intent loginIntenttt = new Intent(ProfileActivity.this, SplasshActivity.class);
+                        loginIntenttt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(loginIntenttt);
+                        finish();
                     }
                 })
 
@@ -216,16 +214,14 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK && data!=null)
-        {
+        if (resultCode == RESULT_OK && data != null) {
             Uri uri = (Uri) data.getData();
-            switch (requestCode)
-            {
+            switch (requestCode) {
                 // Image received from gallery
                 case GALLERY_INTENT_CODE:
                     try {
                         // Converting the image uri to bitmap
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         profilePic.setImageBitmap(bitmap);
                         updateProfilePic(bitmap);
                     } catch (IOException e) {
@@ -244,56 +240,46 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     // Function for updating profile picture
-    private void updateProfilePic(Bitmap bitmap)
-    {
+    private void updateProfilePic(Bitmap bitmap) {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())+"/pfp.jpg");
+        StorageReference storageReference = firebaseStorage.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()) + "/pfp.jpg");
         showProgressDialog();
 
         // Converting image bitmap to byte array for uploading to firebase storage
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] pfp = baos.toByteArray();
 
         // Uploading the byte array to firebase storage
         storageReference.putBytes(pfp).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if(task.isSuccessful())
-                {
+                if (task.isSuccessful()) {
                     // Getting url of the image uploaded to firebase storage
                     task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
-                            if(task.isSuccessful())
-                            {
+                            if (task.isSuccessful()) {
                                 // Setting the image url as the user_image property of the user in the database
                                 String pfpUrl = task.getResult().toString();
                                 reference.child(userID).child("user_image").setValue(pfpUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         progressDialog.dismiss();
-                                        if(task.isSuccessful())
-                                        {
+                                        if (task.isSuccessful()) {
                                             Toast.makeText(ProfileActivity.this, "Profile picture updated", Toast.LENGTH_SHORT).show();
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             Toast.makeText(ProfileActivity.this, "Failed to update profile picture", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
-                            }
-                            else
-                            {
+                            } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(ProfileActivity.this, "Failed to update profile picture", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                }
-                else
-                {
+                } else {
                     progressDialog.dismiss();
                     Toast.makeText(ProfileActivity.this, "Failed to update profile picture", Toast.LENGTH_SHORT).show();
                 }
@@ -307,5 +293,28 @@ public class ProfileActivity extends AppCompatActivity {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/maityamit/Tracky-Track-your-goals-or-targets"));
         startActivity(browserIntent);
 
+    }
+
+    public void EditName(View view) { //Called from OnClick in XML
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(ProfileActivity.this); //Created alert Dialog
+        mydialog.setTitle("Enter your new name"); //Title of EditText
+        final EditText weightInput = new EditText(ProfileActivity.this);
+        weightInput.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+        mydialog.setView(weightInput);
+        mydialog.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String myText = weightInput.getText().toString(); //Saving Entered name in String
+                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference(); //Getting Firebase Database
+                rootRef.child("Users").child(userID).child("name").setValue(myText); //calling child and setting
+            }
+        });
+        mydialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel(); //cancel button
+            }
+        });
+        mydialog.show();
     }
 }
