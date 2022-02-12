@@ -128,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
                     userMap.put("name",userName);
                     userMap.put("email",email);
                     userMap.put("Phone_Number",phone);
-                    userMap.put("user_image",st);
+                    if(!userMap.containsKey("user_image")) userMap.put("user_image",st);
                     //userMap.put("Password",passwd);
 
                     UsersReference.child(UID).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
