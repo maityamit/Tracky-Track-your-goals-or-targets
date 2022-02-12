@@ -24,7 +24,7 @@
         <activity android:name=".ForgetpassActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".SigninActivity" />
-        <activity android:name=".AddtripActivity" />
+        <activity android:name=".AddGoalActivity" />
         <activity android:name=".SplasshActivity"
             android:exported="true">
             <intent-filter>

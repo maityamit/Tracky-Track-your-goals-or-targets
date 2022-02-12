@@ -3,23 +3,18 @@ package achivementtrackerbyamit.example.achivetracker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.contentcapture.DataShareRequest;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -41,9 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import soup.neumorphism.NeumorphShapeAppearanceModel;
-
-public class AddtripActivity extends AppCompatActivity
+public class AddGoalActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener  {
 
     String[] courses = {"High","Medium","Less"};;
@@ -62,7 +55,7 @@ public class AddtripActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addtrip);
+        setContentView(R.layout.activity_addgoal);
 
 
         InitializationMethod();
@@ -198,7 +191,7 @@ public class AddtripActivity extends AppCompatActivity
 
         if (TextUtils.isEmpty (string))
         {
-            Toast.makeText(AddtripActivity.this, "Enter any Trip name ..", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddGoalActivity.this, "Enter any Trip name ..", Toast.LENGTH_SHORT).show();
         }
         else if(bool2 || bool3) //If the selected date is Future or Today's Date
         {
@@ -216,7 +209,7 @@ public class AddtripActivity extends AppCompatActivity
             RootRef.child("Goals").child("Active").child(string_trip)
                     .updateChildren ( onlineStat );
 
-            Intent loginIntent = new Intent ( AddtripActivity.this,HomeActivity.class );
+            Intent loginIntent = new Intent ( AddGoalActivity.this,HomeActivity.class );
             loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
             startActivity ( loginIntent );
 

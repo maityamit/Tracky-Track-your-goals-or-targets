@@ -7,23 +7,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,8 +34,6 @@ import com.google.firebase.database.ValueEventListener;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -98,7 +90,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void sendData() {
 
-        Intent intent= new Intent(DashboardActivity.this,AddtripActivity.class);
+        Intent intent= new Intent(DashboardActivity.this, AddGoalActivity.class);
         intent.putExtra(ADD_TRIP_TAG,ADD_TRIP_VALUE);
         intent.putExtra(ADD_TRIP_DATA_KEY,id);
         startActivity(intent);
