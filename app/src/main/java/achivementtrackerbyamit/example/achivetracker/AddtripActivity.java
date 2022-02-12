@@ -1,6 +1,7 @@
 package achivementtrackerbyamit.example.achivetracker;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.contentcapture.DataShareRequest;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -52,6 +54,10 @@ public class AddtripActivity extends AppCompatActivity
     private DatabaseReference RootRef;
     String string_priority = "Less" ;
     Spinner spino;
+    @Nullable private String TAG;
+    //Bundle bundle;
+    private String dataKey;
+    //private String prevConsistency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,20 @@ public class AddtripActivity extends AppCompatActivity
 
 
         InitializationMethod();
+        TAG= getIntent().getStringExtra(DashboardActivity.ADD_TRIP_TAG);
+        //bundle= getIntent().getExtras();
+
+        if(TAG!=null && TAG.equals(DashboardActivity.ADD_TRIP_VALUE)) {
+            retrievePreviousData();
+        }
+        else{
+            findViewById(R.id.create_goal_text_view).setVisibility(View.VISIBLE);
+        }
+
+      /*  if(bundle.getString(DashboardActivity.ADD_TRIP_TAG).equals(DashboardActivity.ADD_TRIP_VALUE)){
+            retrievePreviousData();
+            //updateData= true;
+        }*/
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +89,7 @@ public class AddtripActivity extends AppCompatActivity
         });
 
     }
+
 
     private void InitializationMethod() {
 
@@ -107,8 +128,19 @@ public class AddtripActivity extends AppCompatActivity
 
 
     private void YESONCLICK() {
-        String trip_key = RootRef.child("Goals").child("Active").push().getKey();
-        CreteATripNew(trip_key);
+      //
+
+        /*CreteATripNew(
+                 updateData? dataKey :
+                         RootRef.child("Goals").child("Active").push().getKey());*/
+          if(TAG!=null && TAG.equals(DashboardActivity.ADD_TRIP_VALUE)) {
+              CreteATripNew(dataKey);
+          }
+          else {
+              String trip_key = RootRef.child("Goals").child("Active").push().getKey();
+              CreteATripNew(trip_key);
+          }
+
     }
 
 
@@ -205,7 +237,8 @@ public class AddtripActivity extends AppCompatActivity
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
-    }
+       }
+
 
     public static List<Date> getDates(String dateString1, String dateString2)
     {
@@ -236,4 +269,31 @@ public class AddtripActivity extends AppCompatActivity
         }
         return dates;
     }
+
+
+    private void retrievePreviousData() {
+
+
+        //dataKey= bundle.getString(DashboardActivity.ADD_TRIP_DATA_KEY);
+        dataKey= getIntent().getStringExtra(DashboardActivity.ADD_TRIP_DATA_KEY);
+
+        RootRef.child("Goals").child("Active").child(dataKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String prevName= snapshot.child ( "GoalName" ).getValue ().toString ();
+                tripname.setText(prevName);
+               // findViewById(R.id.create_goal_text_view).setTooltipText("Update Goal");
+                findViewById(R.id.create_goal_text_view).setVisibility(View.GONE);
+                yes.setText("Submit");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
 }
