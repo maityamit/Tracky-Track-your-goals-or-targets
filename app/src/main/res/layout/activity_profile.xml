@@ -35,44 +35,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
+
     <TextView
         android:id="@+id/users_email"
         android:layout_width="330dp"
         android:layout_height="55dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/edittextbox"
         android:ems="10"
+        android:gravity="center_vertical"
         android:hint="Your Email ID"
         android:inputType="textEmailAddress"
-        android:gravity="center_vertical"
         android:paddingLeft="15dp"
-        android:textSize="19dp"
         android:textColor="@color/black"
         android:textColorHint="#302F2F"
-        app:layout_constraintEnd_toEndOf="@+id/users_name"
+        android:textSize="19dp"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/users_name"
-        app:layout_constraintTop_toBottomOf="@+id/users_name" />
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4" />
 
-    <TextView
-        android:id="@+id/users_name"
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
         android:layout_width="330dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/edittextbox"
-        android:ems="10"
-        android:hint="Your Name"
-        android:gravity="center_vertical"
-        android:textSize="19dp"
-        android:drawableRight="@drawable/edit"
-        android:paddingLeft="20dp"
-        android:paddingRight="15dp"
-        android:textColor="@color/black"
-        android:textColorHint="#302F2F"
+        android:layout_height="56dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_pic" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_pic">
+
+        <ImageView
+            android:id="@+id/editName"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:onClick="EditName"
+            android:layout_marginBottom="14dp"
+            android:src="@drawable/edit" />
+
+        <TextView
+            android:id="@+id/users_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/edittextbox"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="Your Name"
+            android:paddingLeft="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="#302F2F"
+            android:textSize="19dp"
+            tools:layout_editor_absoluteY="320dp" />
+    </RelativeLayout>
+
 
 
     <androidx.appcompat.widget.AppCompatButton
