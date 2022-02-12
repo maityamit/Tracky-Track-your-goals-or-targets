@@ -17,6 +17,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,17 +46,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private FirebaseUser user;
+
     TextView welcome1, welcome2;
     private DatabaseReference reference;
     ProgressDialog progressDialog;
     private String userID;
     AppCompatButton Logout;
     ImageButton profilePicButton;
+    ImageView editname;
     CircleImageView profilePic;
     private final int GALLERY_INTENT_CODE = 993;
     private final int CAMERA_INTENT_CODE = 990;
-    private String DISPLAY_NAME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         InitializationMethod();
         getUserDatafromFirebase();
+
+        editname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditName();
+            }
+        });
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +94,7 @@ public class ProfileActivity extends AppCompatActivity {
         welcome1 = findViewById(R.id.users_name);
         welcome2 = findViewById(R.id.users_email);
         Logout = findViewById(R.id.logout);
+        editname = findViewById(R.id.editName);
 
         // Button for adding profile pic
         profilePicButton = (ImageButton) findViewById(R.id.profile_pic_button);
@@ -295,7 +304,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    public void EditName(View view) { //Called from OnClick in XML
+    public void EditName() {
+
         AlertDialog.Builder mydialog = new AlertDialog.Builder(ProfileActivity.this); //Created alert Dialog
         mydialog.setTitle("Enter your new name"); //Title of EditText
         final EditText weightInput = new EditText(ProfileActivity.this);
@@ -305,8 +315,9 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String myText = weightInput.getText().toString(); //Saving Entered name in String
-                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference(); //Getting Firebase Database
-                rootRef.child("Users").child(userID).child("name").setValue(myText); //calling child and setting
+
+                reference.child(userID).child("name").setValue(myText); //calling child and setting
+                welcome1.setText(myText);
             }
         });
         mydialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

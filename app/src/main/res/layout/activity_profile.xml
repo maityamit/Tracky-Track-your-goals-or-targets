@@ -73,7 +73,6 @@
             android:layout_alignParentBottom="true"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
-            android:onClick="EditName"
             android:layout_marginBottom="14dp"
             android:src="@drawable/edit" />
 
