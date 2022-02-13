@@ -273,10 +273,34 @@ public class AddGoalActivity extends AppCompatActivity
         RootRef.child("Goals").child("Active").child(dataKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                // Get the previous goal name
                 String prevName= snapshot.child ( "GoalName" ).getValue ().toString ();
+               // Set the goal name
                 tripname.setText(prevName);
-               // findViewById(R.id.create_goal_text_view).setTooltipText("Update Goal");
+
+                // Get the previous date
+                String prevDate= snapshot.child("EndTime").getValue().toString();
+                prevDate= prevDate.substring(0,prevDate.indexOf(" "));
+                Date date1 = null;
+                try {
+                    //prevDate= prevDate.substring(0, prevDate.indexOf(" "));
+                    date1 = new SimpleDateFormat("dd/M/yyyy").parse(prevDate);
+
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Calendar calendar= Calendar.getInstance();
+                calendar.setLenient(true);
+                calendar.setTime(date1);
+
+                //Set the previous target date to date picker
+                datepicker.init(calendar.get(Calendar.YEAR),
+                        (calendar.get(Calendar.MONTH)),
+                        calendar.get(Calendar.DAY_OF_MONTH),null);
+
+               //Update other UI element
                 findViewById(R.id.create_goal_text_view).setVisibility(View.GONE);
                 yes.setText("Submit");
             }
