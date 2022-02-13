@@ -138,7 +138,11 @@ public class ActiveGoalFragment extends Fragment {
                         newList.add(goalList.get(i));
                     }
                 }
-                goalAdapter.setGoalList(newList);
+
+                if(!newList.isEmpty()){
+                    goalAdapter.setGoalList(newList);
+                }
+
 
                 // Making the no result text visible based on the size of the new list
                 if(!editable.toString().isEmpty() && newList.size()==0 && !(goalList.size() ==0))

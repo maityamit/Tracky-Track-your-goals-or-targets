@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +35,10 @@ import com.google.firebase.database.ValueEventListener;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -149,29 +152,38 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void share(Bitmap bitmap){
-        String pathofBmp=
-                MediaStore.Images.Media.insertImage(getContentResolver(),
-                        bitmap,"title", null);
-        Uri uri = Uri.parse(pathofBmp);
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("image/*");
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Tracky : track your Goal");
-        //Retrieve value of completed goal using shared preferences from RetreiveData() function
-        String goal_cmpltd = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("goal_completed","");
-        //Retreive value of consistency using shared preferences from RetreiveData() function
-        String goal_consistency = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("consistency","");
-        //Retreive goal name using shared preferences from RetreiveData() function
-        String goal_name = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("goal_name","");
-        //Retreive name using Shared preference from Retrieve data function
-        String user_name = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("name","");
-        //Code to add Text with image
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hi , I am "+user_name+" using this Tracky : Track your goal Application" +
-                " and by using this I measured my "+goal_name+" goal and be happy that I keep my consistency as "+goal_consistency+
-                "%. And I have also completed my goal "+goal_cmpltd+"%.So happy to share with you . #tracky #track #goal"
-        );
-        // Here You need to add code for issue
-        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(shareIntent, "hello hello"));
+
+
+
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String pathofBmp = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap , "IMG_" + Calendar.getInstance().getTime(), null);
+
+
+        if (!TextUtils.isEmpty(pathofBmp)){
+            Uri uri = Uri.parse(pathofBmp);
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("image/*");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Tracky : track your Goal");
+            //Retrieve value of completed goal using shared preferences from RetreiveData() function
+            String goal_cmpltd = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("goal_completed","");
+            //Retreive value of consistency using shared preferences from RetreiveData() function
+            String goal_consistency = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("consistency","");
+            //Retreive goal name using shared preferences from RetreiveData() function
+            String goal_name = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("goal_name","");
+            //Retreive name using Shared preference from Retrieve data function
+            String user_name = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).getString("name","");
+            //Code to add Text with image
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Hi , I am "+user_name+" using this Tracky : Track your goal Application" +
+                    " and by using this I measured my "+goal_name+" goal and be happy that I keep my consistency as "+goal_consistency+
+                    "%. And I have also completed my goal "+goal_cmpltd+"%.So happy to share with you . #tracky #track #goal"
+            );
+            // Here You need to add code for issue
+            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+            startActivity(Intent.createChooser(shareIntent, "hello hello"));
+        }
+
+
     }
 
 
