@@ -39,6 +39,7 @@
         android:layout_height="30dp">
 
         <RelativeLayout
+            android:id="@+id/RelativeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FBEDE1">
@@ -47,13 +48,11 @@
                 android:id="@+id/desc_goal_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:textSize="18sp"
                 android:layout_centerInParent="true"
+                android:layout_margin="2dp"
+                android:text="12 days 2:04:34"
                 android:textColor="#EF6C00"
-                android:text="12 days 2:04:34"/>
-
-
+                android:textSize="18sp" />
 
 
         </RelativeLayout>

@@ -2,6 +2,7 @@ package achivementtrackerbyamit.example.achivetracker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,7 @@ import java.util.Objects;
 public class DashboardActivity extends AppCompatActivity {
 
     TextView name,consis,left,goal_lft_pert;
+    RelativeLayout rel;
     String id = "";
     String currentUserID;
     RecyclerView recyclerView;
@@ -117,7 +120,7 @@ public class DashboardActivity extends AppCompatActivity {
         consis = findViewById(R.id.desc_goal_const);
         left = findViewById(R.id.desc_goal_left);
         goal_lft_pert = findViewById(R.id.desc_goal_leftper);
-
+        rel= findViewById(R.id.RelativeLayout);
         recyclerView = findViewById(R.id.history_recyler);
     }
 
@@ -244,7 +247,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void RetriveData() {
 
-       RootRef.child(id).addValueEventListener(new ValueEventListener() {
+        RootRef.child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -357,9 +360,23 @@ public class DashboardActivity extends AppCompatActivity {
                         long Hours = diff / (60 * 60 * 1000) % 24;
                         long Minutes = diff / (60 * 1000) % 60;
                         long Seconds = diff / 1000 % 60;
-                        //
+                        long totaldays= event_date.getTime()/(24 * 60 * 60 * 1000);
+                        long percent= (Days*100/totaldays);
                         left.setText(String.format("%02d",Days)+" days "+String.format("%02d", Hours)+" hours "+String.format("%02d", Minutes)+" minutes "+String.format("%02d", Seconds)+" seconds ");
-
+                        if(percent<=33) {
+                            left.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.red));
+                            rel.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.lightred));
+                        }
+                        else if(percent<=66)
+                        {
+                            left.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.yellow));
+                            rel.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.lightyellow));
+                        }
+                        else
+                        {
+                            left.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.green));
+                            rel.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.lightgreen));
+                        }
                     } else {
 
                         handler.removeCallbacks(runnable);
