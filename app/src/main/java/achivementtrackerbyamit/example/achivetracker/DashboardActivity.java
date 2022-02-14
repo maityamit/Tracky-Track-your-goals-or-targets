@@ -87,9 +87,9 @@ public class DashboardActivity extends AppCompatActivity {
         extendedFloatingShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //View gh = findViewById(R.id.testing_lay);
+                View gh = findViewById(R.id.relative_for_snap);
                 View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-                share(screenShot(rootView));
+                share(screenShot(gh));
             }
         });
 
