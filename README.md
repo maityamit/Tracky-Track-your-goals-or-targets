@@ -65,6 +65,8 @@ If you are preparing to achive any goal or target then , one of the importance p
     <td align="center"><a href="https://github.com/shubhankar-bt"><img src="https://avatars.githubusercontent.com/u/78974094?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Shubhankar Das
 </b></sub></a><br /></td>
    <td align="center"><a href="https://github.com/SB2318"><img src="https://avatars.githubusercontent.com/u/87614560?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Susmita Bhattacharya</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/atishay5203"><img src="https://avatars.githubusercontent.com/u/85008892?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Atishay Jain
+</b></sub></a><br /></td>
    </tr>
    
    </p>
