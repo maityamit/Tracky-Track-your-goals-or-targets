@@ -19,6 +19,7 @@
         <entry key="..\:/Tracky/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Tracky/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_signin.xml" value="0.36666666666666664" />
         <entry key="..\:/Tracky/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/progress_diaglog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Atishay Jain/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_dashboard.xml" value="0.2" />
         <entry key="..\:/Users/Manjot/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/box.xml" value="0.1985" />
         <entry key="..\:/Users/Manjot/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/ic_search.xml" value="0.1985" />
         <entry key="..\:/Users/Manjot/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/search_background.xml" value="0.1985" />
@@ -50,7 +51,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
