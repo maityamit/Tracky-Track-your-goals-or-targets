@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#E8E8E8"
     android:orientation="vertical"
     tools:context=".DashboardActivity">
 
@@ -12,6 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#E8E8E8"
         android:id="@+id/relative_for_snap">
 
 
@@ -28,7 +29,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="230dp"
             android:background="@drawable/back_for_dash"
             android:orientation="vertical">
 
@@ -201,7 +202,7 @@
                         android:layout_centerInParent="true"
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="12dp"
-                        app:cardCornerRadius="5dp"
+                        app:cardCornerRadius="12dp"
                         android:layout_height="wrap_content">
 
                         <RelativeLayout
