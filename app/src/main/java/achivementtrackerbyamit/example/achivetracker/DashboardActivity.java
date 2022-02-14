@@ -2,6 +2,7 @@ package achivementtrackerbyamit.example.achivetracker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +22,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +61,8 @@ public class DashboardActivity extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
     private Handler handler = new Handler();
     private Runnable runnable;
-    ExtendedFloatingActionButton extendedFloatingShareButton,extendedFloatingEditButton;
+    CardView extendedFloatingShareButton;
+    ImageView extendedFloatingEditButton;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
     String GoalName;
@@ -83,9 +87,9 @@ public class DashboardActivity extends AppCompatActivity {
         extendedFloatingShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View gh = findViewById(R.id.testing_lay);
+                //View gh = findViewById(R.id.testing_lay);
                 View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-                share(screenShot(gh));
+                share(screenShot(rootView));
             }
         });
 
@@ -116,11 +120,11 @@ public class DashboardActivity extends AppCompatActivity {
         newRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         name = findViewById(R.id.desc_goal_name);
         extendedFloatingShareButton = findViewById(R.id.share_Sss);
-        extendedFloatingEditButton= findViewById(R.id.edit_goal_btn);
+        extendedFloatingEditButton = findViewById(R.id.edit_goal_btn);
         consis = findViewById(R.id.desc_goal_const);
         left = findViewById(R.id.desc_goal_left);
         goal_lft_pert = findViewById(R.id.desc_goal_leftper);
-        rel= findViewById(R.id.RelativeLayout);
+        // rel= findViewById(R.id.RelativeLayout);
         recyclerView = findViewById(R.id.history_recyler);
     }
 
