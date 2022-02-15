@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -29,6 +30,9 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -63,6 +67,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Runnable runnable;
     CardView extendedFloatingShareButton;
     ImageView extendedFloatingEditButton;
+    ImageView deleteGoal;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
     String GoalName;
@@ -95,7 +100,46 @@ public class DashboardActivity extends AppCompatActivity {
 
         extendedFloatingEditButton.setOnClickListener(view-> sendData());
 
+        deleteGoal = findViewById(R.id.delete_goal);
+        deleteGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Alert dialog for confirming deletion of goal
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(DashboardActivity.this,R.style.AlertDialogTheme1);
+                builder.setTitle("Alert!");
+                builder.setMessage("Are you sure you want to delete this?");
+                builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
+                builder.setCancelable(false);
 
+                // If yes chosen, then delete the goal and go back to the main activity
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RootRef.child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful())
+                                {
+                                    Toast.makeText(DashboardActivity.this, "Goal deleted successfully", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                                else
+                                    Toast.makeText(DashboardActivity.this, "Failed to delete goal", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+
+                // If no chosen, then close the dialog box
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
     }
 
     private void sendData() {
@@ -254,7 +298,7 @@ public class DashboardActivity extends AppCompatActivity {
         RootRef.child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                if(!snapshot.exists()) return;
                 String goal_string = snapshot.child ( "GoalName" ).getValue ().toString ();
                 //Shared Preference to use the goal name in share() function
                 PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("goal_name",goal_string).commit();
