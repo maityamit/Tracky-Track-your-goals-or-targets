@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="#E8E8E8"
-    android:orientation="vertical"
-    tools:context=".DashboardActivity">
+    tools:context=".DashboardActivity"
+    android:layout_height="match_parent">
 
 
     <RelativeLayout
@@ -205,10 +200,9 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="12dp"
-                        app:cardCornerRadius="12dp"
+                        app:cardCornerRadius="5dp"
                         android:layout_height="wrap_content">
 
                         <RelativeLayout
@@ -324,89 +318,22 @@
 
     </RelativeLayout>
 
-  <!--
-    <LinearLayout
-        android:id="@+id/historyLayout"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_below="@id/relative_for_snap"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardBackgroundColor="#4ee44e"
-            app:cardElevation="8dp"
-            android:elevation="6dp"
-            app:cardCornerRadius="10dp">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardBackgroundColor="#cbf7c7"
-                android:layout_margin="2dp"
-                app:cardCornerRadius="10dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/history_recyler"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="40dp"
-                    android:layout_height="wrap_content">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <TextView
-                        android:id="@+id/historyIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="History"
-                        android:textColor="@android:color/black"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:layout_centerHorizontal="true"
-                        android:layout_margin="5dp"/>
-
-
-
-
-                </RelativeLayout>
-
-
-
-
-
-            </androidx.cardview.widget.CardView>
-
-        </androidx.cardview.widget.CardView>
-
-
-
-    </LinearLayout>
-
-    -->
     <LinearLayout
         android:id="@+id/history_calendarViewGroup"
-        android:layout_width="400dp"
-        android:padding="8dp"
+        android:layout_width="match_parent"
         android:gravity="center"
+        android:layout_above="@+id/below_layout"
         android:layout_height="wrap_content"
         android:layout_below="@id/relative_for_snap"
         android:orientation="vertical">
 
         <sun.bob.mcalendarview.MCalendarView
             android:id="@+id/history_calendarView"
-            android:layout_width="360dp"
-            android:layout_height="320dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/calendar_background"
             android:contentDescription="@string/target_date"
             tools:context=".DashboardActivity" />
@@ -416,19 +343,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/history_calendarViewGroup">
+        android:id="@+id/below_layout"
+        android:layout_alignParentBottom="true">
 
     <androidx.cardview.widget.CardView
         android:layout_width="120dp"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
         android:onClick="AlarmAct"
-        app:cardBackgroundColor="#aacdff"
-        app:cardCornerRadius="10dp">
+        app:cardBackgroundColor="#aacdff">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -463,12 +390,12 @@
         android:id="@+id/share_Sss"
         android:layout_width="120dp"
         android:layout_height="40dp"
-        app:cardBackgroundColor="#ddfada"
         app:cardCornerRadius="10dp"
-        android:layout_alignParentEnd="true"
         android:layout_marginBottom="20dp"
+        android:layout_alignParentEnd="true"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="#ddfada">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -502,4 +429,3 @@
     </RelativeLayout>
 
 </RelativeLayout>
-</ScrollView>
