@@ -92,14 +92,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:textColor="@android:color/white"
-        app:iconTint="#ffffff"
         android:layout_marginEnd="25sp"
         android:layout_marginBottom="50sp"
-        app:icon="@drawable/create_trip"
-        android:text="New Goal"
         android:textAllCaps="false"
-        android:textSize="16sp">
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:icon="@drawable/add"
+        app:iconTint="#ffffff">
 
 
     </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
