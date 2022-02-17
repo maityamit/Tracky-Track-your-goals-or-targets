@@ -9,7 +9,9 @@
         <entry key="..\:/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_signin.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_signup.xml" value="0.25416666666666665" />
+        <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable-v24/calendar_background.xml" value="0.1615" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_addgoal.xml" value="0.20416666666666666" />
+        <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_dashboard.xml" value="0.20416666666666666" />
         <entry key="..\:/Tracky/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/bg_round.xml" value="0.3828125" />
         <entry key="..\:/Tracky/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/box.xml" value="0.14629629629629629" />
         <entry key="..\:/Tracky/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/circle.xml" value="0.14629629629629629" />
@@ -38,7 +40,11 @@
         <entry key="..\:/Users/Manjot/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_active_goal.xml" value="0.25" />
         <entry key="..\:/Users/Manjot/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_archive_goal.xml" value="0.25" />
         <entry key="..\:/Users/Manjot/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/main_tiles_layout.xml" value="0.25" />
+        <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_addgoal.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_alarm.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_dashboard.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_forgetpass.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_profile.xml" value="0.22" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/main_tiles_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/progress_diaglog.xml" value="0.20416666666666666" />

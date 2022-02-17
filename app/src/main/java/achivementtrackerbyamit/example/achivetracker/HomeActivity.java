@@ -91,6 +91,7 @@ public class HomeActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(HomeActivity.this, "Add new Goals", Toast.LENGTH_SHORT).show(); //Informs user that what this button does
                 Intent intent = new Intent(HomeActivity.this, AddGoalActivity.class);
                 startActivity(intent);
             }
