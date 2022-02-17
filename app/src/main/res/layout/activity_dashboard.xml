@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E8E8E8"
@@ -319,6 +324,7 @@
 
     </RelativeLayout>
 
+  <!--
     <LinearLayout
         android:id="@+id/historyLayout"
         android:layout_width="match_parent"
@@ -387,41 +393,66 @@
 
     </LinearLayout>
 
+    -->
+    <LinearLayout
+        android:id="@+id/history_calendarViewGroup"
+        android:layout_width="400dp"
+        android:padding="8dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relative_for_snap"
+        android:orientation="vertical">
+
+        <sun.bob.mcalendarview.MCalendarView
+            android:id="@+id/history_calendarView"
+            android:layout_width="360dp"
+            android:layout_height="320dp"
+            android:background="@drawable/calendar_background"
+            android:contentDescription="@string/target_date"
+            tools:context=".DashboardActivity" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/history_calendarViewGroup">
+
     <androidx.cardview.widget.CardView
         android:layout_width="120dp"
-        android:layout_height="40dp"
-        app:cardBackgroundColor="#aacdff"
-        android:layout_alignParentBottom="true"
-        android:onClick="AlarmAct"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="20dp"
-        app:cardCornerRadius="10dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="AlarmAct"
+        app:cardBackgroundColor="#aacdff"
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="2"
             android:layout_margin="3dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <ImageView
                 android:layout_width="30dp"
-                android:layout_weight="1"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_access_alarms_24"/>
+                android:layout_weight="1"
+                android:src="@drawable/ic_baseline_access_alarms_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Alarm"
-                android:textSize="20sp"
-                android:layout_weight="1"
-                android:typeface="sans"
                 android:layout_gravity="center"
-                android:textColor="#0E86D4"/>
+                android:layout_weight="1"
+                android:text="Alarm"
+                android:textColor="#0E86D4"
+                android:textSize="20sp"
+                android:typeface="sans" />
 
 
         </LinearLayout>
@@ -434,7 +465,6 @@
         android:layout_height="40dp"
         app:cardBackgroundColor="#ddfada"
         app:cardCornerRadius="10dp"
-       android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
@@ -469,8 +499,7 @@
 
     </androidx.cardview.widget.CardView>
 
-
-
-
+    </RelativeLayout>
 
 </RelativeLayout>
+</ScrollView>

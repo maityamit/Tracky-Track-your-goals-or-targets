@@ -47,10 +47,16 @@ import org.eazegraph.lib.models.PieModel;
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
+
+import sun.bob.mcalendarview.MCalendarView;
+import sun.bob.mcalendarview.MarkStyle;
+import sun.bob.mcalendarview.vo.DateData;
+import sun.bob.mcalendarview.vo.MarkedDates;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -58,7 +64,9 @@ public class DashboardActivity extends AppCompatActivity {
     RelativeLayout rel;
     String id = "";
     String currentUserID;
-    RecyclerView recyclerView;
+    //RecyclerView recyclerView;
+    MCalendarView mCalendarView;
+    ArrayList<DateData> dataArrayList;
     ProgressDialog progressDialog;
     DatabaseReference RootRef,HelloREf,newRef;
     @SuppressLint("SimpleDateFormat")
@@ -81,9 +89,10 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         InitializationMethod();
 
+         clearCalendar();
+         highLightDate();
 
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(DashboardActivity.this));
+        //recyclerView.setLayoutManager(new LinearLayoutManager(DashboardActivity.this));
 
 
 
@@ -167,9 +176,10 @@ public class DashboardActivity extends AppCompatActivity {
         extendedFloatingEditButton = findViewById(R.id.edit_goal_btn);
         consis = findViewById(R.id.desc_goal_const);
         left = findViewById(R.id.desc_goal_left);
+        mCalendarView= findViewById(R.id.history_calendarView);
         goal_lft_pert = findViewById(R.id.desc_goal_leftper);
         // rel= findViewById(R.id.RelativeLayout);
-        recyclerView = findViewById(R.id.history_recyler);
+        //recyclerView = findViewById(R.id.history_recyler);
     }
 
     // Here is the second progress Dialog Box
@@ -245,7 +255,7 @@ public class DashboardActivity extends AppCompatActivity {
         super.onStart ();
 
         showProgressDialog();
-
+/*
         FirebaseRecyclerOptions<HistoryClass> options =
                 new FirebaseRecyclerOptions.Builder<HistoryClass> ()
                         .setQuery ( HelloREf,HistoryClass.class )
@@ -287,6 +297,8 @@ public class DashboardActivity extends AppCompatActivity {
         adapter.startListening ();
 
 
+
+ */
 
 
     }
@@ -478,6 +490,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
+    /*
     public static class StudentViewHolder2 extends  RecyclerView.ViewHolder
     {
 
@@ -489,12 +502,73 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
+     */
+
     public void AlarmAct(View view) {
         Intent i = new Intent(getApplicationContext(), AlarmActivity.class); //Pass to AlarmActivity Class
         i.putExtra("GoalName", GoalName); //Passing Goal Name
         startActivity(i);
     }
 
+    private void   highLightDate(){
 
+        //ArrayList<DateData> dataArrayList;
+        HelloREf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()){
+                    dataArrayList = new ArrayList<DateData>();
+                    for(DataSnapshot snapshot1:snapshot.getChildren()){
+
+                        String strDate= snapshot1.getKey();
+                        // Log.d("ParseException",strDate);
+                        int day = Integer.parseInt(strDate.substring(0,strDate.indexOf("-")));
+                        int month= Integer.parseInt(strDate.substring(3,strDate.lastIndexOf("-")));
+                        int year= Integer.parseInt(strDate.substring(strDate.lastIndexOf("-")+1,9));
+                        DateData date= new DateData(year,month,day);
+                        dataArrayList.add(date);
+
+                    }
+                    // MCalendarView mCalendarView= findViewById(R.id.history_calendarView);
+                    for(int i=0; i< dataArrayList.size();i++){
+
+                        DateData date= dataArrayList.get(i);
+
+                        mCalendarView.markDate(date.getYear(),
+                                date.getMonth(),
+                                date.getDay());
+
+                        mCalendarView.setMarkedStyle(MarkStyle.BACKGROUND);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        clearCalendar();
+    }
+
+    private void clearCalendar(){
+
+        MarkedDates markedDates= mCalendarView.getMarkedDates();
+
+        ArrayList<DateData> currDataList= markedDates.getAll();
+
+        for(int i=0; i<currDataList.size();i++){
+
+            DateData data= currDataList.get(i);
+
+            mCalendarView.unMarkDate(data.getYear(),data.getMonth(),data.getDay());
+        }
+    }
 
 }
