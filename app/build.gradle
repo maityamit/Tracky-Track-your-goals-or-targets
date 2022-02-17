@@ -86,4 +86,7 @@ dependencies {
 
     //Simple arc loader
     implementation 'com.leo.simplearcloader:simplearcloader:1.0.3'
+
+    // Calendar View Dependency
+    implementation 'sun.bob:mcalendarview:1.0.0'
 }
