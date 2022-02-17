@@ -255,50 +255,6 @@ public class DashboardActivity extends AppCompatActivity {
         super.onStart ();
 
         showProgressDialog();
-/*
-        FirebaseRecyclerOptions<HistoryClass> options =
-                new FirebaseRecyclerOptions.Builder<HistoryClass> ()
-                        .setQuery ( HelloREf,HistoryClass.class )
-                        .build ();
-
-
-        FirebaseRecyclerAdapter<HistoryClass, StudentViewHolder2> adapter =
-                new FirebaseRecyclerAdapter<HistoryClass,StudentViewHolder2> (options) {
-                    @Override
-                    protected void onBindViewHolder(@NonNull final StudentViewHolder2 holder, final int position, @NonNull final HistoryClass model) {
-
-                        String listPostKey = getRef(position).getKey();
-
-                        holder.text.setText(listPostKey+" is your day ..");
-
-
-                    }
-
-                    @NonNull
-                    @Override
-                    public StudentViewHolder2 onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-                        View view  = LayoutInflater.from ( viewGroup.getContext () ).inflate ( R.layout.history_layout,viewGroup,false );
-                        StudentViewHolder2 viewHolder  = new StudentViewHolder2(  view);
-                        return viewHolder;
-
-                    }
-
-                    @Override
-                    public void onDataChanged() {
-                        super.onDataChanged();
-
-
-
-                    }
-
-
-                };
-        recyclerView.setAdapter ( adapter );
-        adapter.startListening ();
-
-
-
- */
 
 
     }
@@ -490,19 +446,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    /*
-    public static class StudentViewHolder2 extends  RecyclerView.ViewHolder
-    {
-
-        TextView text;
-        public StudentViewHolder2(@NonNull View itemView) {
-            super ( itemView );
-            text = itemView.findViewById ( R.id.history_yourday);
-
-        }
-    }
-
-     */
 
     public void AlarmAct(View view) {
         Intent i = new Intent(getApplicationContext(), AlarmActivity.class); //Pass to AlarmActivity Class
@@ -539,7 +482,7 @@ public class DashboardActivity extends AppCompatActivity {
                                 date.getMonth(),
                                 date.getDay());
 
-                        mCalendarView.setMarkedStyle(MarkStyle.BACKGROUND);
+                        mCalendarView.setMarkedStyle(MarkStyle.BACKGROUND,Color.BLUE);
                     }
                 }
             }
