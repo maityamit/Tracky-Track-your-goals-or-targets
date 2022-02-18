@@ -64,6 +64,8 @@ public class DashboardActivity extends AppCompatActivity {
     RelativeLayout rel;
     String id = "";
     String currentUserID;
+    ImageView descButton;
+    String description;
     //RecyclerView recyclerView;
     MCalendarView mCalendarView;
     ArrayList<DateData> dataArrayList;
@@ -149,6 +151,24 @@ public class DashboardActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+
+
+
+        descButton = findViewById(R.id.desc_button);
+        descButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(DashboardActivity.this,R.style.AlertDialogTheme1);
+                builder.setTitle(name.getText().toString());
+                builder.setMessage(description);
+                builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
+                builder.setIcon(R.drawable.ic_info);
+                builder.show();
+            }
+        });
+
+
     }
 
     private void sendData() {
@@ -272,6 +292,8 @@ public class DashboardActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("goal_name",goal_string).commit();
                 String goal_end = snapshot.child ( "EndTime" ).getValue ().toString ();
                 String goal_create = snapshot.child ( "TodayTime" ).getValue ().toString ();
+                if(snapshot.child("Goal_Description").getValue()!=null)
+                    description = String.valueOf(snapshot.child("Goal_Description").getValue());
 
                 Date today = new Date();
                 String todaay = simpleDateFormat.format(today);
