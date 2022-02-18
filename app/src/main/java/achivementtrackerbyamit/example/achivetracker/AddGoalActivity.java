@@ -326,5 +326,5 @@ public class AddGoalActivity extends AppCompatActivity
         });
     }
 
-
+    // Life is sad
 }
