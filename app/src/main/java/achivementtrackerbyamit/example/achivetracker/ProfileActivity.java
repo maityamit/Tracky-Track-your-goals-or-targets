@@ -4,14 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.View;
@@ -20,14 +25,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,10 +38,17 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -48,7 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     TextView welcome1, welcome2;
-    private DatabaseReference reference;
+    private DatabaseReference reference, tillActive;
     ProgressDialog progressDialog;
     private String userID;
     AppCompatButton Logout;
@@ -57,6 +66,10 @@ public class ProfileActivity extends AppCompatActivity {
     CircleImageView profilePic;
     private final int GALLERY_INTENT_CODE = 993;
     private final int CAMERA_INTENT_CODE = 990;
+    final private int REQUEST_CODE_PERMISSION = 111;
+    ArrayList<String> GoalName;
+    String fileName;
+    File pdf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +119,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
 
+        tillActive = FirebaseDatabase.getInstance ().getReference ().child("Users").child(userID).child("Goals").child("Active");
     }
 
     private void getUserDatafromFirebase() {
@@ -328,4 +342,99 @@ public class ProfileActivity extends AppCompatActivity {
         });
         mydialog.show();
     }
+    public void PDF(View view) {
+        GoalName = new ArrayList<>(); //Initialize
+        tillActive.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                GoalName.clear();
+                for(DataSnapshot snapshot1 : snapshot.getChildren()) { //get all Goal IDs
+                    GoingCLass going = snapshot1.getValue(GoingCLass.class);
+                    String s = going.getGoalName(); //Get data of Goal Name from that ID
+                    GoalName.add(s); //add in arraylist
+                   // Toast.makeText(ProfileActivity.this, s, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        Naming(); //Dialog EditText
+    }
+
+    private void Naming() {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(ProfileActivity.this); //Created alert Dialog
+        mydialog.setTitle("Enter PDF name"); //Title of EditText
+        final EditText f = new EditText(ProfileActivity.this);
+        f.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+        mydialog.setView(f);
+        mydialog.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                fileName = f.getText().toString(); //Saving Entered name in String
+                createPDF();
+            }
+        });
+        mydialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel(); //cancel button
+            }
+        });
+        mydialog.show();
+    }
+
+    private void createPDF() {
+        int hasWritePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (hasWritePermission != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!shouldShowRequestPermissionRationale(Manifest.permission.WRITE_CONTACTS)) {
+                    new AlertDialog.Builder(this)
+                            .setMessage("Access Storage Permission")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .create()
+                            .show();
+                    return;
+                }
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
+            }
+            return;
+        } else {
+            File docPath = new File(Environment.getExternalStorageDirectory() + "/Documents");
+            if (!docPath.exists()) {
+                docPath.mkdir();
+            }
+            pdf = new File(docPath.getAbsolutePath(), fileName + ".pdf");
+            try {
+                OutputStream stream = new FileOutputStream(pdf);
+
+                Document document = new Document();
+                PdfWriter.getInstance(document, stream);
+                document.open();
+                document.add(new Paragraph("Your Active Goals are: \n"));
+                for(String s : GoalName) {
+                    document.add(new Paragraph(s));
+                }
+                document.close();
+                Snackbar snacbar = Snackbar.make(findViewById(android.R.id.content), fileName + " Saved: " + pdf.toString(), Snackbar.LENGTH_SHORT);
+                snacbar.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
