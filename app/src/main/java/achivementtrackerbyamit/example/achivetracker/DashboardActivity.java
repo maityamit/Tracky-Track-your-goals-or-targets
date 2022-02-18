@@ -75,8 +75,6 @@ public class DashboardActivity extends AppCompatActivity {
     private Runnable runnable;
     CardView extendedFloatingShareButton;
     ImageView extendedFloatingEditButton;
-    ImageView descButton;
-    String description;
     ImageView deleteGoal;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
@@ -148,20 +146,6 @@ public class DashboardActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-                builder.show();
-            }
-        });
-
-        descButton = findViewById(R.id.desc_button);
-        descButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(DashboardActivity.this,R.style.AlertDialogTheme1);
-                builder.setTitle(name.getText().toString());
-                builder.setMessage(description);
-                builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
-                builder.setIcon(R.drawable.ic_info);
                 builder.show();
             }
         });
@@ -289,8 +273,6 @@ public class DashboardActivity extends AppCompatActivity {
                 String goal_end = snapshot.child ( "EndTime" ).getValue ().toString ();
                 String goal_create = snapshot.child ( "TodayTime" ).getValue ().toString ();
 
-                // Getting the goal description
-                if(snapshot.child("Goal_Description").getValue()!=null) description = String.valueOf(snapshot.child("Goal_Description").getValue());
                 Date today = new Date();
                 String todaay = simpleDateFormat.format(today);
 

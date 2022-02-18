@@ -61,35 +61,11 @@
                 />
         </soup.neumorphism.NeumorphCardView>
 
-        <soup.neumorphism.NeumorphCardView
-            android:id="@+id/goal_desc_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/goal_enter_card"
-            app:neumorph_shapeType="basin"
-            android:layout_marginHorizontal="10dp">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"
-                android:gravity="center"
-                android:hint="Enter your Goal Description"
-                android:background="@color/background_neumor"
-                android:textSize="17sp"
-                android:id="@+id/edit_text_trip_desc"
-                android:inputType="textLongMessage"
-                android:textStyle="normal"
-                android:scrollbars="horizontal"
-                android:isScrollContainer="true"
-                />
-        </soup.neumorphism.NeumorphCardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_margin="10dp"
-            android:layout_below="@id/goal_desc_card"
+            android:layout_below="@id/goal_enter_card"
             android:layout_height="wrap_content">
 
             <LinearLayout
