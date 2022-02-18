@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Scroller;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ public class AddGoalActivity extends AppCompatActivity
     String[] courses = {"High","Medium","Less"};;
     public Button yes,no;
     private EditText tripname;
+    private EditText goalDesc;
     private String currentUserID;
     private DatePicker datepicker;
     private DatabaseReference RootRef;
@@ -115,6 +118,14 @@ public class AddGoalActivity extends AppCompatActivity
 
         yes = (Button) findViewById(R.id.create_trip_submit_butyyon);
         //  no = (Button) findViewById(R.id.cancel_trip_submit_butyyon);
+
+        // EditText for goal description
+        goalDesc = findViewById(R.id.edit_text_trip_desc);
+        goalDesc.setScroller(new Scroller(this));
+        goalDesc.setMaxLines(1);
+        goalDesc.setVerticalScrollBarEnabled(true);
+        goalDesc.setMovementMethod(new ScrollingMovementMethod());
+
         tripname = (EditText)findViewById(R.id.edit_text_trip_name);
         datepicker = (DatePicker) findViewById(R.id.edit_text_trip_date);
     }
@@ -168,7 +179,7 @@ public class AddGoalActivity extends AppCompatActivity
         String strDate_only = formatt_only.format(calendar.getTime());
 
         String string = tripname.getText().toString();
-
+        String description = goalDesc.getText().toString();
         //MyCode Begins Here
         //Today's Date
         SimpleDateFormat todayFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -205,6 +216,9 @@ public class AddGoalActivity extends AppCompatActivity
             onlineStat.put ( "TodayTime", todaay);
             onlineStat.put ( "Consistency","0");
             onlineStat.put ( "Win","");
+
+            // Putting the goal description
+            onlineStat.put("Goal_Description",description);
 
             RootRef.child("Goals").child("Active").child(string_trip)
                     .updateChildren ( onlineStat );
