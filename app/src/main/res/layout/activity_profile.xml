@@ -40,7 +40,7 @@
         android:id="@+id/users_email"
         android:layout_width="330dp"
         android:layout_height="55dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/edittextbox"
         android:ems="10"
         android:gravity="center_vertical"
@@ -92,73 +92,75 @@
     </RelativeLayout>
 
 
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logout"
         android:layout_width="120dp"
         android:layout_height="55dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="140dp"
         android:background="@drawable/logout_button"
         android:text="Log Out"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="@+id/users_email"
-        app:layout_constraintStart_toStartOf="@+id/users_email"
-        app:layout_constraintTop_toBottomOf="@+id/users_email" />
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/PDFshare"
+        app:layout_constraintStart_toStartOf="@+id/PDFshare"
+        app:layout_constraintTop_toBottomOf="@+id/PDFshare"
+        app:layout_constraintVertical_bias="0.729" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logout">
+        app:layout_constraintTop_toBottomOf="@+id/logout"
+        app:layout_constraintVertical_bias="0.928"
+        tools:layout_editor_absoluteX="0dp">
 
 
         <TextView
             android:id="@+id/contrubter_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="17sp"
             android:layout_centerHorizontal="true"
-            android:text="This is an Open Source ❤ project"/>
+            android:text="This is an Open Source ❤ project"
+            android:textColor="@android:color/black"
+            android:textSize="17sp" />
 
 
         <androidx.cardview.widget.CardView
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_margin="30sp"
-            app:cardElevation="12sp"
             android:layout_below="@id/contrubter_text"
             android:layout_centerHorizontal="true"
-            app:cardCornerRadius="12dp">
+            android:layout_margin="30sp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="12sp">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:background="@drawable/backgroud_grad"
+                android:gravity="center_horizontal"
                 android:onClick="GithubLinkClick"
                 android:orientation="horizontal">
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="40dp"
-                    android:layout_margin="5dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/github_image"/>
+                    android:layout_margin="5dp"
+                    android:src="@drawable/github_image" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="18sp"
-                    android:textColor="#283593"
-                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"
-                    android:text="Github Repo"/>
+                    android:layout_marginStart="10dp"
+                    android:text="Github Repo"
+                    android:textColor="#283593"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -166,10 +168,7 @@
         </androidx.cardview.widget.CardView>
 
 
-
-
     </RelativeLayout>
-
 
     <ImageButton
         android:id="@+id/profile_pic_button"
@@ -178,6 +177,21 @@
         app:layout_constraintBottom_toBottomOf="@id/profile_pic"
         app:layout_constraintEnd_toEndOf="@id/profile_pic"
         android:background="@drawable/plus" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/PDFshare"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="Share Active Goal PDF"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:onClick="PDF"
+        android:background="@drawable/button"
+        app:layout_constraintEnd_toEndOf="@+id/users_email"
+        app:layout_constraintStart_toStartOf="@+id/users_email"
+        app:layout_constraintTop_toBottomOf="@+id/users_email" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

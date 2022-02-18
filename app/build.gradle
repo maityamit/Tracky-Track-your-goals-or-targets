@@ -89,4 +89,7 @@ dependencies {
 
     // Calendar View Dependency
     implementation 'sun.bob:mcalendarview:1.0.0'
+
+    implementation 'com.itextpdf:itextpdf:5.5.13'
+
 }
