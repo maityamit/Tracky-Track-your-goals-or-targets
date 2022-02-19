@@ -35,8 +35,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class AddGoalActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener  {
@@ -46,13 +48,14 @@ public class AddGoalActivity extends AppCompatActivity
     private EditText tripname;
     private String currentUserID;
     private DatePicker datepicker;
-    private DatabaseReference RootRef;
+    private DatabaseReference RootRef, ActiveRef;
     String string_priority = "Less" ;
     EditText  goalDesc;
     Spinner spino;
     @Nullable private String TAG;
     //Bundle bundle;
     private String dataKey;
+    Set<String> set;
     //private String prevConsistency;
 
     @Override
@@ -76,6 +79,8 @@ public class AddGoalActivity extends AppCompatActivity
             retrievePreviousData();
             //updateData= true;
         }*/
+
+
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +119,7 @@ public class AddGoalActivity extends AppCompatActivity
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID);
+        ActiveRef = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
 
 
         yes = (Button) findViewById(R.id.create_trip_submit_butyyon);
@@ -129,6 +135,26 @@ public class AddGoalActivity extends AppCompatActivity
         goalDesc.setMovementMethod(new ScrollingMovementMethod());
     }
 
+    public void onStart() {
+        super.onStart();
+        set = new HashSet<>(); //Initialize
+        ActiveRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                set.clear();
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) { //get all Goal IDs
+                    GoingCLass going = snapshot1.getValue(GoingCLass.class);
+                    String s = going.getGoalName(); //Get data of Goal Name from that ID
+                    set.add(s); //add in arraylist
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
     private void YESONCLICK() {
       //
@@ -203,8 +229,9 @@ public class AddGoalActivity extends AppCompatActivity
         if (TextUtils.isEmpty (string))
         {
             Toast.makeText(AddGoalActivity.this, "Enter any Trip name ..", Toast.LENGTH_SHORT).show();
-        }
-        else if(bool2 || bool3) //If the selected date is Future or Today's Date
+        } else if(set.contains(string)) {
+            Toast.makeText(this, "Goal Name Exists", Toast.LENGTH_SHORT).show();
+        } else if(bool2 || bool3) //If the selected date is Future or Today's Date
         {
 
 
