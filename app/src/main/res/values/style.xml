@@ -28,4 +28,34 @@
     <style name="PositiveButtonStyle1" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">#0F9D58</item>
     </style>
+
+    <style name="slider_btn_style">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/slider_button_shape</item>
+        <item name="android:textColor">#3D52C5</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="slider_tile_style" parent="Widget.MaterialComponents.TextView">
+      <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline4</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
+    <style name ="roundedSquareImage">
+
+        <item name="cornerSize">4%</item>
+    </style>
+    <style name="welcomeAppIconStyle">
+
+        <item name="cornerSize">18%</item>
+
+    </style>
 </resources>
