@@ -19,7 +19,7 @@
 
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="240dp"
+            android:layout_width="230dp"
             android:layout_height="490dp"
             android:layout_margin="16sp"
             android:src="@drawable/dashboard"

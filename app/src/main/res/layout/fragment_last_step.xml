@@ -7,7 +7,7 @@
     tools:context=".appIntro.slider.LastStepFragment"
     android:background="@drawable/gradient_last_step_bg">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:id="@+id/last_step_text"
         style="@style/slider_tile_style"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:layout_width="240dp"
+        android:layout_width="230dp"
         android:layout_height="490dp"
         android:layout_margin="16sp"
         android:src="@drawable/create_and_go"

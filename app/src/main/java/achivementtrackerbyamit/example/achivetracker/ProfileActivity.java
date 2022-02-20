@@ -352,7 +352,7 @@ public class ProfileActivity extends AppCompatActivity {
                     GoingCLass going = snapshot1.getValue(GoingCLass.class);
                     String s = going.getGoalName(); //Get data of Goal Name from that ID
                     GoalName.add(s); //add in arraylist
-                   // Toast.makeText(ProfileActivity.this, s, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(ProfileActivity.this, s, Toast.LENGTH_SHORT).show();
                 }
             }
 

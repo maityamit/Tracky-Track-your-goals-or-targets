@@ -27,10 +27,8 @@
         android:src="@drawable/main_kogo"
         app:layout_constraintBottom_toBottomOf="@id/welcome_next_btn"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@id/welcm_textView"
         app:layout_constraintVertical_bias="0.142"
         app:shapeAppearanceOverlay="@style/welcomeAppIconStyle"
