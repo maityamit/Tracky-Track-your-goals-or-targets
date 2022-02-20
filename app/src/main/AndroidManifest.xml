@@ -17,6 +17,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
         <activity
+            android:name=".appIntro.activity.AppIntroActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
             android:name=".AlarmActivity"
             android:exported="true" />
         <activity android:name=".HomeActivity" />
@@ -25,17 +36,15 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".SigninActivity" />
         <activity android:name=".AddGoalActivity" />
-        <activity android:name=".SplasshActivity"
+        <activity
+            android:name=".SplasshActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".DashboardActivity" />
-        <receiver android:name=".AlarmReceiver"/>
+
+        <receiver android:name=".AlarmReceiver" />
     </application>
 
 </manifest>
