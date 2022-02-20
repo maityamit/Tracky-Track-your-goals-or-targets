@@ -80,6 +80,8 @@ If you are preparing to achive any goal or target then , one of the importance p
 ||||
 |:----------------------------------------:|:-----------------------------------------:|:-----------------------------------------: |
 | ![Imgur](Images%20Demo/1.png) | ![Imgur](Images%20Demo/2.png) | ![Imgur](Images%20Demo/3.png) |
+| ![Imgur](Images%20Demo/4.png) | ![Imgur](Images%20Demo/5.png) | ![Imgur](Images%20Demo/6.png) |
+| ![Imgur](Images%20Demo/7.png) | ![Imgur](Images%20Demo/8.png) | ![Imgur](Images%20Demo/9.png) |
   
   
   
