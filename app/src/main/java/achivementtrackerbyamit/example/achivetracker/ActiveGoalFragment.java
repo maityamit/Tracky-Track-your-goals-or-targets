@@ -37,6 +37,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -73,6 +74,7 @@ public class ActiveGoalFragment extends Fragment {
     public static int maxId = 0;
     SimpleArcLoader mDialog;
     FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> adapter;
+    ExtendedFloatingActionButton button;
 
     // Used for carrying out goal search using the GoalAdapter
     GoalAdapter goalAdapter;
@@ -153,6 +155,17 @@ public class ActiveGoalFragment extends Fragment {
                 {
                     noResultText.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        // Floating action button for new goals
+        button = view.findViewById(R.id.create_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Add new Goals", Toast.LENGTH_SHORT).show(); //Informs user that what this button does
+                Intent intent = new Intent(getContext(), AddGoalActivity.class);
+                startActivity(intent);
             }
         });
         return  view;

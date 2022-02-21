@@ -74,5 +74,18 @@
         custom:arc_margin="3dp">
     </com.leo.simplearcloader.SimpleArcLoader>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/create_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="25sp"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:icon="@drawable/add"
+        app:iconTint="#ffffff" />
 
 </RelativeLayout>
