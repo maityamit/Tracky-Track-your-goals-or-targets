@@ -2,6 +2,7 @@ package achivementtrackerbyamit.example.achivetracker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,15 +22,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
+import achivementtrackerbyamit.example.achivetracker.archive.ArchiveGoalFragment;
+
 public class HomeActivity extends AppCompatActivity {
 
 
-    TabLayout tabLayout;
-    ViewPager viewPager;
+
+    ChipNavigationBar chipNavigationBar;
     String currentUserID;
     DatabaseReference RootRef;
     ImageView profile_button;
@@ -41,38 +45,23 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        tabLayout = findViewById(R.id.tabLayout);
+
 
         button = findViewById(R.id.create_button);
-        viewPager = findViewById(R.id.viewPager);
-        tabLayout.addTab(tabLayout.newTab().setText("Current"));
-        tabLayout.addTab(tabLayout.newTab().setText("Archive"));
-        tabLayout.setTabRippleColor(ColorStateList.valueOf(Color.parseColor("#000000")));
-        tabLayout.setTabTextColors(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+        chipNavigationBar = findViewById(R.id.bottom_nav_bar);
+        chipNavigationBar.setItemSelected(R.id.nav_home,
+                true);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frag_container_nav,
+                        new ActiveGoalFragment()).commit();
+        bottomMenu();
+
 
         profile_button = findViewById(R.id.logout_btn);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
 
-
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        final MyAdapter adapter = new MyAdapter(this,getSupportFragmentManager(),
-                tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
 
 
         profile_button.setOnClickListener(new View.OnClickListener() {
@@ -142,5 +131,29 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    private void bottomMenu() {
+        chipNavigationBar.setOnItemSelectedListener
+                (new ChipNavigationBar.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(int i) {
+                        Fragment fragment = null;
+                        switch (i){
+                            case R.id.nav_home:
+                                fragment = new ActiveGoalFragment();
+                                break;
+                            case R.id.nav_new_archive:
+                                fragment = new ArchiveGoalFragment();
+                                break;
+                            case R.id.nav_settings:
+                                fragment = new SettingsFragment();
+                                break;
+                        }
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.frag_container_nav,
+                                        fragment).commit();
+                    }
+                });
     }
 }

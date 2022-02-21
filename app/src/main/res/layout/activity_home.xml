@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="#e1f1ff"
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
@@ -11,7 +12,7 @@
         android:id="@+id/handlee"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#008AFF"
+        android:background="#e1f1ff"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -47,7 +48,7 @@
                 android:layout_marginStart="12sp"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:textColor="#FFFFFF"
+                android:textColor="#3a67ff"
                 android:text="Tracky : Track your goal"/>
 
         </LinearLayout>
@@ -69,31 +70,28 @@
 
     </RelativeLayout>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_below="@id/handlee"
-        android:layout_height="wrap_content"
-        android:background="#008AFF">
-    </com.google.android.material.tabs.TabLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tabLayout"
-        android:layout_centerInParent="true"
-        tools:layout_editor_absoluteX="8dp" />
+    <LinearLayout
+        android:id="@+id/frag_container_nav"
+        android:layout_width="match_parent"
+        android:layout_above="@id/bottom_nav_bar"
+        android:layout_below="@id/handlee"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+
+    </LinearLayout>
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/create_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_nav_bar"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="25sp"
-        android:layout_marginBottom="50sp"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="16sp"
@@ -103,6 +101,18 @@
 
     </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
 
+
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:id="@+id/bottom_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:cnb_unselectedColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="#3a67ff"
+        android:layout_gravity="bottom"
+        android:background="#fff"
+        android:fadingEdge="horizontal"
+        app:cnb_menuResource="@menu/menu" />
 
 
 </RelativeLayout>

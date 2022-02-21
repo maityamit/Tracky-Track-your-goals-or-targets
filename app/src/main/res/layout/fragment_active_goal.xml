@@ -15,23 +15,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:cardElevation="6dp"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:cardCornerRadius="30dp"
+            custom:cardElevation="6dp"
+            custom:cardCornerRadius="30dp"
             android:layout_marginHorizontal="10dp">
+
             <EditText
+                android:id="@+id/goal_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/goal_search"
-                android:hint="Search your goals...."
-                android:drawableLeft="@drawable/ic_search"
-                android:textSize="20dp"
-                android:inputType="textCapSentences"
-                android:singleLine="true"
-                android:scrollbars="horizontal"
                 android:background="@null"
+                android:drawableLeft="@drawable/ic_search"
+                android:hint="Search your goals...."
+                android:inputType="textCapSentences"
                 android:padding="10dp"
-                />
+                android:scrollbars="horizontal"
+                android:singleLine="true"
+                android:textSize="20dp" />
         </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView

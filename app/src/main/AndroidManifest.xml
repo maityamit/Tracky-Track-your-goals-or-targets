@@ -16,6 +16,7 @@
         android:roundIcon="@drawable/main_kogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
+
         <activity
             android:name=".appIntro.activity.AppIntroActivity"
             android:exported="true"
@@ -25,7 +26,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".AlarmActivity"
@@ -38,9 +38,7 @@
         <activity android:name=".AddGoalActivity" />
         <activity
             android:name=".SplasshActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".DashboardActivity" />
 
