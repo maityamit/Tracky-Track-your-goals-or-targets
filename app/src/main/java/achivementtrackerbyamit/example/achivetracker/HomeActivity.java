@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
     String currentUserID;
     DatabaseReference RootRef;
     ImageView profile_button;
-    ExtendedFloatingActionButton button;
+
     public static int confirmation = 0;
 
     @Override
@@ -46,8 +46,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-        button = findViewById(R.id.create_button);
         chipNavigationBar = findViewById(R.id.bottom_nav_bar);
         chipNavigationBar.setItemSelected(R.id.nav_home,
                 true);
@@ -73,19 +71,6 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "Add new Goals", Toast.LENGTH_SHORT).show(); //Informs user that what this button does
-                Intent intent = new Intent(HomeActivity.this, AddGoalActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
         RetriveUserImage();
 
