@@ -138,6 +138,7 @@ public class HomeActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.frag_container_nav,
                                         fragment).commit();
+
                     }
                 });
     }
