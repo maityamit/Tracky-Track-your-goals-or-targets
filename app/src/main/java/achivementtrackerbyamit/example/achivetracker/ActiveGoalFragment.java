@@ -192,6 +192,10 @@ public class ActiveGoalFragment extends Fragment {
                     @Override
                     protected void onBindViewHolder(@NonNull final StudentViewHolder2 holder, final int position, @NonNull final GoingCLass model) {
 
+
+
+
+
                         String listPostKey = getRef(position).getKey();
 
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
