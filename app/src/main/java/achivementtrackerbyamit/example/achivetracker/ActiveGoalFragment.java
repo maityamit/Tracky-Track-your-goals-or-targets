@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -191,6 +194,7 @@ public class ActiveGoalFragment extends Fragment {
 
                     @Override
                     protected void onBindViewHolder(@NonNull final StudentViewHolder2 holder, final int position, @NonNull final GoingCLass model) {
+
 
 
 
@@ -410,6 +414,7 @@ public class ActiveGoalFragment extends Fragment {
         RelativeLayout goal_type_layout;
         LinearLayout check_in_layout;
         CheckBox checkBox_true;
+        LinearLayout  linearLayout;
         public StudentViewHolder2(@NonNull View itemView) {
             super ( itemView );
             goal_name = itemView.findViewById ( R.id.lay_goal_name);
