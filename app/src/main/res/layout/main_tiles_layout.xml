@@ -12,7 +12,10 @@
         android:layout_margin="15sp"
         app:cardCornerRadius="11dp">
 
+
+
         <LinearLayout
+            android:id="@+id/main_tiles_linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
