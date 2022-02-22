@@ -31,46 +31,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SettingsFragment extends Fragment {
 
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
 
     private TextView username , rateus , share , privacypolicy;
     private DatabaseReference reference;
     private String userID;
     CircleImageView profilePic;
-    ImageButton home;
-    private String mParam1;
-    private String mParam2;
-    private View view;
-
-    public SettingsFragment() {
-        // Required empty public constructor
-    }
-    public static SettingsFragment newInstance(String param1, String param2) {
-        SettingsFragment fragment = new SettingsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         profilePic = view.findViewById(R.id.profile_pic);
-        home = view.findViewById(R.id.home_btn);
         rateus = view.findViewById(R.id.rateus);
         share = view.findViewById(R.id.share);
         privacypolicy = view.findViewById(R.id.privacy);
@@ -80,14 +52,6 @@ public class SettingsFragment extends Fragment {
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
 
-        //On pressing the home button it will intent you to HomeActivity
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity() , HomeActivity.class);
-                startActivity(intent);
-            }
-        });
 
         // Fetching data from firebase and displaying in the SettingsFragment
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
