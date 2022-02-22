@@ -1,6 +1,7 @@
 package achivementtrackerbyamit.example.achivetracker;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -23,6 +24,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,11 +42,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,12 +60,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import sun.bob.mcalendarview.MCalendarView;
 import sun.bob.mcalendarview.MarkStyle;
 import sun.bob.mcalendarview.vo.DateData;
 import sun.bob.mcalendarview.vo.MarkedDates;
 
 public class DashboardActivity extends AppCompatActivity {
+
+    private final int GALLERY_INTENT_CODE = 993;
+    private final int CAMERA_INTENT_CODE = 990;
 
     TextView name,consis,left,goal_lft_pert;
     RelativeLayout rel;
@@ -78,6 +89,8 @@ public class DashboardActivity extends AppCompatActivity {
     CardView extendedFloatingShareButton;
     ImageView extendedFloatingEditButton;
     ImageView deleteGoal;
+    ImageButton add_img;
+    CircleImageView goalPic;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
     String GoalName;
@@ -151,6 +164,12 @@ public class DashboardActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+        add_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowOptionsforProfilePic();
+            }
+        });
 
 
 
@@ -169,6 +188,118 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void ShowOptionsforProfilePic() {
+        new MaterialAlertDialogBuilder(DashboardActivity.this).setBackground(getResources().getDrawable(R.drawable.material_dialog_box)).setTitle("Change profile photo").setItems(new String[]{"Choose from gallery", "Take a new picture"}, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i)
+                {
+                    // Choosing image from gallery
+                    case 0:
+                        // Defining Implicit Intent to mobile gallery
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(
+                                Intent.createChooser(
+                                        intent,
+                                        "Select Image from here..."),
+                                GALLERY_INTENT_CODE);
+                        break;
+
+                    // Clicking a new picture using camera
+                    case 1:
+                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                            startActivityForResult(cameraIntent,CAMERA_INTENT_CODE);
+                        }
+                        startActivityForResult(cameraIntent,CAMERA_INTENT_CODE);
+                        break;
+                }
+            }
+        }).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK && data!=null)
+        {
+            Uri uri = (Uri) data.getData();
+            switch (requestCode)
+            {
+                // Image received from gallery
+                case GALLERY_INTENT_CODE:
+                    try {
+                        // Converting the image uri to bitmap
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+                        goalPic.setImageBitmap(bitmap);
+                        uploadGoalPic(bitmap);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+                // Image received from camera
+                case CAMERA_INTENT_CODE:
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    goalPic.setImageBitmap(bitmap);
+                    uploadGoalPic(bitmap);
+                    break;
+            }
+        }
+    }
+    private void uploadGoalPic(Bitmap bitmap) {
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()) + "/pfp.jpg");
+        showProgressDialog();
+
+        // Converting image bitmap to byte array for uploading to firebase storage
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        StorageReference reference = FirebaseStorage.getInstance().getReference()
+                .child("Target")
+                .child(id+".jpeg");
+        byte[] pfp = baos.toByteArray();
+
+        // Uploading the byte array to firebase storage
+        storageReference.putBytes(pfp).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Getting url of the image uploaded to firebase storage
+                    task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                // Setting the image url as the user_image property of the user in the database
+                                String pfpUrl = task.getResult().toString();
+                                RootRef.child(id).child("goal_image").setValue(pfpUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        progressDialog.dismiss();
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(getApplicationContext(), "Goal picture updated", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Failed to upload goal picture", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            } else {
+                                progressDialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Failed to upload goal picture", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Failed to upload goal picture", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void sendData() {
@@ -200,6 +331,9 @@ public class DashboardActivity extends AppCompatActivity {
         goal_lft_pert = findViewById(R.id.desc_goal_leftper);
         // rel= findViewById(R.id.RelativeLayout);
         //recyclerView = findViewById(R.id.history_recyler);
+
+        add_img = findViewById(R.id.add_img);
+        goalPic = findViewById(R.id.imageIcon);
     }
 
     // Here is the second progress Dialog Box
@@ -294,6 +428,11 @@ public class DashboardActivity extends AppCompatActivity {
                 String goal_create = snapshot.child ( "TodayTime" ).getValue ().toString ();
                 if(snapshot.child("Goal_Description").getValue()!=null)
                     description = String.valueOf(snapshot.child("Goal_Description").getValue());
+                Object pfpUrl = snapshot.child("goal_image").getValue();
+                if (pfpUrl != null) {
+                    // If the url is not null, then adding the image
+                    Picasso.get().load(pfpUrl.toString()).placeholder(R.drawable.ic_google).error(R.drawable.ic_google).into(goalPic);
+                }
 
                 Date today = new Date();
                 String todaay = simpleDateFormat.format(today);

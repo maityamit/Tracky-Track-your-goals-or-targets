@@ -64,21 +64,40 @@
                 android:layout_marginTop="10dp">
 
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageIcon"
+                <RelativeLayout
+                    android:id="@+id/newrelative"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="40dp"
-                    android:src="@drawable/ic_google" />
+                    android:layout_marginLeft="30dp">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imageIcon"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="19dp"
+                        android:src="@drawable/ic_google" />
+
+                    <ImageButton
+                        android:id="@+id/add_img"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="11dp"
+                        android:background="@drawable/plus"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageIcon"
+                        app:layout_constraintEnd_toEndOf="@+id/imageIcon" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/desc_goal_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_toEndOf="@+id/imageIcon"
+                    android:layout_toEndOf="@+id/newrelative"
                     android:text="My Goal Name"
                     android:textColor="@color/white"
                     android:textSize="24sp"
@@ -101,7 +120,7 @@
                     android:layout_below="@+id/desc_goal_name"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@+id/imageIcon"
+                    android:layout_toEndOf="@+id/newrelative"
                     android:elevation="3dp"
                     app:cardBackgroundColor="#FFFFFF"
                     app:cardCornerRadius="10dp">
