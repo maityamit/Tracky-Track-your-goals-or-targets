@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -73,7 +74,7 @@ public class ActiveGoalFragment extends Fragment {
 
     RecyclerView recyclerView;
     String currentUserID;
-    DatabaseReference RootRef,archiveDataRef;
+    DatabaseReference RootRef,archiveDataRef,activityRef;
     public static int maxId = 0;
     SimpleArcLoader mDialog;
     FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> adapter;
@@ -104,6 +105,7 @@ public class ActiveGoalFragment extends Fragment {
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
         // set data base reference for archieve data
         archiveDataRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Archive_Goals");
+        activityRef= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Activity");
 
         recyclerView = view.findViewById(R.id.going_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -322,6 +324,9 @@ public class ActiveGoalFragment extends Fragment {
                                             onlineStat.put("Value", "true");
                                             RootRef.child(listPostKey).child("Win").child(jys_da)
                                                     .updateChildren(onlineStat);
+
+                                            addCheckActivity(model.getGoalName(),todaay);
+
                                             holder.checkBox_true.setVisibility(View.INVISIBLE);
                                         }
                                     });
@@ -449,6 +454,18 @@ public class ActiveGoalFragment extends Fragment {
         // remove the data from current fragment
         RootRef.child(listPostKey).removeValue();
 
+    }
+
+    private void addCheckActivity(String goal, String time) {
+
+        String key= activityRef.push().getKey();
+        String value= "Check in "+goal+" on "+time;
+        activityRef.child(key).setValue(value, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Toast.makeText(getActivity(),"Goal "+goal+" checked successfully",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
