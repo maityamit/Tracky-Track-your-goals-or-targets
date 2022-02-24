@@ -247,6 +247,7 @@ public class AddGoalActivity extends AppCompatActivity
             onlineStat.put ( "TodayTime", todaay);
             onlineStat.put ( "Consistency","0");
             onlineStat.put ( "Win","");
+            onlineStat.put ("Status", "Active");
 
             RootRef.child("Goals").child("Active").child(string_trip)
                     .updateChildren ( onlineStat );
