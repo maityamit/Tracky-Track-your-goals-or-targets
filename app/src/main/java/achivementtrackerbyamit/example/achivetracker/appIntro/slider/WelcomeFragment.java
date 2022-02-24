@@ -1,23 +1,17 @@
 package achivementtrackerbyamit.example.achivetracker.appIntro.slider;
 
-import static achivementtrackerbyamit.example.achivetracker.R.id.intro_nav_graph;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavAction;
-import androidx.navigation.NavController;
-import androidx.navigation.NavOptions;
-import androidx.navigation.NavOptionsBuilder;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 
 import achivementtrackerbyamit.example.achivetracker.R;
 

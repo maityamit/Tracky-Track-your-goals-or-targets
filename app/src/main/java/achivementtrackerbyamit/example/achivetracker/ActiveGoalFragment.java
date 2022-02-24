@@ -118,6 +118,7 @@ public class ActiveGoalFragment extends Fragment {
         TextView noResultText = (TextView) view.findViewById(R.id.no_result);
 
         // Carrying out search when text is added to the goalSearch
+
         goalSearch.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -148,6 +149,7 @@ public class ActiveGoalFragment extends Fragment {
 
                 if(!newList.isEmpty()){
                     goalAdapter.setGoalList(newList);
+
                 }
 
 
@@ -186,190 +188,9 @@ public class ActiveGoalFragment extends Fragment {
         mDialog.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
 
-        FirebaseRecyclerOptions<GoingCLass> options =
-                new FirebaseRecyclerOptions.Builder<GoingCLass> ()
-                        .setQuery ( RootRef,GoingCLass.class )
-                        .build ();
-
-        // Old FirebaseRecyclerAdapter
-        adapter = new FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2>  (options) {
-
-                    @Override
-                    protected void onBindViewHolder(@NonNull final StudentViewHolder2 holder, final int position, @NonNull final GoingCLass model) {
 
 
 
-
-
-
-                        String listPostKey = getRef(position).getKey();
-
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
-                        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd-M-yyyy");
-
-                        Date today = new Date();
-                        String todaay = simpleDateFormat.format(today);
-                        String jys_da = simpleDateFormat2.format(today);
-
-                        holder.goal_name.setText(model.getGoalName());
-
-                        if (model.getGoalType().equals("High")){
-                            holder.goal_priority.setText("Priority: "+model.getGoalType());
-                            holder.goal_type_layout.setBackgroundColor(Color.parseColor("#FFD7D7"));
-                            holder.goal_priority.setTextColor(Color.parseColor("#FF0000"));
-                        }else if (model.getGoalType().equals("Medium")) {
-                            holder.goal_priority.setText("Priority: "+model.getGoalType());
-                            holder.goal_type_layout.setBackgroundColor(Color.parseColor("#FDFFD7"));
-                            holder.goal_priority.setTextColor(Color.parseColor("#FFE000"));
-                        }else{
-                            holder.goal_priority.setText("Priority: "+model.getGoalType());
-                            holder.goal_type_layout.setBackgroundColor(Color.parseColor("#98FF9D"));
-                            holder.goal_priority.setTextColor(Color.parseColor("#00C325"));
-                        }
-
-
-                        holder.const_text.setText("Consistency :" +model.getConsistency()+" %");
-
-
-                        RootRef.child(listPostKey).child("Win").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot snapshot) {
-                                if (snapshot.hasChild(jys_da)) {
-                                    holder.check_in_layout.setVisibility(View.INVISIBLE);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-
-
-                        Date date1=null,date2 = null;
-                        try {
-                            date1 = simpleDateFormat.parse(todaay);
-                            date2 = simpleDateFormat.parse(model.getEndTime());
-
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        long different = date2.getTime() - date1.getTime();
-                        long secondsInMilli = 1000;
-                        long minutesInMilli = secondsInMilli * 60;
-                        long hoursInMilli = minutesInMilli * 60;
-                        long daysInMilli = hoursInMilli * 24;
-
-                        long elapsedDays = different / daysInMilli;
-                        different = different % daysInMilli;
-
-                        // TODO: implemented (Complete)
-
-                         if(different<0){
-
-                             postDataIntoArchive();
-                             ArchiveClass goal= new ArchiveClass(model.getConsistency(), model.getEndTime(), model.getGoalName());
-
-                            archiveDataRef.child(String.valueOf(maxId+1)).setValue(goal).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    // Delete the data from current fragment
-                                    deleteArchieveData(listPostKey);
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-
-                                }
-                            });
-
-                        }
-
-                         if (elapsedDays==1){
-                            holder.left_day.setText(elapsedDays+" day"+"\nleft");
-                        }
-                        else{
-                            holder.left_day.setText(elapsedDays + " days" + "\nleft");
-                        }
-
-
-
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(getContext(),DashboardActivity.class);
-                                intent.putExtra("LISTKEY",listPostKey);
-                                startActivity(intent);
-                            }
-                        });
-
-                        holder.checkBox_true.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-                        {
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                if (isChecked) {
-                                    //Material Alert Dialog Box Added
-                                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext(),R.style.AlertDialogTheme1);
-                                    builder.setTitle("Alert!");
-                                    builder.setMessage("Confirm Goal Completion?");
-                                    builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
-                                    builder.setCancelable(false);
-                                    builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) { //For True
-                                            // perform logic
-                                            HashMap<String, Object> onlineStat = new HashMap<>();
-                                            onlineStat.put("Value", "true");
-                                            RootRef.child(listPostKey).child("Win").child(jys_da)
-                                                    .updateChildren(onlineStat);
-
-
-                                            holder.checkBox_true.setVisibility(View.INVISIBLE);
-                                        }
-                                    });
-                                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            //False
-                                            dialog.cancel(); //Removes AlertDialog Box
-                                            holder.checkBox_true.setChecked(false);
-                                        }
-                                    });
-                                    builder.show();
-                                } else {
-                                    //Fail
-                                    Toast.makeText(getContext(), "Not Checked", Toast.LENGTH_SHORT).show(); //Just to Inform the user
-                                }
-                            }
-                        });
-
-
-                    }
-
-                    @NonNull
-                    @Override
-                    public StudentViewHolder2 onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-                        View view  = LayoutInflater.from ( viewGroup.getContext () ).inflate ( R.layout.main_tiles_layout,viewGroup,false );
-                        StudentViewHolder2 viewHolder  = new StudentViewHolder2(  view);
-                        return viewHolder;
-
-                    }
-
-                    @Override
-                    public void onDataChanged() {
-                        super.onDataChanged();
-
-                        mDialog.setVisibility(View.GONE);
-                        recyclerView.setVisibility(View.VISIBLE);
-                    }
-
-
-
-                };
-
-        // Getting the list of goals
         RootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -381,7 +202,7 @@ public class ActiveGoalFragment extends Fragment {
                     GoingCLass goal = dataSnapshot.getValue(GoingCLass.class);
                     currList.add(new Pair<>(dataSnapshot.getKey(),goal ));
                 }
-                goalList=currList;
+                goalList = currList;
 
                 // Updating the adapter with the new goal list
                 goalAdapter.setGoalList(goalList);
@@ -409,6 +230,9 @@ public class ActiveGoalFragment extends Fragment {
         goalAdapter = new GoalAdapter(this,goalList);
         recyclerView.setAdapter ( goalAdapter );
         goalSearch.setText("");
+
+
+
     }
 
     public static class StudentViewHolder2 extends  RecyclerView.ViewHolder
@@ -438,7 +262,7 @@ public class ActiveGoalFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    maxId= (int)snapshot.getChildrenCount();
+                    maxId = (int)snapshot.getChildrenCount();
                 }
             }
 
@@ -454,6 +278,7 @@ public class ActiveGoalFragment extends Fragment {
         RootRef.child(listPostKey).removeValue();
 
     }
+
 
 
 

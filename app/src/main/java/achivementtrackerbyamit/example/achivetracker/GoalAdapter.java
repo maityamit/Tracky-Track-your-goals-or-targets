@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,6 +46,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
     // List of goals, goals are stored as a pair of the key of the goal and the goal object
     ArrayList<Pair<String,GoingCLass>> goalList;
     ActiveGoalFragment fragment;
+
 
     GoalAdapter(ActiveGoalFragment fragment, ArrayList<Pair<String,GoingCLass>> goalList)
     {
@@ -96,6 +99,25 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         holder.const_text.setText("Consistency :" +model.getConsistency()+" %");
 
 
+        
+        // Retrieve Goal Image into CurrentGoal Frag Recyclerview items
+        fragment.RootRef.child(listPostKey).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild("goal_image")){
+                    String imageuri = snapshot.child("goal_image").getValue().toString();
+                    Picasso.get().load(imageuri).placeholder(R.drawable.goals).error(R.drawable.goals).into(holder.goalimage);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        
+        
+        
         fragment.RootRef.child(listPostKey).child("Win").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -235,6 +257,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         LinearLayout check_in_layout;
         CheckBox checkBox_true;
         ProgressBar completedBar;
+        ImageView goalimage;
         public StudentViewHolder2(@NonNull View itemView) {
             super ( itemView );
             goal_name = itemView.findViewById ( R.id.lay_goal_name);
@@ -247,6 +270,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
             checkBox_true = itemView.findViewById ( R.id.true_checkbox);
 
             completedBar = itemView.findViewById(R.id.completed_progress);
+            goalimage = itemView.findViewById(R.id.goalpic);
         }
     }
 }

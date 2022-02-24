@@ -24,8 +24,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,22 +73,25 @@ public class DashboardActivity extends AppCompatActivity {
     private final int GALLERY_INTENT_CODE = 993;
     private final int CAMERA_INTENT_CODE = 990;
 
-    TextView name,consis,left,goal_lft_pert;
+    TextView name,consis,left,goal_lft_pert, notes;
+    TextView Tdays, Dleft, Sdate, Edate; //StreakOverview
     RelativeLayout rel;
     String id = "";
     String currentUserID;
-    ImageView descButton;
     String description;
+    long Days;
+    String goal_end, goal_create;
     //RecyclerView recyclerView;
     MCalendarView mCalendarView;
     ArrayList<DateData> dataArrayList;
+    private StorageReference UserProfileImagesRef;
     ProgressDialog progressDialog;
     DatabaseReference RootRef,HelloREf,newRef;
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
     private Handler handler = new Handler();
     private Runnable runnable;
-    CardView extendedFloatingShareButton;
+    ImageView extendedFloatingShareButton;
     ImageView extendedFloatingEditButton;
     ImageView deleteGoal;
     ImageButton add_img;
@@ -117,6 +122,37 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 View gh = findViewById(R.id.relative_for_snap);
+                View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+                share(screenShot(gh));
+            }
+        });
+
+        ImageView shareStreak = findViewById(R.id.streakButOV);
+        shareStreak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View gh = findViewById(R.id.streakOV);
+                View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+                share(screenShot(gh));
+            }
+        });
+
+        ImageView shareNotes = findViewById(R.id.shareButNotes);
+        shareNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View gh = findViewById(R.id.streakNote);
+                View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+                share(screenShot(gh));
+            }
+        });
+
+
+        ImageView shareCal = findViewById(R.id.shareCal);
+        shareCal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View gh = findViewById(R.id.history_calendarViewGroup);
                 View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
                 share(screenShot(gh));
             }
@@ -172,20 +208,6 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
 
-
-        descButton = findViewById(R.id.desc_button);
-        descButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(DashboardActivity.this,R.style.AlertDialogTheme1);
-                builder.setTitle(name.getText().toString());
-                builder.setMessage(description);
-                builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
-                builder.setIcon(R.drawable.ic_info);
-                builder.show();
-            }
-        });
 
 
     }
@@ -252,9 +274,13 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }
     }
+
     private void uploadGoalPic(Bitmap bitmap) {
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()) + "/pfp.jpg");
+
+
+        StorageReference storageReference = UserProfileImagesRef.child ( id + ".jpg");
+
+
         showProgressDialog();
 
         // Converting image bitmap to byte array for uploading to firebase storage
@@ -316,6 +342,7 @@ public class DashboardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getStringExtra("LISTKEY");
 
+        UserProfileImagesRef = FirebaseStorage.getInstance ().getReference ().child ( "Goal Images" );
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
@@ -334,6 +361,16 @@ public class DashboardActivity extends AppCompatActivity {
 
         add_img = findViewById(R.id.add_img);
         goalPic = findViewById(R.id.imageIcon);
+
+        //Streak Overview
+        Tdays = findViewById(R.id.totalDays);
+        Dleft = findViewById(R.id.daysLeft);
+        Sdate = findViewById(R.id.startDate);
+        Edate = findViewById(R.id.endDate);
+
+        //Notes
+        notes = findViewById(R.id.Notes);
+
     }
 
     // Here is the second progress Dialog Box
@@ -398,10 +435,7 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(Intent.createChooser(shareIntent, "hello hello"));
         }
 
-
     }
-
-
 
 
     @Override
@@ -424,8 +458,8 @@ public class DashboardActivity extends AppCompatActivity {
                 String goal_string = snapshot.child ( "GoalName" ).getValue ().toString ();
                 //Shared Preference to use the goal name in share() function
                 PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("goal_name",goal_string).commit();
-                String goal_end = snapshot.child ( "EndTime" ).getValue ().toString ();
-                String goal_create = snapshot.child ( "TodayTime" ).getValue ().toString ();
+                goal_end = snapshot.child ( "EndTime" ).getValue ().toString ();
+                goal_create = snapshot.child ( "TodayTime" ).getValue ().toString ();
                 if(snapshot.child("Goal_Description").getValue()!=null)
                     description = String.valueOf(snapshot.child("Goal_Description").getValue());
                 Object pfpUrl = snapshot.child("goal_image").getValue();
@@ -531,15 +565,23 @@ public class DashboardActivity extends AppCompatActivity {
                     SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
                     Date event_date = dateFormat.parse(EVENT_DATE_TIME);
                     Date current_date = new Date();
+                    Date created = dateFormat.parse(goal_create);
                     if (!current_date.after(event_date)) {
                         long diff = event_date.getTime() - current_date.getTime();
-                        long Days = diff / (24 * 60 * 60 * 1000);
+                        long diffCreate = (event_date.getTime() - created.getTime()) / (24 * 60 * 60 * 1000);
+                        Days = diff / (24 * 60 * 60 * 1000);
                         long Hours = diff / (60 * 60 * 1000) % 24;
                         long Minutes = diff / (60 * 1000) % 60;
                         long Seconds = diff / 1000 % 60;
                         long totaldays= event_date.getTime()/(24 * 60 * 60 * 1000);
                         long percent= (Days*100/totaldays);
-                        left.setText(String.format("%02d",Days)+" days "+String.format("%02d", Hours)+" hours "+String.format("%02d", Minutes)+" minutes "+String.format("%02d", Seconds)+" seconds ");
+                        //StreakOvewview Data
+                        Tdays.setText(String.format("%02d",diffCreate)+"d");
+                        Dleft.setText(String.format("%02d",Days)+"d");
+                        Sdate.setText(goal_create.substring(0,10).trim());
+                        Edate.setText(goal_end.substring(0,10).trim());
+                        notes.setText(description);
+                        left.setText(String.format("%02d",Days)+" days  "+String.format("%02d", Hours)+":"+String.format("%02d", Minutes)+":"+String.format("%02d", Seconds));
                         if(percent<=33) {
                             left.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.red));
                             rel.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.lightred));
