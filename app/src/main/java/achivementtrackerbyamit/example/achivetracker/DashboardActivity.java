@@ -516,7 +516,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    private int GoalCOmpleteFn(String todaay, String goal_create, String goal_end) {
+    public static int GoalCOmpleteFn(String todaay, String goal_create, String goal_end) {
 
         float gh = (DayReturn(todaay,goal_create)+1)*100/(DayReturn(goal_end,goal_create)+1);
         return Math.round(gh);
@@ -571,7 +571,7 @@ public class DashboardActivity extends AppCompatActivity {
         handler.removeCallbacks(runnable);
     }
 
-    public  long DayReturn(String high,String low){
+    public static long DayReturn(String high,String low){
 
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd/M/yyyy");
         Date date1=null,date2 = null;

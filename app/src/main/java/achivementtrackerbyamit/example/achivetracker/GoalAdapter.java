@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -206,6 +207,9 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
                 }
             }
         });
+
+        // Set completed goal percentage on the progress bar
+        holder.completedBar.setProgress(DashboardActivity.GoalCOmpleteFn(todaay,model.getTodayTime(),model.getEndTime()));
     }
 
 
@@ -230,6 +234,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         RelativeLayout goal_type_layout;
         LinearLayout check_in_layout;
         CheckBox checkBox_true;
+        ProgressBar completedBar;
         public StudentViewHolder2(@NonNull View itemView) {
             super ( itemView );
             goal_name = itemView.findViewById ( R.id.lay_goal_name);
@@ -240,6 +245,8 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
             check_in_layout = itemView.findViewById(R.id.check_in_layout);
             const_text = itemView.findViewById ( R.id.lay_goal_const);
             checkBox_true = itemView.findViewById ( R.id.true_checkbox);
+
+            completedBar = itemView.findViewById(R.id.completed_progress);
         }
     }
 }

@@ -1,193 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center"
-    android:layout_height="wrap_content">
+    android:orientation="vertical">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="6dp"
         android:layout_margin="15sp"
-        app:cardCornerRadius="11dp">
-
+        app:cardCornerRadius="11dp"
+        app:cardElevation="6dp">
 
 
         <LinearLayout
-            android:id="@+id/main_tiles_linearlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="12dp"
-                android:elevation="5dp"
-                app:cardCornerRadius="10dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/goals"
-                    android:scaleType="fitXY"/>
-
-
-
-            </androidx.cardview.widget.CardView>
-
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/main_tiles_linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="12dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/goals" />
+
+
+                </androidx.cardview.widget.CardView>
+
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal"
-                    android:weightSum="6">
-
-                    <TextView
-                        android:id="@+id/lay_goal_name"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"
-                        android:layout_weight="4"
-                        android:textSize="16sp"
-                        android:text="Goal Name"/>
-
-                    <TextView
-                        android:id="@+id/lay_goal_left"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:textColor="#C62828"
-                        android:textStyle="bold"
-                        android:layout_weight="2"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textSize="14sp"
-                        android:text="19 days\nleft"/>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:weightSum="2">
-
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
-                            android:layout_centerInParent="true"
-                            app:cardCornerRadius="5dp"
-                            android:layout_height="wrap_content">
-
-                            <RelativeLayout
-                                android:id="@+id/goal_type_layout"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="#D3D8FB">
-
-                                <TextView
-                                    android:id="@+id/lay_goal_priority"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="2dp"
-                                    android:textColor="#283593"
-                                    android:text="Priority : High"/>
-
-
-                            </RelativeLayout>
-
-
-
-
-                        </androidx.cardview.widget.CardView>
-
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
-                            android:layout_centerInParent="true"
-                            app:cardCornerRadius="5dp"
-                            android:layout_height="wrap_content">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="#CCFFCF">
-
-                                <TextView
-                                    android:id="@+id/lay_goal_const"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="2dp"
-                                    android:textColor="#2E7D32"
-                                    android:text="Consistency : 98.0"/>
-
-
-                            </RelativeLayout>
-
-
-
-
-                        </androidx.cardview.widget.CardView>
-
-                    </RelativeLayout>
-
-
-
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/check_in_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+                        <TextView
+                            android:id="@+id/lay_goal_name"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4"
+                            android:text="Goal Name"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/lay_goal_left"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="19 days\nleft"
+                            android:textColor="#C62828"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:weightSum="2">
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                app:cardCornerRadius="5dp">
+
+                                <RelativeLayout
+                                    android:id="@+id/goal_type_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#D3D8FB">
+
+                                    <TextView
+                                        android:id="@+id/lay_goal_priority"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="2dp"
+                                        android:text="Priority : High"
+                                        android:textColor="#283593" />
+
+
+                                </RelativeLayout>
+
+
+                            </androidx.cardview.widget.CardView>
+
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                app:cardCornerRadius="5dp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#CCFFCF">
+
+                                    <TextView
+                                        android:id="@+id/lay_goal_const"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="2dp"
+                                        android:text="Consistency : 98.0"
+                                        android:textColor="#2E7D32" />
+
+
+                                </RelativeLayout>
+
+
+                            </androidx.cardview.widget.CardView>
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/check_in_layout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#00838F"
-                        android:text="Today Check In : "/>
+                        android:orientation="horizontal">
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/true_checkbox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Today Check In : "
+                            android:textColor="#00838F" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/true_checkbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
-
 
 
             </LinearLayout>
 
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="9dp">
+                <ProgressBar
+                    android:id="@+id/completed_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:indeterminate="false"
+                    android:scaleY="4"
+                    android:progressTint="#0F9D58"
+                    tools:progress="70" />
+            </FrameLayout>
+
+
 
         </LinearLayout>
-
-
-
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>
