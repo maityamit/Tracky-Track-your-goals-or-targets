@@ -77,48 +77,41 @@ public class ActiveGoalFragment extends Fragment {
     DatabaseReference RootRef,archiveDataRef,activityRef;
     public static int maxId = 0;
     SimpleArcLoader mDialog;
-    FirebaseRecyclerAdapter<GoingCLass, StudentViewHolder2> adapter;
     ExtendedFloatingActionButton button;
 
     // Used for carrying out goal search using the GoalAdapter
     GoalAdapter goalAdapter;
     EditText goalSearch;
     ArrayList<Pair<String,GoingCLass>> goalList = new ArrayList<>();
-
     ImageView emptyGoal;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+
         View view =  inflater.inflate(R.layout.fragment_active_goal, container, false);
 
+
+
         mDialog = view.findViewById(R.id.loader_active_goal);
-
-       
-
-
-
-
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
-        // set data base reference for archieve data
         archiveDataRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Archive_Goals");
         activityRef= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Activity");
-
         recyclerView = view.findViewById(R.id.going_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         // ImageView for displaying the empty goal message
         emptyGoal = (ImageView) view.findViewById(R.id.empty_goal_img);
-
         // Goal and NoResult EditText Views
         goalSearch = (EditText) view.findViewById(R.id.goal_search);
         TextView noResultText = (TextView) view.findViewById(R.id.no_result);
+        button = view.findViewById(R.id.create_button);
+
+
 
         // Carrying out search when text is added to the goalSearch
-
         goalSearch.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -165,32 +158,32 @@ public class ActiveGoalFragment extends Fragment {
             }
         });
 
+
         // Floating action button for new goals
-        button = view.findViewById(R.id.create_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Add new Goals", Toast.LENGTH_SHORT).show(); //Informs user that what this button does
-                Intent intent = new Intent(getContext(), AddGoalActivity.class);
-                startActivity(intent);
+                OnNewGoalCreatefn();
             }
         });
+
+
+
         return  view;
     }
 
+    private void OnNewGoalCreatefn() {
+        Intent intent = new Intent(getContext(), AddGoalActivity.class);
+        startActivity(intent);
+    }
 
 
     @Override
     public void onStart() {
         super.onStart ();
 
-
         mDialog.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
-
-
-
-
         RootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -221,40 +214,12 @@ public class ActiveGoalFragment extends Fragment {
 
             }
         });
-
-        // Setting the old adapter, old adapter can be used by uncommenting these lines and commenting the lines below them
-//        recyclerView.setAdapter ( adapter );
-//        adapter.startListening ();
-
-        // Setting the new custom adapter
         goalAdapter = new GoalAdapter(this,goalList);
         recyclerView.setAdapter ( goalAdapter );
         goalSearch.setText("");
 
-
-
     }
 
-    public static class StudentViewHolder2 extends  RecyclerView.ViewHolder
-    {
-
-        TextView goal_name,goal_priority,left_day,const_text;
-        RelativeLayout goal_type_layout;
-        LinearLayout check_in_layout;
-        CheckBox checkBox_true;
-        LinearLayout  linearLayout;
-        public StudentViewHolder2(@NonNull View itemView) {
-            super ( itemView );
-            goal_name = itemView.findViewById ( R.id.lay_goal_name);
-            goal_priority = itemView.findViewById ( R.id.lay_goal_priority);
-            left_day = itemView.findViewById ( R.id.lay_goal_left);
-            goal_type_layout = itemView.findViewById(R.id.goal_type_layout);
-
-            check_in_layout = itemView.findViewById(R.id.check_in_layout);
-            const_text = itemView.findViewById ( R.id.lay_goal_const);
-            checkBox_true = itemView.findViewById ( R.id.true_checkbox);
-        }
-    }
 
     public void postDataIntoArchive() {
 

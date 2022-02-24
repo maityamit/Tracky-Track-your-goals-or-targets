@@ -215,24 +215,5 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    private void showProgressDialog() {
-        progressDialog = new ProgressDialog(SignupActivity.this);
-        progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_diaglog);
-        progressDialog.setCanceledOnTouchOutside(false);
-        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-//        Runnable progressRunnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                if (confirmation != 1) {
-//                    progressDialog.cancel();
-//                    Toast.makeText(DashboardActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        };
-//
-//        Handler pdCanceller = new Handler();
-//        pdCanceller.postDelayed(progressRunnable, 5000);
-    }
 
 }

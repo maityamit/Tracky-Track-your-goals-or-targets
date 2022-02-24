@@ -76,12 +76,6 @@ public class AddGoalActivity extends AppCompatActivity
             findViewById(R.id.create_goal_text_view).setVisibility(View.VISIBLE);
         }
 
-      /*  if(bundle.getString(DashboardActivity.ADD_TRIP_TAG).equals(DashboardActivity.ADD_TRIP_VALUE)){
-            retrievePreviousData();
-            //updateData= true;
-        }*/
-
-
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,11 +152,7 @@ public class AddGoalActivity extends AppCompatActivity
     }
 
     private void YESONCLICK() {
-      //
 
-        /*CreteATripNew(
-                 updateData? dataKey :
-                         RootRef.child("Goals").child("Active").push().getKey());*/
           if(TAG!=null && TAG.equals(DashboardActivity.ADD_TRIP_VALUE)) {
               isNewGoal= false;
               CreteATripNew(dataKey);
@@ -178,7 +168,6 @@ public class AddGoalActivity extends AppCompatActivity
 
 
     private void CreteATripNew(String string_trip) {
-
 
 
         Date today = new Date();
@@ -279,37 +268,6 @@ public class AddGoalActivity extends AppCompatActivity
     public void onNothingSelected(AdapterView<?> parent) {
 
        }
-
-
-    public static List<Date> getDates(String dateString1, String dateString2)
-    {
-        ArrayList<Date> dates = new ArrayList<Date>();
-        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date1 = null;
-        Date date2 = null;
-
-        try {
-            date1 = df1 .parse(dateString1);
-            date2 = df1 .parse(dateString2);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTime(date1);
-
-
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(date2);
-
-        while(!cal1.after(cal2))
-        {
-            dates.add(cal1.getTime());
-            cal1.add(Calendar.DATE, 1);
-        }
-        return dates;
-    }
 
 
     private void retrievePreviousData() {

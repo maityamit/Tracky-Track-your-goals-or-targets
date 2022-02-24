@@ -46,21 +46,13 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        chipNavigationBar = findViewById(R.id.bottom_nav_bar);
-        chipNavigationBar.setItemSelected(R.id.nav_home,
-                true);
+
+        InitializeMethods();
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frag_container_nav,
                         new ActiveGoalFragment()).commit();
         bottomMenu();
-
-
-        profile_button = findViewById(R.id.logout_btn);
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
-        RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
-
-
 
         profile_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +65,18 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         RetriveUserImage();
+
+    }
+
+    private void InitializeMethods() {
+
+        chipNavigationBar = findViewById(R.id.bottom_nav_bar);
+        chipNavigationBar.setItemSelected(R.id.nav_home,
+                true);
+        profile_button = findViewById(R.id.logout_btn);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
+        RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
 
     }
 

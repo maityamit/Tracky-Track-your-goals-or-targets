@@ -91,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
                 EditName();
             }
         });
+
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
         profilePicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void InitializationMethod() {
+
         welcome1 = findViewById(R.id.users_name);
         welcome2 = findViewById(R.id.users_email);
         Logout = findViewById(R.id.logout);
@@ -228,18 +231,7 @@ public class ProfileActivity extends AppCompatActivity {
         progressDialog.setContentView(R.layout.progress_diaglog);
         progressDialog.setCanceledOnTouchOutside(false);
         Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-//        Runnable progressRunnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                if (confirmation != 1) {
-//                    progressDialog.cancel();
-//                    Toast.makeText(DashboardActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        };
-//
-//        Handler pdCanceller = new Handler();
-//        pdCanceller.postDelayed(progressRunnable, 5000);
+
     }
 
     @Override
@@ -351,6 +343,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
         mydialog.show();
     }
+
     public void PDF(View view) {
         GoalName = new ArrayList<>(); //Initialize
         tillActive.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -65,6 +66,10 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder2 holder, int position) {
+
+
+
+
 
         // Key of the goal is the first element of the pair
         String listPostKey = goalList.get(position).first;
@@ -272,6 +277,16 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
                             fragment.RootRef.child(listPostKey).child("Win").child(jys_da)
                                     .updateChildren(onlineStat);
                             holder.checkBox_true.setVisibility(View.INVISIBLE);
+
+
+                            String key= fragment.activityRef.push().getKey();
+                            String value= "Checked in "+model.getGoalName()+" on "+todaay;
+                            fragment.activityRef.child(key).setValue(value, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                }
+                            });
+
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
