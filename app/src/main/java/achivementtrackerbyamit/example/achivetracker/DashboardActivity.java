@@ -85,6 +85,7 @@ public class DashboardActivity extends AppCompatActivity {
     //RecyclerView recyclerView;
     MCalendarView mCalendarView;
     ArrayList<DateData> dataArrayList;
+    private StorageReference UserProfileImagesRef;
     ProgressDialog progressDialog;
     DatabaseReference RootRef,HelloREf,newRef;
     @SuppressLint("SimpleDateFormat")
@@ -288,9 +289,13 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }
     }
+
     private void uploadGoalPic(Bitmap bitmap) {
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()) + "/pfp.jpg");
+
+
+        StorageReference storageReference = UserProfileImagesRef.child ( id + ".jpg");
+
+
         showProgressDialog();
 
         // Converting image bitmap to byte array for uploading to firebase storage
@@ -352,6 +357,7 @@ public class DashboardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getStringExtra("LISTKEY");
 
+        UserProfileImagesRef = FirebaseStorage.getInstance ().getReference ().child ( "Goal Images" );
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");

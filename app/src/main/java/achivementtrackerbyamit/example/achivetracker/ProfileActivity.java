@@ -71,6 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
     CircleImageView profilePic;
     private final int GALLERY_INTENT_CODE = 993;
     private final int CAMERA_INTENT_CODE = 990;
+    private StorageReference UserProfileImagesRef;
     final private int REQUEST_CODE_PERMISSION = 111;
     ArrayList<String> GoalName;
     String fileName;
@@ -113,6 +114,8 @@ public class ProfileActivity extends AppCompatActivity {
         welcome2 = findViewById(R.id.users_email);
         Logout = findViewById(R.id.logout);
         editname = findViewById(R.id.editName);
+
+        UserProfileImagesRef = FirebaseStorage.getInstance ().getReference ().child ( "Profilee Images" );
 
         // Button for adding profile pic
         profilePicButton = (ImageButton) findViewById(R.id.profile_pic_button);
@@ -269,8 +272,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     // Function for updating profile picture
     private void updateProfilePic(Bitmap bitmap) {
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()) + "/pfp.jpg");
+
+        StorageReference storageReference = UserProfileImagesRef.child ( FirebaseAuth.getInstance().getUid() + ".jpg");
+
         showProgressDialog();
 
         // Converting image bitmap to byte array for uploading to firebase storage
