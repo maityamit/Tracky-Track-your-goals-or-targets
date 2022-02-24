@@ -96,6 +96,8 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         holder.const_text.setText("Consistency :" +model.getConsistency()+" %");
 
 
+
+
         fragment.RootRef.child(listPostKey).child("Win").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
