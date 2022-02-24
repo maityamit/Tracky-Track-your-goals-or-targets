@@ -60,8 +60,8 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/show_logs"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:layout_marginTop="56dp"
         android:background="@drawable/showlogbtn"
         android:text="Show Log"
