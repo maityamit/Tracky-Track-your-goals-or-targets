@@ -152,7 +152,6 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/mess"
             android:layout_width="175dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"

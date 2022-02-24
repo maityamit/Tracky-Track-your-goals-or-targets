@@ -36,7 +36,6 @@
         app:strokeWidth="8dp" />
 
     <TextView
-        android:id="@+id/welcm_des"
         style="@style/slider_tile_style"
         android:layout_width="wrap_content"
         android:layout_marginHorizontal="16dp"

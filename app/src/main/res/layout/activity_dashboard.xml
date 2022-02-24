@@ -18,7 +18,6 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -158,7 +157,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/consistencyLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="160dp"
@@ -168,7 +166,6 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_main_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -350,7 +347,6 @@
 
 
     <LinearLayout
-        android:id="@+id/history_calendarViewGroup"
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_above="@+id/below_layout"

@@ -74,7 +74,6 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_pic" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardview_main_view"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="20dp"
