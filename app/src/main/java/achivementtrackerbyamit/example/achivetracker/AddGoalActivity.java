@@ -48,7 +48,8 @@ public class AddGoalActivity extends AppCompatActivity
     private EditText tripname;
     private String currentUserID;
     private DatePicker datepicker;
-    private DatabaseReference RootRef, ActiveRef;
+    private boolean isNewGoal= false;
+    private DatabaseReference RootRef, ActiveRef,activityRef;
     String string_priority = "Less" ;
     EditText  goalDesc;
     Spinner spino;
@@ -120,7 +121,7 @@ public class AddGoalActivity extends AppCompatActivity
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID);
         ActiveRef = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
-
+        activityRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Activity");
 
         yes = (Button) findViewById(R.id.create_trip_submit_butyyon);
         //  no = (Button) findViewById(R.id.cancel_trip_submit_butyyon);
@@ -163,10 +164,12 @@ public class AddGoalActivity extends AppCompatActivity
                  updateData? dataKey :
                          RootRef.child("Goals").child("Active").push().getKey());*/
           if(TAG!=null && TAG.equals(DashboardActivity.ADD_TRIP_VALUE)) {
+              isNewGoal= false;
               CreteATripNew(dataKey);
           }
           else {
               String trip_key = RootRef.child("Goals").child("Active").push().getKey();
+              isNewGoal= true;
               CreteATripNew(trip_key);
           }
 
@@ -248,6 +251,9 @@ public class AddGoalActivity extends AppCompatActivity
             RootRef.child("Goals").child("Active").child(string_trip)
                     .updateChildren ( onlineStat );
 
+            if(isNewGoal){
+                addActivity(string,todaay);
+            }
             Intent loginIntent = new Intent ( AddGoalActivity.this,HomeActivity.class );
             loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
             startActivity ( loginIntent );
@@ -259,6 +265,8 @@ public class AddGoalActivity extends AppCompatActivity
 
 
     }
+
+
 
 
     @Override
@@ -351,5 +359,15 @@ public class AddGoalActivity extends AppCompatActivity
         });
     }
 
-    // Life is sad
+    private void addActivity(String goal, String time) {
+
+        String key= activityRef.push().getKey();
+        String value= "Created the "+goal+" on "+time;
+        activityRef.child(key).setValue(value, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Toast.makeText(AddGoalActivity.this,"Goal "+goal+" stored successfully",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
