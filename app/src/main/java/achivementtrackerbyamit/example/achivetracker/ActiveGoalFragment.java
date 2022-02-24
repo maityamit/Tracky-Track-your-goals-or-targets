@@ -188,6 +188,9 @@ public class ActiveGoalFragment extends Fragment {
         mDialog.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
 
+
+
+
         RootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
