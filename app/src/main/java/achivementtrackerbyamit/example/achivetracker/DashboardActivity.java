@@ -78,7 +78,6 @@ public class DashboardActivity extends AppCompatActivity {
     RelativeLayout rel;
     String id = "";
     String currentUserID;
-    ImageView descButton;
     String description;
     long Days;
     String goal_end, goal_create;
@@ -209,20 +208,6 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
 
-
-        descButton = findViewById(R.id.desc_button);
-        descButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(DashboardActivity.this,R.style.AlertDialogTheme1);
-                builder.setTitle(name.getText().toString());
-                builder.setMessage(description);
-                builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
-                builder.setIcon(R.drawable.ic_info);
-                builder.show();
-            }
-        });
 
 
     }
@@ -596,7 +581,7 @@ public class DashboardActivity extends AppCompatActivity {
                         Sdate.setText(goal_create.substring(0,10).trim());
                         Edate.setText(goal_end.substring(0,10).trim());
                         notes.setText(description);
-                        left.setText(String.format("%02d",Days)+" days "+String.format("%02d", Hours)+" hours "+String.format("%02d", Minutes)+" minutes "+String.format("%02d", Seconds)+" seconds ");
+                        left.setText(String.format("%02d",Days)+" days  "+String.format("%02d", Hours)+":"+String.format("%02d", Minutes)+":"+String.format("%02d", Seconds));
                         if(percent<=33) {
                             left.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.red));
                             rel.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.lightred));
