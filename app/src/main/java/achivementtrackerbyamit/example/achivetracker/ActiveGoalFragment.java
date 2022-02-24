@@ -325,7 +325,6 @@ public class ActiveGoalFragment extends Fragment {
                                             RootRef.child(listPostKey).child("Win").child(jys_da)
                                                     .updateChildren(onlineStat);
 
-                                            addCheckActivity(model.getGoalName(),todaay);
 
                                             holder.checkBox_true.setVisibility(View.INVISIBLE);
                                         }
@@ -456,16 +455,7 @@ public class ActiveGoalFragment extends Fragment {
 
     }
 
-    private void addCheckActivity(String goal, String time) {
 
-        String key= activityRef.push().getKey();
-        String value= "Check in "+goal+" on "+time;
-        activityRef.child(key).setValue(value, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Toast.makeText(getActivity(),"Goal "+goal+" checked successfully",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+
 
 }

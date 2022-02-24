@@ -121,7 +121,7 @@ public class AddGoalActivity extends AppCompatActivity
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID);
         ActiveRef = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
-        activityRef= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Activity");
+        activityRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Activity");
 
         yes = (Button) findViewById(R.id.create_trip_submit_butyyon);
         //  no = (Button) findViewById(R.id.cancel_trip_submit_butyyon);
