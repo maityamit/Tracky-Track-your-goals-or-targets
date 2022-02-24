@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,9 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
         holder.goal_name_text.setText(data.getGoalName());
         holder.target_date_text.setText(firstWord);
         holder.consistency_text.setText("Consistency :" +data.getConsistency()+" %");
+
+        // Set consistency percentage on the progress bar
+        holder.consistencyBar.setProgress(Integer.parseInt(data.getConsistency()),true);
     }
 
     @Override
@@ -55,7 +59,7 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
     public static class ArchiveViewHolder extends RecyclerView.ViewHolder{
 
         private TextView goal_name_text, consistency_text,target_date_text;
-
+        private ProgressBar consistencyBar;
 
         public ArchiveViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +67,7 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
             goal_name_text= itemView.findViewById(R.id.archieve_goal_name);
             consistency_text= itemView.findViewById(R.id.archieve_goal_const);
             target_date_text= itemView.findViewById(R.id.archieve_target_date);
+            consistencyBar = itemView.findViewById(R.id.consistency_progress);
         }
     }
 }

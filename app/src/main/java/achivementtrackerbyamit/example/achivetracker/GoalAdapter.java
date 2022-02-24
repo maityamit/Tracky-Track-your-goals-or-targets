@@ -209,7 +209,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         });
 
         // Set completed goal percentage on the progress bar
-        holder.completedBar.setProgress(DashboardActivity.GoalCOmpleteFn(todaay,model.getTodayTime(),model.getEndTime()));
+        holder.completedBar.setProgress(DashboardActivity.GoalCOmpleteFn(todaay,model.getTodayTime(),model.getEndTime()),true);
     }
 
 
