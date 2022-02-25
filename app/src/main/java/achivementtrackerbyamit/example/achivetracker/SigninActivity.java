@@ -75,7 +75,7 @@ public class SigninActivity extends AppCompatActivity {
                     return;
                 }
                 else if (passtext.length()<6){
-                    pass.setError("Password must be atleast 6 characters");
+                    pass.setError("Password must be at least 6 characters");
                     pass.requestFocus();
                     return;
                 }

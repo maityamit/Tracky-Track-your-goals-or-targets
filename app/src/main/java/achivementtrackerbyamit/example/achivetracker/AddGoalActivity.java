@@ -173,7 +173,6 @@ public class AddGoalActivity extends AppCompatActivity
         Date today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
         SimpleDateFormat format1_only = new SimpleDateFormat("yyyy-M-dd");
-        String today_only = format1_only.format(today);
 
 
         //String todaay is Today's Date

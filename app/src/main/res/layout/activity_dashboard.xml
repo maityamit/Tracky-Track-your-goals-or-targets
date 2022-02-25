@@ -620,6 +620,7 @@ android:layout_height="match_parent">
         android:id="@+id/streakNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
         android:background="#E1F1FF">
 
         <androidx.cardview.widget.CardView
@@ -689,6 +690,7 @@ android:layout_height="match_parent">
                             android:layout_alignParentStart="true"
                             android:layout_marginStart="10dp"
                             android:layout_marginLeft="10dp"
+                            android:autoLink="web"
                             android:text="Total Days"
                             android:textColor="@color/black"
                             android:textSize="17dp" />
