@@ -50,7 +50,7 @@ public class AddGoalActivity extends AppCompatActivity
     private DatePicker datepicker;
     private boolean isNewGoal= false;
     private DatabaseReference RootRef, ActiveRef,activityRef;
-    String string_priority = "Less" ;
+    String string_priority = "Less", Edit = "";
     EditText  goalDesc;
     Spinner spino;
     @Nullable private String TAG;
@@ -68,6 +68,7 @@ public class AddGoalActivity extends AppCompatActivity
         InitializationMethod();
         TAG= getIntent().getStringExtra(DashboardActivity.ADD_TRIP_TAG);
         //bundle= getIntent().getExtras();
+        Edit += getIntent().getStringExtra("Edit"); //Edit = true; is called from Edit Activity else Edit = "";
 
         if(TAG!=null && TAG.equals(DashboardActivity.ADD_TRIP_VALUE)) {
             retrievePreviousData();
@@ -75,12 +76,6 @@ public class AddGoalActivity extends AppCompatActivity
         else{
             findViewById(R.id.create_goal_text_view).setVisibility(View.VISIBLE);
         }
-
-      /*  if(bundle.getString(DashboardActivity.ADD_TRIP_TAG).equals(DashboardActivity.ADD_TRIP_VALUE)){
-            retrievePreviousData();
-            //updateData= true;
-        }*/
-
 
 
         yes.setOnClickListener(new View.OnClickListener() {
@@ -158,11 +153,7 @@ public class AddGoalActivity extends AppCompatActivity
     }
 
     private void YESONCLICK() {
-      //
 
-        /*CreteATripNew(
-                 updateData? dataKey :
-                         RootRef.child("Goals").child("Active").push().getKey());*/
           if(TAG!=null && TAG.equals(DashboardActivity.ADD_TRIP_VALUE)) {
               isNewGoal= false;
               CreteATripNew(dataKey);
@@ -180,11 +171,9 @@ public class AddGoalActivity extends AppCompatActivity
     private void CreteATripNew(String string_trip) {
 
 
-
         Date today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
         SimpleDateFormat format1_only = new SimpleDateFormat("yyyy-M-dd");
-        String today_only = format1_only.format(today);
 
 
         //String todaay is Today's Date
@@ -232,7 +221,7 @@ public class AddGoalActivity extends AppCompatActivity
         if (TextUtils.isEmpty (string))
         {
             Toast.makeText(AddGoalActivity.this, "Enter any Trip name ..", Toast.LENGTH_SHORT).show();
-        } else if(set.contains(string)) {
+        } else if(set.contains(string) && !Edit.equals("true")) { //also checks if the function is called from Edit Activity
             Toast.makeText(this, "Goal Name Exists", Toast.LENGTH_SHORT).show();
         } else if(bool2 || bool3) //If the selected date is Future or Today's Date
         {
@@ -247,6 +236,7 @@ public class AddGoalActivity extends AppCompatActivity
             onlineStat.put ( "TodayTime", todaay);
             onlineStat.put ( "Consistency","0");
             onlineStat.put ( "Win","");
+            onlineStat.put ("Status", "Active");
 
             RootRef.child("Goals").child("Active").child(string_trip)
                     .updateChildren ( onlineStat );
@@ -278,37 +268,6 @@ public class AddGoalActivity extends AppCompatActivity
     public void onNothingSelected(AdapterView<?> parent) {
 
        }
-
-
-    public static List<Date> getDates(String dateString1, String dateString2)
-    {
-        ArrayList<Date> dates = new ArrayList<Date>();
-        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date1 = null;
-        Date date2 = null;
-
-        try {
-            date1 = df1 .parse(dateString1);
-            date2 = df1 .parse(dateString2);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTime(date1);
-
-
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(date2);
-
-        while(!cal1.after(cal2))
-        {
-            dates.add(cal1.getTime());
-            cal1.add(Calendar.DATE, 1);
-        }
-        return dates;
-    }
 
 
     private void retrievePreviousData() {

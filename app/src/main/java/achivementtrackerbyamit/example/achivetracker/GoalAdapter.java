@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -26,6 +28,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
@@ -64,8 +67,71 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder2 holder, int position) {
 
+
+
+
+
         // Key of the goal is the first element of the pair
         String listPostKey = goalList.get(position).first;
+        DatabaseReference db = fragment.RootRef.child(listPostKey);
+        StringBuilder sb = new StringBuilder();
+        StringBuilder retriveBreakEndDate = new StringBuilder();
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.hasChild("Status") && snapshot.hasChild("BreakEndDate")) {
+
+                    sb.append(snapshot.child("Status").getValue().toString());
+
+                    if((sb.toString()).equals("OnBreak")) {
+                        holder.check_in_layout.setVisibility(View.GONE);
+                    }
+
+                    retriveBreakEndDate.append(snapshot.child("BreakEndDate").getValue().toString());
+
+                    SimpleDateFormat newFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
+
+
+                    Date today1 = new Date();
+                    String todayDate = newFormat.format(today1);
+
+
+
+                    Date date_1 = null, date_2 = null;
+                    try {
+                        date_1 = newFormat.parse(todayDate);
+                        date_2 = newFormat.parse(retriveBreakEndDate.toString());
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    long d_ifferent = date_1.getTime() - date_2.getTime();
+                    long s_econdsInMilli = 1000;
+                    long m_inutesInMilli = s_econdsInMilli * 60;
+                    long h_oursInMilli = m_inutesInMilli * 60;
+                    long d_aysInMilli = h_oursInMilli * 24;
+
+                    long e_lapsedDays = d_ifferent / d_aysInMilli;
+
+                    if(e_lapsedDays==1) {
+                        DatabaseReference tempDB = fragment.RootRef.child(listPostKey);
+                        tempDB.child("Status").setValue("Active");
+                        tempDB.child("BreakEndDate").removeValue();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+     //   Toast.makeText(fragment.getContext(), ""+retriveBreakEndDate, Toast.LENGTH_SHORT).show();
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd-M-yyyy");
 
         // Goal object is the second element of the pair
         GoingCLass model=goalList.get(position).second;
@@ -73,7 +139,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
 
         // Same code as the old adapter
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
-        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd-M-yyyy");
 
         Date today = new Date();
         String todaay = simpleDateFormat.format(today);
@@ -212,6 +277,16 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
                             fragment.RootRef.child(listPostKey).child("Win").child(jys_da)
                                     .updateChildren(onlineStat);
                             holder.checkBox_true.setVisibility(View.INVISIBLE);
+
+
+                            String key= fragment.activityRef.push().getKey();
+                            String value= "Checked in "+model.getGoalName()+" on "+todaay;
+                            fragment.activityRef.child(key).setValue(value, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                }
+                            });
+
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

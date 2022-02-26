@@ -57,16 +57,8 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        mAuth = FirebaseAuth.getInstance();
-        name = findViewById(R.id.name);
-        email = findViewById(R.id.signupemail);
-        pass = findViewById(R.id.signuppass);
-        signup = findViewById(R.id.signupbtn);
-        gotosignin = findViewById(R.id.gotosignin);
-        progressBar = findViewById(R.id.progressBar);
-        checkBox = findViewById(R.id.checkBox);
-        add = findViewById(R.id.add_image);
-        profilePic = findViewById(R.id.profile_image);
+
+        InitializeMethods();
 
         gotosignin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +146,21 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void InitializeMethods() {
+
+        mAuth = FirebaseAuth.getInstance();
+        name = findViewById(R.id.name);
+        email = findViewById(R.id.signupemail);
+        pass = findViewById(R.id.signuppass);
+        signup = findViewById(R.id.signupbtn);
+        gotosignin = findViewById(R.id.gotosignin);
+        progressBar = findViewById(R.id.progressBar);
+        checkBox = findViewById(R.id.checkBox);
+        add = findViewById(R.id.add_image);
+        profilePic = findViewById(R.id.profile_image);
+    }
+
     private void ShowOptionsforProfilePic() {
 
         new MaterialAlertDialogBuilder(SignupActivity.this).setBackground(getResources().getDrawable(R.drawable.material_dialog_box)).setTitle("Change profile photo").setItems(new String[]{"Choose from gallery", "Take a new picture"}, new DialogInterface.OnClickListener() {
@@ -215,24 +222,7 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    private void showProgressDialog() {
-        progressDialog = new ProgressDialog(SignupActivity.this);
-        progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_diaglog);
-        progressDialog.setCanceledOnTouchOutside(false);
-        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-//        Runnable progressRunnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                if (confirmation != 1) {
-//                    progressDialog.cancel();
-//                    Toast.makeText(DashboardActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        };
-//
-//        Handler pdCanceller = new Handler();
-//        pdCanceller.postDelayed(progressRunnable, 5000);
-    }
+
+
 
 }

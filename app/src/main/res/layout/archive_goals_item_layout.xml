@@ -131,6 +131,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="9dp">
+
+
             <ProgressBar
                 android:id="@+id/consistency_progress"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -141,6 +143,7 @@
                 android:scaleY="4"
                 android:progressTint="#0F9D58"
                 tools:progress="70" />
+
         </FrameLayout>
     </LinearLayout>
 

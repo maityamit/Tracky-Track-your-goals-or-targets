@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,11 +21,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -78,6 +81,7 @@ public class DashboardActivity extends AppCompatActivity {
     RelativeLayout rel;
     String id = "";
     String currentUserID;
+    ImageView descButton;
     String description;
     long Days;
     String goal_end, goal_create;
@@ -102,6 +106,7 @@ public class DashboardActivity extends AppCompatActivity {
     public static final String ADD_TRIP_VALUE= DashboardActivity.class.getName();
     public static final String ADD_TRIP_TAG="ADD_TRIP_TAG";
     public static final String ADD_TRIP_DATA_KEY="ADD_TRIP_DATA_KEY";
+    View Leave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,6 +213,15 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
 
+
+
+
+        Leave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getLeaveDays();
+            }
+        });
 
 
     }
@@ -333,6 +347,7 @@ public class DashboardActivity extends AppCompatActivity {
         Intent intent= new Intent(DashboardActivity.this, AddGoalActivity.class);
         intent.putExtra(ADD_TRIP_TAG,ADD_TRIP_VALUE);
         intent.putExtra(ADD_TRIP_DATA_KEY,id);
+        intent.putExtra("Edit", "true"); //Passes key that means if Edit string in Add activity will be set as "true" if passed from this activity;
         startActivity(intent);
 
     }
@@ -370,6 +385,8 @@ public class DashboardActivity extends AppCompatActivity {
 
         //Notes
         notes = findViewById(R.id.Notes);
+
+        Leave = findViewById(R.id.LeaveButton);
 
     }
 
@@ -435,6 +452,90 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(Intent.createChooser(shareIntent, "hello hello"));
         }
 
+    }
+
+    private void getLeaveDays() {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(DashboardActivity.this); //Created alert Dialog
+        mydialog.setTitle("How many days of break you need?"); //Title of EditText
+        final EditText weightInput = new EditText(DashboardActivity.this);
+        weightInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mydialog.setView(weightInput);
+        mydialog.setPositiveButton("Request Break", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String myText = weightInput.getText().toString(); //Saving Entered name in String
+                int Days = Integer.parseInt(myText);
+                if(myText.isEmpty())
+                    Toast.makeText(DashboardActivity.this, "Please input number of Days", Toast.LENGTH_SHORT).show();
+                else
+                    askLeave(Days);
+            }
+        });
+        mydialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel(); //cancel button
+            }
+        });
+        mydialog.show();
+    }
+
+    private void askLeave(int days) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+            Date endDate = dateFormat.parse(goal_end);
+            Date today = new Date();
+            String nDate = dateFormat.format(today);
+            Date updatedToday = dateFormat.parse(nDate);
+            long diff = endDate.getTime() - updatedToday.getTime();
+            long Days = diff / (24 * 60 * 60 * 1000);
+            int d = (int) Days - days;
+            if(d < 1)
+                Toast.makeText(this, "Please select less days" , Toast.LENGTH_SHORT).show();
+            else {
+                Toast.makeText(this, "Leave Granted!", Toast.LENGTH_SHORT).show();
+                updateGoal(days);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateGoal(long days) {
+        Toast.makeText(this, ""+days, Toast.LENGTH_SHORT).show();
+
+        int intt = (int) days;
+
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
+
+        String goal_created_date = goal_create;
+
+        Date create_date = null;
+        try {
+            create_date = simpleDateFormat2.parse(goal_created_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        Date today = new Date();
+
+        Date today_date_after_increse = new Date(today.getTime() + (1000 * 60 * 60 * 24 * intt));
+        Date create_date_after_increse = new Date(create_date.getTime() + (1000 * 60 * 60 * 24 * intt));
+
+
+        String today_date_after_increse_string = simpleDateFormat2.format(today_date_after_increse);
+        String create_date_after_increse_string = simpleDateFormat2.format(create_date_after_increse);
+
+     //   Toast.makeText(DashboardActivity.this, today_date_after_increse_string+"\n"+create_date_after_increse_string, Toast.LENGTH_SHORT).show();
+
+        HashMap<String,Object> onlineStat = new HashMap<> (  );
+        onlineStat.put ( "TodayTime", create_date_after_increse_string);
+        onlineStat.put ("Status", "OnBreak");
+        onlineStat.put ("BreakEndDate", today_date_after_increse_string);
+
+        RootRef.child(id)
+                .updateChildren ( onlineStat );
     }
 
 
