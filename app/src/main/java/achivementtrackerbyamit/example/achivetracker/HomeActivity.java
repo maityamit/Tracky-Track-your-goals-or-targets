@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.squareup.picasso.Picasso;
 
+import java.util.Map;
 import java.util.Objects;
 
 import achivementtrackerbyamit.example.achivetracker.archive.ArchiveGoalFragment;
@@ -35,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
 
     ChipNavigationBar chipNavigationBar;
     String currentUserID;
-    DatabaseReference RootRef;
+    DatabaseReference RootRef,NewRef;
     ImageView profile_button;
 
     public static int confirmation = 0;
@@ -77,6 +78,42 @@ public class HomeActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
+        NewRef = FirebaseDatabase.getInstance().getReference().child("Topper").child(currentUserID);
+        RootRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int max =0;
+                String max_con = String.valueOf(max);
+                String GoalName = "goal";
+                Topper topper = new Topper(GoalName,max_con);
+                NewRef.setValue(topper);
+                for (DataSnapshot ds : snapshot.getChildren()){
+                    try {
+                        Map<String,Object> map = (Map<String, Object>) ds.getValue();
+                        Object goal_name = map.get("GoalName");
+                        Object consis = map.get("Consistency");
+                        int maxConsis = Integer.parseInt(String.valueOf(consis));
+                        if (maxConsis>max) {
+                            max = maxConsis;
+                            GoalName = (String) goal_name;
+                        }
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getApplicationContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                String goalname = GoalName;
+                String max_consis = String.valueOf(max);
+                NewRef.child("consistency").setValue(goalname);
+                NewRef.child("goal_Name").setValue(max_consis);
+                Toast.makeText(getApplicationContext(), "Pushed!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
