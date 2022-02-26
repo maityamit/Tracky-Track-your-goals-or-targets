@@ -50,7 +50,7 @@ public class AddGoalActivity extends AppCompatActivity
     private DatePicker datepicker;
     private boolean isNewGoal= false;
     private DatabaseReference RootRef, ActiveRef,activityRef;
-    String string_priority = "Less" ;
+    String string_priority = "Less", Edit = "";
     EditText  goalDesc;
     Spinner spino;
     @Nullable private String TAG;
@@ -68,6 +68,7 @@ public class AddGoalActivity extends AppCompatActivity
         InitializationMethod();
         TAG= getIntent().getStringExtra(DashboardActivity.ADD_TRIP_TAG);
         //bundle= getIntent().getExtras();
+        Edit += getIntent().getStringExtra("Edit"); //Edit = true; is called from Edit Activity else Edit = "";
 
         if(TAG!=null && TAG.equals(DashboardActivity.ADD_TRIP_VALUE)) {
             retrievePreviousData();
@@ -220,7 +221,7 @@ public class AddGoalActivity extends AppCompatActivity
         if (TextUtils.isEmpty (string))
         {
             Toast.makeText(AddGoalActivity.this, "Enter any Trip name ..", Toast.LENGTH_SHORT).show();
-        } else if(set.contains(string)) {
+        } else if(set.contains(string) && !Edit.equals("true")) { //also checks if the function is called from Edit Activity
             Toast.makeText(this, "Goal Name Exists", Toast.LENGTH_SHORT).show();
         } else if(bool2 || bool3) //If the selected date is Future or Today's Date
         {

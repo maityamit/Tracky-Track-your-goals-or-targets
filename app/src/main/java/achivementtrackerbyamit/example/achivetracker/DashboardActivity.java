@@ -347,6 +347,7 @@ public class DashboardActivity extends AppCompatActivity {
         Intent intent= new Intent(DashboardActivity.this, AddGoalActivity.class);
         intent.putExtra(ADD_TRIP_TAG,ADD_TRIP_VALUE);
         intent.putExtra(ADD_TRIP_DATA_KEY,id);
+        intent.putExtra("Edit", "true"); //Passes key that means if Edit string in Add activity will be set as "true" if passed from this activity;
         startActivity(intent);
 
     }
