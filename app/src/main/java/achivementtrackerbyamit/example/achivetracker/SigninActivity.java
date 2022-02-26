@@ -25,6 +25,7 @@ public class SigninActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     EditText email,pass;
     TextView frgtpass,gotosignup;
+    ProgressBar progressBar;
     Button signin;
 
     @Override
@@ -32,13 +33,8 @@ public class SigninActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
-        mAuth = FirebaseAuth.getInstance();
-        email = findViewById(R.id.loginemail);
-        pass = findViewById(R.id.loginpassword);
-        frgtpass = findViewById(R.id.frgtpass);
-        signin = findViewById(R.id.signin);
-        gotosignup = findViewById(R.id.signuptext);
-        ProgressBar progressBar = findViewById(R.id.progressBar2);
+
+        InittializeMethods();
 
         frgtpass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +43,7 @@ public class SigninActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
+
         gotosignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +51,7 @@ public class SigninActivity extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
+
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,4 +108,16 @@ public class SigninActivity extends AppCompatActivity {
         });
 
     }
+
+    private void InittializeMethods() {
+
+        mAuth = FirebaseAuth.getInstance();
+        email = findViewById(R.id.loginemail);
+        pass = findViewById(R.id.loginpassword);
+        frgtpass = findViewById(R.id.frgtpass);
+        signin = findViewById(R.id.signin);
+        gotosignup = findViewById(R.id.signuptext);
+        progressBar = findViewById(R.id.progressBar2);
+    }
+
 }
