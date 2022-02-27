@@ -11,6 +11,7 @@
         <entry key="..\:/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_signin.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_signup.xml" value="0.25416666666666665" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable-v24/calendar_background.xml" value="0.1615" />
+        <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/backgroud_grad.xml" value="0.3" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/button.xml" value="0.3165" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/card_background.xml" value="0.1655" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/cardview_background.xml" value="0.1655" />
@@ -24,7 +25,9 @@
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_app_intro.xml" value="0.19010416666666666" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_dashboard.xml" value="0.33" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_home.xml" value="0.32592592592592595" />
+        <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_onboarding.xml" value="0.36666666666666664" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_profile.xml" value="0.31794871794871793" />
+        <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_register.xml" value="0.32592592592592595" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_signup.xml" value="0.35648148148148145" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_splassh.xml" value="0.32592592592592595" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_archive_goal.xml" value="0.32592592592592595" />
@@ -32,6 +35,7 @@
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_settings.xml" value="0.36666666666666664" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_visulization.xml" value="0.22" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_welcome.xml" value="0.20416666666666666" />
+        <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/layout_screen.xml" value="0.36666666666666664" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/main_tiles_layout.xml" value="0.32037037037037036" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/menu/menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Tracky/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/bg_round.xml" value="0.3828125" />
@@ -99,7 +103,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

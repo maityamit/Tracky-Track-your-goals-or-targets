@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,8 +27,6 @@ public class SplasshActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splassh);
         mAuth = FirebaseAuth.getInstance ();
-
-
     }
 
 
@@ -88,7 +87,7 @@ public class SplasshActivity extends AppCompatActivity {
             startActivity ( loginIntent );
             finish ();
             }
-        }, 1000);
+        }, 2900);
 
 
     }

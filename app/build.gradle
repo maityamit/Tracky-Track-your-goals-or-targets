@@ -106,10 +106,7 @@ dependencies {
 
     implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.3.4'
 
-
-
-
-
-
+    // Lottie Animation Dependency
+    implementation 'com.airbnb.android:lottie:4.2.2'
 
 }
