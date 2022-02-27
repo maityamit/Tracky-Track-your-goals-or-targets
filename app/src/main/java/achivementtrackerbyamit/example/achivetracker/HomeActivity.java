@@ -106,7 +106,6 @@ public class HomeActivity extends AppCompatActivity {
                 String max_consis = String.valueOf(max);
                 NewRef.child("consistency").setValue(goalname);
                 NewRef.child("goal_Name").setValue(max_consis);
-                Toast.makeText(getApplicationContext(), "Pushed!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
