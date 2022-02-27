@@ -1,5 +1,8 @@
 package achivementtrackerbyamit.example.achivetracker;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -36,6 +39,7 @@ import com.squareup.picasso.Picasso;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -121,6 +125,34 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
                         tempDB.child("BreakEndDate").removeValue();
                     }
                 }
+
+                SimpleDateFormat newFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
+                SimpleDateFormat newFormat1 = new SimpleDateFormat("dd/M/yyyy");
+                String End = snapshot.child("EndTime").getValue().toString();
+                String name = "1 day left to complete your Goal: " + snapshot.child("GoalName").getValue().toString();
+                Date t = new Date();
+                String t1 = newFormat.format(t);
+                try {
+                    Date today = newFormat.parse(t1);
+                    Date end = newFormat.parse(End);
+                    Date Send = newFormat1.parse(End);
+
+                    long d_ifferent = end.getTime() - today.getTime();
+                    long s_econdsInMilli = 1000;
+                    long m_inutesInMilli = s_econdsInMilli * 60;
+                    long h_oursInMilli = m_inutesInMilli * 60;
+                    long d_aysInMilli = h_oursInMilli * 24;
+
+                    long e_lapsedDays = d_ifferent / d_aysInMilli;
+
+                    if(e_lapsedDays>0) {
+                        String s = End.substring(0,9) + " 23:59:59";
+                        createAlarm(s.trim(), name);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -307,6 +339,25 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
 
         // Set completed goal percentage on the progress bar
         holder.completedBar.setProgress(DashboardActivity.GoalCOmpleteFn(todaay,model.getTodayTime(),model.getEndTime()),true);
+    }
+
+    private void createAlarm(String end, String name) {
+     //   Toast.makeText(fragment.getContext(), end, Toast.LENGTH_SHORT).show();
+        SimpleDateFormat newFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        Date send = null;
+        try {
+            send = newFormat.parse(end);
+            cal.setTime(send);
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        AlarmManager alarmManager = (AlarmManager) fragment.getContext().getSystemService(Context.ALARM_SERVICE); //Creating Alarm Manager
+        Intent intent = new Intent(fragment.getContext(), AlarmReceiver.class);
+        intent.putExtra("goal", name); //passing Goal name
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(fragment.getContext(), 1, intent, 0); //pending intent
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent); //wakes device if sleep
     }
 
 
