@@ -97,7 +97,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Runnable runnable;
     ImageView extendedFloatingShareButton;
     ImageView extendedFloatingEditButton;
-    ImageView deleteGoal;
+    ImageView deleteGoal, NewNote;
     ImageButton add_img;
     CircleImageView goalPic;
     private String EVENT_DATE_TIME = "null";
@@ -220,6 +220,13 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getLeaveDays();
+            }
+        });
+
+        NewNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getNote();
             }
         });
 
@@ -387,6 +394,8 @@ public class DashboardActivity extends AppCompatActivity {
         notes = findViewById(R.id.Notes);
 
         Leave = findViewById(R.id.LeaveButton);
+
+        NewNote = findViewById(R.id.newNote);
 
     }
 
@@ -816,6 +825,42 @@ public class DashboardActivity extends AppCompatActivity {
 
             mCalendarView.unMarkDate(data.getYear(),data.getMonth(),data.getDay());
         }
+    }
+
+    private void getNote() {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(DashboardActivity.this); //Created alert Dialog
+        mydialog.setTitle("Enter your note"); //Title of EditText
+        final EditText note = new EditText(DashboardActivity.this);
+        note.setInputType(InputType.TYPE_CLASS_TEXT);
+        mydialog.setView(note);
+        mydialog.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String text = note.getText().toString();
+                Date date = new Date();
+                String temp = simpleDateFormat.format(date);
+
+                    Toast.makeText(DashboardActivity.this, temp, Toast.LENGTH_SHORT).show();
+
+                String key= FirebaseDatabase.getInstance ().getReference ().
+                        child("Users").child(currentUserID).child("Goals").
+                        child("Active").child(id).child("Notes").push().getKey();
+
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("Date: ", temp);
+                    map.put("Note: ", text);
+
+
+                    RootRef.child(id).child("Notes").child(key).setValue(map);
+            }
+        });
+        mydialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel(); //cancel button
+            }
+        });
+        mydialog.show();
     }
 
 }

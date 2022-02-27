@@ -462,14 +462,16 @@ android:layout_height="match_parent">
                         android:textSize="17dp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/streakButOV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_baseline_share_24" />
+
+                        <ImageView
+                            android:id="@+id/streakButOV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_baseline_share_24" />
+
 
                 </RelativeLayout>
 
@@ -659,14 +661,33 @@ android:layout_height="match_parent">
                         android:textSize="17dp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/shareButNotes"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_baseline_share_24" />
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginEnd="6dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/newNote"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/addnew" />
+
+                        <ImageView
+                            android:id="@+id/shareButNotes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_baseline_share_24" />
+                    </LinearLayout>
+
 
                 </RelativeLayout>
 
