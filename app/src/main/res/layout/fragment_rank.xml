@@ -10,6 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
     <LinearLayout
         android:id="@+id/first_rank_layout"
         android:layout_width="wrap_content"
@@ -25,6 +27,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:src="@drawable/leaderboard_first"/>
+
+
         <androidx.cardview.widget.CardView
             android:layout_gravity="center"
             android:layout_width="80dp"
@@ -90,11 +94,22 @@
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp">
 
-            <ImageView
-                android:id="@+id/second_rank_pfp"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:src="@drawable/ic_search" />
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/second_rank_pfp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    tools:src="@drawable/ic_search" />
+
+            </LinearLayout>
+
+
+
+
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -103,8 +118,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAlignment="center"
+            android:textColor="@android:color/black"
             android:textSize="16sp"
-            tools:text="Sadgers" />
+            android:text="Second"/>
 
         <TextView
             android:id="@+id/second_rank_goal_name"
