@@ -5,37 +5,38 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/main_kogo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/main_kogo"
         android:requestLegacyExternalStorage="true"
+        android:roundIcon="@drawable/main_kogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
-
         <activity
-            android:name=".appIntro.activity.AppIntroActivity"
+            android:name=".Onboarding"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+        <activity
+            android:name=".IntroViewPagerAdapter"
+            android:exported="true"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".AlarmActivity"
             android:exported="true" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".HomeActivity"
+            android:exported="true">
+        </activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ForgetpassActivity" />
         <activity android:name=".SignupActivity" />
@@ -43,8 +44,21 @@
         <activity android:name=".AddGoalActivity" />
         <activity
             android:name=".SplasshActivity"
-            android:exported="true"></activity>
-        <activity android:name=".RegisterActivity" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".RegisterActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".DashboardActivity" />
 
         <receiver android:name=".AlarmReceiver" />
