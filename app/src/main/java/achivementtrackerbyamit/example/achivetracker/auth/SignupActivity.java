@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker;
+package achivementtrackerbyamit.example.achivetracker.auth;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,14 +27,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Objects;
 
+import achivementtrackerbyamit.example.achivetracker.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SignupActivity extends AppCompatActivity {
@@ -63,7 +59,7 @@ public class SignupActivity extends AppCompatActivity {
         gotosignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignupActivity.this,SigninActivity.class);
+                Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
                 startActivity(intent);
             }
         });

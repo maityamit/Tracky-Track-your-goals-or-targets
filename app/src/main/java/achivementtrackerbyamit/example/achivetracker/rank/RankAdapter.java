@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker;
+package achivementtrackerbyamit.example.achivetracker.rank;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import achivementtrackerbyamit.example.achivetracker.R;
 
 public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder> {
 

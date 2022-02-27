@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker;
+package achivementtrackerbyamit.example.achivetracker.splash;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,10 +9,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import achivementtrackerbyamit.example.achivetracker.HomeActivity;
+import achivementtrackerbyamit.example.achivetracker.R;
 
 public class SplasshActivity extends AppCompatActivity {
 
@@ -56,7 +58,7 @@ public class SplasshActivity extends AppCompatActivity {
                 currentUserID = mAuth.getCurrentUser ().getUid ();
 
 
-                Intent loginIntentt = new Intent ( SplasshActivity.this,HomeActivity.class );
+                Intent loginIntentt = new Intent ( SplasshActivity.this, HomeActivity.class );
                 loginIntentt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
                 startActivity ( loginIntentt );
                 finish ();
@@ -82,7 +84,7 @@ public class SplasshActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-             Intent loginIntent = new Intent (SplasshActivity.this,Onboarding.class  );
+             Intent loginIntent = new Intent (SplasshActivity.this, Onboarding.class  );
             loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
             startActivity ( loginIntent );
             finish ();

@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker;
+package achivementtrackerbyamit.example.achivetracker.auth;
 
 import static android.content.ContentValues.TAG;
 
@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+
+import achivementtrackerbyamit.example.achivetracker.R;
 
 public class ForgetpassActivity extends AppCompatActivity {
 

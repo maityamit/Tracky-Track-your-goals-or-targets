@@ -23,27 +23,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
         <activity
-            android:name=".Onboarding"
+            android:name=".splash.Onboarding"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
         <activity
-            android:name=".IntroViewPagerAdapter"
+            android:name=".splash.IntroViewPagerAdapter"
             android:exported="true"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".AlarmActivity"
+            android:name=".alarm.AlarmActivity"
             android:exported="true" />
         <activity android:name=".HomeActivity"
             android:exported="true">
         </activity>
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".ForgetpassActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".SigninActivity" />
+        <activity android:name=".auth.ForgetpassActivity" />
+        <activity android:name=".auth.SignupActivity" />
+        <activity android:name=".auth.SigninActivity" />
         <activity android:name=".AddGoalActivity" />
         <activity
-            android:name=".SplasshActivity"
+            android:name=".splash.SplasshActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,7 +51,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"
+        <activity android:name=".rank.RegisterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,7 +61,7 @@
         </activity>
         <activity android:name=".DashboardActivity" />
 
-        <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".alarm.AlarmReceiver" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

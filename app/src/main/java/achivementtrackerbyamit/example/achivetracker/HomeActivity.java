@@ -3,19 +3,15 @@ package achivementtrackerbyamit.example.achivetracker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
+
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +24,10 @@ import com.squareup.picasso.Picasso;
 import java.util.Map;
 import java.util.Objects;
 
+import achivementtrackerbyamit.example.achivetracker.active.ActiveGoalFragment;
 import achivementtrackerbyamit.example.achivetracker.archive.ArchiveGoalFragment;
+import achivementtrackerbyamit.example.achivetracker.rank.RankFragment;
+import achivementtrackerbyamit.example.achivetracker.rank.Topper;
 
 public class HomeActivity extends AppCompatActivity {
 

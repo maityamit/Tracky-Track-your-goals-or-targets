@@ -1,46 +1,25 @@
 package achivementtrackerbyamit.example.achivetracker.archive;
 
-import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,24 +27,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.leo.simplearcloader.SimpleArcLoader;
-import com.squareup.picasso.Picasso;
 
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
-import achivementtrackerbyamit.example.achivetracker.ActiveGoalFragment;
-import achivementtrackerbyamit.example.achivetracker.DashboardActivity;
-import achivementtrackerbyamit.example.achivetracker.GoingCLass;
-import achivementtrackerbyamit.example.achivetracker.ProfileActivity;
 import achivementtrackerbyamit.example.achivetracker.R;
-import achivementtrackerbyamit.example.achivetracker.Users;
 
 public class ArchiveGoalFragment extends Fragment {
 

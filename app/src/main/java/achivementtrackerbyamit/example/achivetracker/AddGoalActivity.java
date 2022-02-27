@@ -27,18 +27,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import achivementtrackerbyamit.example.achivetracker.active.GoingCLass;
 
 public class AddGoalActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener  {

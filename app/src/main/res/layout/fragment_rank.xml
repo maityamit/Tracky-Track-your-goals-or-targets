@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#E1F1FF"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".RankFragment">
+    tools:context=".rank.RankFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

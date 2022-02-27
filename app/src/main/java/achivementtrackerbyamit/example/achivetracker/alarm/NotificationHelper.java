@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker;
+package achivementtrackerbyamit.example.achivetracker.alarm;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
+
+import achivementtrackerbyamit.example.achivetracker.R;
 
 public class NotificationHelper extends ContextWrapper {
     private  NotificationManager mManger;

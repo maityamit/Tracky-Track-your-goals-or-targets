@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker;
+package achivementtrackerbyamit.example.achivetracker.splash;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.List;
+
+import achivementtrackerbyamit.example.achivetracker.R;
+import achivementtrackerbyamit.example.achivetracker.splash.ScreenItem;
 
 public class IntroViewPagerAdapter extends PagerAdapter {
 

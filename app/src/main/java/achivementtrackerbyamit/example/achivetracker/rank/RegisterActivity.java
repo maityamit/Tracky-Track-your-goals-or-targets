@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker;
+package achivementtrackerbyamit.example.achivetracker.rank;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +31,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import achivementtrackerbyamit.example.achivetracker.HomeActivity;
+import achivementtrackerbyamit.example.achivetracker.R;
+import achivementtrackerbyamit.example.achivetracker.auth.SigninActivity;
+
 public class RegisterActivity extends AppCompatActivity {
 
     LinearLayout gotoGoogle;
@@ -57,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         emailSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this,SigninActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, SigninActivity.class);
                 startActivity(intent);
 
             }

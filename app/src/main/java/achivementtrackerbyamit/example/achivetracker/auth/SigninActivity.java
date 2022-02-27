@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker;
+package achivementtrackerbyamit.example.achivetracker.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +13,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import achivementtrackerbyamit.example.achivetracker.HomeActivity;
+import achivementtrackerbyamit.example.achivetracker.R;
 
 public class SigninActivity extends AppCompatActivity {
 
@@ -47,7 +49,7 @@ public class SigninActivity extends AppCompatActivity {
         gotosignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(SigninActivity.this,SignupActivity.class);
+                Intent intent2 = new Intent(SigninActivity.this, SignupActivity.class);
                 startActivity(intent2);
             }
         });
@@ -87,7 +89,7 @@ public class SigninActivity extends AppCompatActivity {
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 if (user.isEmailVerified()){
                                     progressBar.setVisibility(View.GONE);
-                                    Intent intent2 = new Intent(SigninActivity.this,HomeActivity.class);
+                                    Intent intent2 = new Intent(SigninActivity.this, HomeActivity.class);
                                     startActivity(intent2);
                                     finishAffinity();
                                 }

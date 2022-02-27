@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker;
+package achivementtrackerbyamit.example.achivetracker.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +16,9 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
+
+import achivementtrackerbyamit.example.achivetracker.R;
+import achivementtrackerbyamit.example.achivetracker.rank.RegisterActivity;
 
 public class Onboarding extends AppCompatActivity {
 

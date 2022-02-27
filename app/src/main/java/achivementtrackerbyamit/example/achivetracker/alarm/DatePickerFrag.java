@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker;
+package achivementtrackerbyamit.example.achivetracker.alarm;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

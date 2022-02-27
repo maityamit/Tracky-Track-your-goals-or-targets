@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker;
+package achivementtrackerbyamit.example.achivetracker.alarm;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import achivementtrackerbyamit.example.achivetracker.HomeActivity;
+import achivementtrackerbyamit.example.achivetracker.R;
 
 public class AlarmActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -105,7 +108,7 @@ public class AlarmActivity extends AppCompatActivity implements DatePickerDialog
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(AlarmActivity.this,HomeActivity.class);
+        Intent intent = new Intent(AlarmActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
