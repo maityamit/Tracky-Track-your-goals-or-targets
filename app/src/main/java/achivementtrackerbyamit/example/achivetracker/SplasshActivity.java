@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -79,12 +80,17 @@ public class SplasshActivity extends AppCompatActivity {
 
 
     private void SendUserToLoginActivity() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+             Intent loginIntent = new Intent (SplasshActivity.this,Onboarding.class  );
+            loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+            startActivity ( loginIntent );
+            finish ();
+            }
+        }, 1000);
 
 
-        Intent loginIntent = new Intent (SplasshActivity.this,RegisterActivity.class  );
-        loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-        startActivity ( loginIntent );
-        finish ();
     }
 
 
