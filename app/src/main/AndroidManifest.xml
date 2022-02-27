@@ -62,6 +62,9 @@
         <activity android:name=".DashboardActivity" />
 
         <receiver android:name=".AlarmReceiver" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

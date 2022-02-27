@@ -41,14 +41,14 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_marginTop="15sp"
             android:layout_height="wrap_content"
             android:layout_below="@id/hyyyyyyyyyyyy"
-            android:textStyle="bold"
-            android:textSize="19sp"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="15sp"
+            android:text="Tracky : Track your goal"
             android:textColor="#283593"
-            android:text="Tracky : Track your goal"/>
+            android:textSize="19sp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
