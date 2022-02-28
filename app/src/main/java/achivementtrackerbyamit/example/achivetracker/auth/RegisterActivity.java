@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker.rank;
+package achivementtrackerbyamit.example.achivetracker.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +33,6 @@ import java.util.Map;
 
 import achivementtrackerbyamit.example.achivetracker.HomeActivity;
 import achivementtrackerbyamit.example.achivetracker.R;
-import achivementtrackerbyamit.example.achivetracker.auth.SigninActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 

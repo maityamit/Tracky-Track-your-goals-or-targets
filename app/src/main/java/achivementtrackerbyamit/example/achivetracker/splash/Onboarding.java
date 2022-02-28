@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import achivementtrackerbyamit.example.achivetracker.R;
-import achivementtrackerbyamit.example.achivetracker.rank.RegisterActivity;
+import achivementtrackerbyamit.example.achivetracker.auth.RegisterActivity;
 
 public class Onboarding extends AppCompatActivity {
 
