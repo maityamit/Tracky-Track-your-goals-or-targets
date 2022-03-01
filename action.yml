@@ -4,8 +4,3 @@ author: "Ishween Kaur"
 branding:
   icon: message-square
   color: blue
-
-
-runs:
-  using: "docker"
-  image: "Dockerfile"
