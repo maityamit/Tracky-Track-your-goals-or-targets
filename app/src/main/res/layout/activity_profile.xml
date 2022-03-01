@@ -23,14 +23,35 @@
             android:background="@drawable/top2c" />
     </RelativeLayout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_pic"
+    <RelativeLayout
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/profile"
-        app:civ_border_color="@color/white"
-        app:civ_border_width="5dp" />
+        android:layout_gravity="center_horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/profile"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="5dp" />
+
+
+        <ImageButton
+            android:id="@+id/profile_pic_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/plus" />
+
+
+
+
+
+    </RelativeLayout>
+
 
 
     <TextView
@@ -110,16 +131,6 @@
         android:textSize="16dp"
         android:onClick="PDF"
         android:background="@drawable/button" />
-
-
-
-    <ImageButton
-        android:id="@+id/profile_pic_button"
-        android:layout_width="31dp"
-        android:layout_height="30dp"
-        android:background="@drawable/plus"
-        app:layout_constraintBottom_toBottomOf="@id/profile_pic"
-        app:layout_constraintEnd_toEndOf="@id/profile_pic" />
 
 
 
