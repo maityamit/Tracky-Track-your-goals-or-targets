@@ -141,7 +141,7 @@ public class RankFragment extends Fragment {
                             }
 
                             if (snapshott.hasChild("user_image")){
-                                Picasso.get().load(snapshott.child("user_image").getValue().toString()).into(firstImage);
+                                Picasso.get().load(snapshott.child("user_image").getValue().toString()).error(R.drawable.profile).placeholder(R.drawable.profile).into(firstImage);
                             }
 
                         }
@@ -181,7 +181,7 @@ public class RankFragment extends Fragment {
                             }
 
                             if (snapshott.hasChild("user_image")){
-                                Picasso.get().load(snapshott.child("user_image").getValue().toString()).into(secondImage);
+                                Picasso.get().load(snapshott.child("user_image").getValue().toString()).error(R.drawable.profile).placeholder(R.drawable.profile).into(secondImage);
                             }
 
                         }
@@ -222,7 +222,7 @@ public class RankFragment extends Fragment {
                             }
 
                             if (snapshott.hasChild("user_image")){
-                                Picasso.get().load(snapshott.child("user_image").getValue().toString()).into(thirdImage);
+                                Picasso.get().load(snapshott.child("user_image").getValue().toString()).error(R.drawable.profile).placeholder(R.drawable.profile).into(thirdImage);
                             }
 
                         }

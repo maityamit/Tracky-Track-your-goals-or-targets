@@ -171,7 +171,7 @@
                 android:id="@+id/third_rank_pfp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:src="@drawable/ic_search" />
+                android:src="@drawable/profile" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -210,6 +210,7 @@
         android:layout_marginTop="5dp"
         android:id="@+id/rank_list"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         tools:listitem="@layout/rank_list_item"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/second_rank_layout"

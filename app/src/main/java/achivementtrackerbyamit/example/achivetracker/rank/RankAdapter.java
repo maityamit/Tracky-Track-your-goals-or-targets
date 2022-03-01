@@ -67,7 +67,7 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder
                 }
 
                 if (snapshott.hasChild("user_image")){
-                    Picasso.get().load(snapshott.child("user_image").getValue().toString()).into(holder.goalImage);
+                    Picasso.get().load(snapshott.child("user_image").getValue().toString()).error(R.drawable.profile).placeholder(R.drawable.profile).into(holder.goalImage);
                 }
 
             }
