@@ -156,6 +156,7 @@
                 android:layout_height="193dp"
                 app:egCurveSmoothness="0.4"
                 app:egLegendHeight="40dp"
+                app:egAxisTextColor="@android:color/black"
                 app:egLineStroke="8dp"
                 app:egUseCubic="true"
                 android:layout_gravity="center_horizontal"
