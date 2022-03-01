@@ -23,9 +23,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
         <activity
-            android:name=".GraphConsistency"
-            android:exported="false" />
-        <activity
             android:name=".splash.Onboarding"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>

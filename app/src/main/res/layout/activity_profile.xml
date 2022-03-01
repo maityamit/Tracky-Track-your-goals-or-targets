@@ -9,48 +9,60 @@
     tools:context=".ProfileActivity">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/relativeLayout"
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/top2c" />
-    </RelativeLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <RelativeLayout
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_gravity="center_horizontal">
+            <ImageView
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top2c" />
+        </RelativeLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_pic"
+        <RelativeLayout
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/profile"
-            app:civ_border_color="@color/white"
-            app:civ_border_width="5dp" />
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/profile"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="5dp" />
 
 
-        <ImageButton
-            android:id="@+id/profile_pic_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/plus" />
+            <ImageButton
+                android:id="@+id/profile_pic_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/plus" />
 
 
 
 
+
+        </RelativeLayout>
 
     </RelativeLayout>
+
+
+
 
 
 
@@ -75,7 +87,7 @@
         android:id="@+id/relativeLayout4"
         android:layout_width="330dp"
         android:layout_height="56dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal">
 
         <ImageView
@@ -106,18 +118,62 @@
     </RelativeLayout>
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/logout"
-        android:layout_width="120dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/logout_button"
-        android:text="Log Out"
-        android:textAllCaps="false"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:layout_gravity="center_horizontal"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_main_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginTop="180dp"
+        android:padding="20dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
+        app:cardMaxElevation="12dp"
+        app:cardPreventCornerOverlap="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/green"
+                android:text="Past 7 days Overall Consistency"/>
+
+            <org.eazegraph.lib.charts.ValueLineChart
+                android:id="@+id/cubiclinechart"
+                android:layout_width="374dp"
+                android:layout_height="193dp"
+                app:egCurveSmoothness="0.4"
+                app:egLegendHeight="40dp"
+                app:egLineStroke="8dp"
+                app:egUseCubic="true"
+                android:layout_gravity="center_horizontal"
+                app:egUseOverlapFill="true" />
+
+        </LinearLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/PDFshare"
@@ -132,18 +188,20 @@
         android:onClick="PDF"
         android:background="@drawable/button" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="330dp"
-        android:layout_height="55dp"
-        android:background="@drawable/button"
-        android:text="Show Average Consistency"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:textSize="16dp"
-        android:onClick="Graph"/>
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logout"
+        android:layout_width="120dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/logout_button"
+        android:text="Log Out"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:layout_gravity="center_horizontal"/>
 
 
 </LinearLayout>

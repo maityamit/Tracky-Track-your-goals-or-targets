@@ -2,6 +2,7 @@ package achivementtrackerbyamit.example.achivetracker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
@@ -43,6 +44,10 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.squareup.picasso.Picasso;
 
+import org.eazegraph.lib.charts.ValueLineChart;
+import org.eazegraph.lib.models.ValueLinePoint;
+import org.eazegraph.lib.models.ValueLineSeries;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -60,7 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     TextView welcome1, welcome2;
-    private DatabaseReference reference, tillActive;
+    private DatabaseReference reference, tillActive,Rootref;
     ProgressDialog progressDialog;
     private String userID;
     AppCompatButton Logout;
@@ -80,8 +85,11 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
+
         InitializationMethod();
         getUserDatafromFirebase();
+        Graph();
 
         editname.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +117,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+
     private void InitializationMethod() {
 
         welcome1 = findViewById(R.id.users_name);
@@ -125,6 +134,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+
+        Rootref = FirebaseDatabase.getInstance ().getReference ().child("Users").child(userID);
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -432,8 +443,43 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void Graph(View view) {
-        Intent i = new Intent(ProfileActivity.this, GraphConsistency.class);
-        startActivity(i);
+    public void Graph() {
+
+        Rootref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String fetch = snapshot.child("Average").child("String").getValue().toString();
+                String[] sp = fetch.split(";");
+
+
+                ValueLineChart mCubicValueLineChart = (ValueLineChart) findViewById(R.id.cubiclinechart);
+
+
+                ValueLineSeries series = new ValueLineSeries();
+                series.setColor(0xFF56B7F1);
+
+                series.addPoint(new ValueLinePoint("null", Integer.parseInt(sp[0])));
+                series.addPoint(new ValueLinePoint("7th", Integer.parseInt(sp[0])));
+                series.addPoint(new ValueLinePoint("6th", Integer.parseInt(sp[1])));
+                series.addPoint(new ValueLinePoint("5th", Integer.parseInt(sp[2])));
+                series.addPoint(new ValueLinePoint("4th", Integer.parseInt(sp[3])));
+                series.addPoint(new ValueLinePoint("3rd", Integer.parseInt(sp[4])));
+                series.addPoint(new ValueLinePoint("2nd", Integer.parseInt(sp[5])));
+                series.addPoint(new ValueLinePoint("Today", Integer.parseInt(sp[6])));
+                series.addPoint(new ValueLinePoint("null", Integer.parseInt(sp[6])));
+
+                mCubicValueLineChart.addSeries(series);
+                mCubicValueLineChart.startAnimation();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
+
+
+
 }
