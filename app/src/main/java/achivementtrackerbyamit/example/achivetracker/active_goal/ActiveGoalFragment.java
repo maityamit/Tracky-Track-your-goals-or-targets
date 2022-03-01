@@ -172,6 +172,7 @@ public class ActiveGoalFragment extends Fragment {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists()) return;
                 count = snapshot.getChildrenCount();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     GoingCLass goal = dataSnapshot.getValue(GoingCLass.class);

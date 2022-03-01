@@ -101,7 +101,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String personEmail = acct.getEmail();
                 String personId = acct.getId();
                 Uri personPhoto = acct.getPhotoUrl();
-                String personPhoneURL = acct.getPhotoUrl().toString();
 
                 String st = String.valueOf(personPhoto);
 
@@ -125,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
         UsersReference.child(UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!(dataSnapshot.child("Username").exists()))
+                if (!(dataSnapshot.child("name").exists()))
                 {
                     HashMap userMap=new HashMap();
                     userMap.put("name",userName);
@@ -182,7 +181,6 @@ public class RegisterActivity extends AppCompatActivity {
                         }else{
                             mAuth = FirebaseAuth.getInstance();
                             String currentUserID = mAuth.getCurrentUser().getUid().toString();
-
                             storeUserOnFireBase(name,email,"+91 - ","",currentUserID,st);
                             Toast.makeText(RegisterActivity.this, "Authentication pass.",
                                     Toast.LENGTH_SHORT).show();
