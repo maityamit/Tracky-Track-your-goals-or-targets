@@ -16,6 +16,8 @@
         android:id="@+id/first_rank_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
+        tools:visibility="visible"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,13 +33,13 @@
 
         <androidx.cardview.widget.CardView
             android:layout_gravity="center"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_margin="10dp"
-            app:cardCornerRadius="40dp"
+            app:cardCornerRadius="50dp"
             app:cardElevation="10dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/first_rank_pfp"
                 tools:src="@drawable/ic_search"
                 android:layout_width="match_parent"
@@ -50,6 +52,7 @@
             android:id="@+id/first_rank_name"
             android:textAlignment="center"
             android:textSize="18sp"
+            android:textColor="@color/black"
             tools:text="Sadgers"/>
         <TextView
             android:layout_width="wrap_content"
@@ -57,6 +60,7 @@
             android:layout_gravity="center"
             android:id="@+id/first_rank_goal_name"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="16sp"
             tools:text="Sadgers goal"/>
         <TextView
@@ -65,6 +69,7 @@
             android:layout_gravity="center"
             android:id="@+id/first_rank_consistency"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="16sp"
             tools:text="90%"/>
     </LinearLayout>
@@ -75,6 +80,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="50dp"
+        android:visibility="invisible"
+        tools:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/first_rank_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -87,28 +94,19 @@
             android:src="@drawable/leaderboard_second" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            app:cardCornerRadius="30dp"
+            app:cardCornerRadius="40dp"
             app:cardElevation="10dp">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/second_rank_pfp"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     tools:src="@drawable/ic_search" />
-
-            </LinearLayout>
-
-
-
 
         </androidx.cardview.widget.CardView>
 
@@ -129,6 +127,7 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="14sp"
+            android:textColor="@color/black"
             tools:text="Sadgers goal" />
 
         <TextView
@@ -138,6 +137,7 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="14sp"
+            android:textColor="@color/black"
             tools:text="90%" />
     </LinearLayout>
 
@@ -145,6 +145,8 @@
         android:id="@+id/third_rank_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
+        tools:visibility="visible"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/first_rank_layout"
@@ -158,14 +160,14 @@
             android:src="@drawable/leaderboard_third" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            app:cardCornerRadius="30dp"
+            app:cardCornerRadius="40dp"
             app:cardElevation="10dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/third_rank_pfp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -179,6 +181,7 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="16sp"
+            android:textColor="@color/black"
             tools:text="Sadgers" />
 
         <TextView
@@ -188,6 +191,7 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="14sp"
+            android:textColor="@color/black"
             tools:text="Sadgers goal" />
 
         <TextView
@@ -197,6 +201,7 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="14sp"
+            android:textColor="@color/black"
             tools:text="90%" />
     </LinearLayout>
 
@@ -206,8 +211,22 @@
         android:id="@+id/rank_list"
         android:layout_height="wrap_content"
         tools:listitem="@layout/rank_list_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/second_rank_layout"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.leo.simplearcloader.SimpleArcLoader
+            android:id="@+id/loader_rank"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            app:arc_margin="3dp"
+            app:arc_speed="medium"
+            app:arc_style="simple_arc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </ScrollView>
