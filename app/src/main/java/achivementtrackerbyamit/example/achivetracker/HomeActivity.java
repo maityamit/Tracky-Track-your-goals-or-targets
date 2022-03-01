@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -41,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
     ChipNavigationBar chipNavigationBar;
     String currentUserID;
     DatabaseReference RootRef,NewRef;
+    RelativeLayout relativeLayout;
     ImageView profile_button;
 
     public static int confirmation = 0;
@@ -79,6 +81,7 @@ public class HomeActivity extends AppCompatActivity {
         chipNavigationBar.setItemSelected(R.id.nav_home,
                 true);
         profile_button = findViewById(R.id.logout_btn);
+        relativeLayout = findViewById(R.id.handlee);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
