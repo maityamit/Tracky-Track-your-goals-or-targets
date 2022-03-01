@@ -10,41 +10,55 @@
 
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/users_name"
-            android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="20dp"
-            android:hint="User Name"
-            android:textColorHint="@color/black"
-            android:textSize="22dp"
-            android:textStyle="bold"
-            android:layout_gravity="center_vertical"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/edit" />
+
+            <TextView
+                android:id="@+id/users_name"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:hint="User Name"
+                android:textColorHint="@color/black"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"/>
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/edit" />
+
+
+        </LinearLayout>
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_pic"
-            android:layout_width="95dp"
-            android:layout_height="95dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="end"
             android:layout_marginEnd="25dp"
             android:src="@drawable/profile" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 
@@ -53,6 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="#8A8989"
         app:layout_constraintBottom_toTopOf="@+id/show_logs"
@@ -64,16 +79,13 @@
         android:id="@+id/show_logs"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/showlogbtn"
+        android:layout_gravity="center_horizontal"
         android:text="Show Log"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_pic" />
+        android:textSize="16dp" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_main_view"
@@ -140,7 +152,7 @@
         android:id="@+id/contrubter_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:text="This is an Open Source ❤ project"
         android:textColor="@android:color/black"
         android:textSize="17sp" />
@@ -149,10 +161,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:layout_marginStart="30sp"
         android:layout_marginTop="5dp"
+        android:paddingLeft="10dp"
         android:layout_marginEnd="30sp"
         android:layout_marginBottom="30sp"
         app:cardCornerRadius="12dp"
@@ -180,6 +192,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:text="Github Repo"
+                android:layout_marginEnd="10dp"
                 android:textColor="#283593"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -188,6 +201,21 @@
 
 
     </androidx.cardview.widget.CardView>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="5"
+        android:orientation="horizontal">
+
+
+
+    </LinearLayout>
+
+
+
 
 
 </LinearLayout>
