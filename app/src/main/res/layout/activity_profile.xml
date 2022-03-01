@@ -132,6 +132,18 @@
         android:onClick="PDF"
         android:background="@drawable/button" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="330dp"
+        android:layout_height="55dp"
+        android:background="@drawable/button"
+        android:text="Show Average Consistency"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="16dp"
+        android:onClick="Graph"/>
+
 
 
 </LinearLayout>
