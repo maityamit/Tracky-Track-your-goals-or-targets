@@ -37,19 +37,7 @@ public class AlarmActivity extends AppCompatActivity implements DatePickerDialog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
-
-        DatePick = findViewById(R.id.DatePick);
-        showD = findViewById(R.id.DateView);
-        TimePick = findViewById(R.id.TimePick);
-        showT = findViewById(R.id.TimeView);
-        SetAlarm = findViewById(R.id.SetAlarm);
-
-        Intent intent = getIntent();
-        String GoalName = intent.getExtras().getString("GoalName"); //Fetching Goal Name from Intent
-        sb.append(GoalName);
-
-        mNotificationHelper = new NotificationHelper(this, GoalName); //initializing NotificationHelper Class with Parameters
-
+        InitialzeMethod();
         DatePick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +53,22 @@ public class AlarmActivity extends AppCompatActivity implements DatePickerDialog
                 timePicker.show(getSupportFragmentManager(), "time picker");
             }
         });
+
+    }
+
+    private void InitialzeMethod() {
+
+        DatePick = findViewById(R.id.DatePick);
+        showD = findViewById(R.id.DateView);
+        TimePick = findViewById(R.id.TimePick);
+        showT = findViewById(R.id.TimeView);
+        SetAlarm = findViewById(R.id.SetAlarm);
+
+        Intent intent = getIntent();
+        String GoalName = intent.getExtras().getString("GoalName"); //Fetching Goal Name from Intent
+        sb.append(GoalName);
+
+        mNotificationHelper = new NotificationHelper(this, GoalName); //initializing NotificationHelper Class with Parameters
 
     }
 
@@ -96,14 +100,6 @@ public class AlarmActivity extends AppCompatActivity implements DatePickerDialog
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, set.getTimeInMillis(), pendingIntent); //wakes device if sleep
     }
 
-    public void cancelAlarm(View view) {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE); //new object
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0); //pending intent
-
-        alarmManager.cancel(pendingIntent); //cancels alarm
-        Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void onBackPressed() {

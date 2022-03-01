@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker.archive;
+package achivementtrackerbyamit.example.achivetracker.archive_goal;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -190,9 +190,7 @@ public class ArchiveGoalFragment extends Fragment {
 
     public static class StudentViewHolder3 extends  RecyclerView.ViewHolder
     {
-
-
-        public StudentViewHolder3(@NonNull View itemView) {
+      public StudentViewHolder3(@NonNull View itemView) {
             super ( itemView );
         }
     }

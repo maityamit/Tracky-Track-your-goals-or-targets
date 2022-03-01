@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker.archive;
+package achivementtrackerbyamit.example.achivetracker.archive_goal;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,10 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import achivementtrackerbyamit.example.achivetracker.R;
 

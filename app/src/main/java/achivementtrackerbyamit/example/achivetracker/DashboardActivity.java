@@ -67,18 +67,17 @@ public class DashboardActivity extends AppCompatActivity {
     private final int CAMERA_INTENT_CODE = 990;
 
     TextView name,consis,left,goal_lft_pert, notes;
-    TextView Tdays, Dleft, Sdate, Edate; //StreakOverview
+    TextView Tdays, Dleft, Sdate, Edate;
     RelativeLayout rel;
     String id = "";
     String currentUserID;
-    ImageView descButton;
     String description;
     long Days;
     String goal_end, goal_create;
-    //RecyclerView recyclerView;
     MCalendarView mCalendarView;
     ArrayList<DateData> dataArrayList;
     private StorageReference UserProfileImagesRef;
+    ImageView shareNotes;
     ProgressDialog progressDialog;
     DatabaseReference RootRef,HelloREf,newRef;
     @SuppressLint("SimpleDateFormat")
@@ -89,9 +88,11 @@ public class DashboardActivity extends AppCompatActivity {
     ImageView extendedFloatingEditButton;
     ImageView deleteGoal, NewNote;
     ImageButton add_img;
+    ImageView shareCal;
     CircleImageView goalPic;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
+    ImageView shareStreak;
     String GoalName;
     public static final String ADD_TRIP_VALUE= DashboardActivity.class.getName();
     public static final String ADD_TRIP_TAG="ADD_TRIP_TAG";
@@ -102,109 +103,61 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        InitializationMethod();
 
+
+         InitializationMethod();
          clearCalendar();
          highLightDate();
-
-        //recyclerView.setLayoutManager(new LinearLayoutManager(DashboardActivity.this));
-
-
-
-        RetriveData();
+         RetriveData();
 
         extendedFloatingShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 View gh = findViewById(R.id.relative_for_snap);
-                View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
                 share(screenShot(gh));
             }
         });
 
-        ImageView shareStreak = findViewById(R.id.streakButOV);
         shareStreak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View gh = findViewById(R.id.streakOV);
-                View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
                 share(screenShot(gh));
             }
         });
 
-        ImageView shareNotes = findViewById(R.id.shareButNotes);
         shareNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View gh = findViewById(R.id.streakNote);
-                View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
                 share(screenShot(gh));
             }
         });
 
-
-        ImageView shareCal = findViewById(R.id.shareCal);
         shareCal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View gh = findViewById(R.id.history_calendarViewGroup);
-                View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
                 share(screenShot(gh));
             }
         });
 
         extendedFloatingEditButton.setOnClickListener(view-> sendData());
 
-        deleteGoal = findViewById(R.id.delete_goal);
         deleteGoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Alert dialog for confirming deletion of goal
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(DashboardActivity.this,R.style.AlertDialogTheme1);
-                builder.setTitle("Alert!");
-                builder.setMessage("Are you sure you want to delete this?");
-                builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
-                builder.setCancelable(false);
 
-                // If yes chosen, then delete the goal and go back to the main activity
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        RootRef.child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful())
-                                {
-                                    Toast.makeText(DashboardActivity.this, "Goal deleted successfully", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                                else
-                                    Toast.makeText(DashboardActivity.this, "Failed to delete goal", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
-
-                // If no chosen, then close the dialog box
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
+                DeleteGoalMethod();
             }
         });
+
         add_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ShowOptionsforProfilePic();
             }
         });
-
-
-
-
 
         Leave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,7 +176,88 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
+    private void InitializationMethod() {
+
+        Intent intent = getIntent();
+        id = intent.getStringExtra("LISTKEY");
+
+        UserProfileImagesRef = FirebaseStorage.getInstance ().getReference ().child ( "Goal Images" );
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
+        RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
+        HelloREf = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Win");
+
+        newRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+        name = findViewById(R.id.desc_goal_name);
+        extendedFloatingShareButton = findViewById(R.id.share_Sss);
+        deleteGoal = findViewById(R.id.delete_goal);
+        shareStreak = findViewById(R.id.streakButOV);
+
+        extendedFloatingEditButton = findViewById(R.id.edit_goal_btn);
+        shareNotes = findViewById(R.id.shareButNotes);
+        consis = findViewById(R.id.desc_goal_const);
+        left = findViewById(R.id.desc_goal_left);
+        mCalendarView= findViewById(R.id.history_calendarView);
+        goal_lft_pert = findViewById(R.id.desc_goal_leftper);
+        shareCal = findViewById(R.id.shareCal);
+
+        add_img = findViewById(R.id.add_img);
+        goalPic = findViewById(R.id.imageIcon);
+
+        //Streak Overview
+        Tdays = findViewById(R.id.totalDays);
+        Dleft = findViewById(R.id.daysLeft);
+        Sdate = findViewById(R.id.startDate);
+        Edate = findViewById(R.id.endDate);
+
+        //Notes
+        notes = findViewById(R.id.Notes);
+
+        Leave = findViewById(R.id.LeaveButton);
+
+        NewNote = findViewById(R.id.newNote);
+
+    }
+
+    private void DeleteGoalMethod() {
+        //Alert dialog for confirming deletion of goal
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(DashboardActivity.this,R.style.AlertDialogTheme1);
+        builder.setTitle("Alert!");
+        builder.setMessage("Are you sure you want to delete this?");
+        builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
+        builder.setCancelable(false);
+
+        // If yes chosen, then delete the goal and go back to the main activity
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                RootRef.child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(DashboardActivity.this, "Goal deleted successfully", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                        else
+                            Toast.makeText(DashboardActivity.this, "Failed to delete goal", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        // If no chosen, then close the dialog box
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
     private void ShowOptionsforProfilePic() {
+
         new MaterialAlertDialogBuilder(DashboardActivity.this).setBackground(getResources().getDrawable(R.drawable.material_dialog_box)).setTitle("Change profile photo").setItems(new String[]{"Choose from gallery", "Take a new picture"}, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -349,67 +383,13 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-
-    private void InitializationMethod() {
-        Intent intent = getIntent();
-        id = intent.getStringExtra("LISTKEY");
-
-        UserProfileImagesRef = FirebaseStorage.getInstance ().getReference ().child ( "Goal Images" );
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
-        RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
-        HelloREf = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Win");
-
-        newRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
-        name = findViewById(R.id.desc_goal_name);
-        extendedFloatingShareButton = findViewById(R.id.share_Sss);
-        extendedFloatingEditButton = findViewById(R.id.edit_goal_btn);
-        consis = findViewById(R.id.desc_goal_const);
-        left = findViewById(R.id.desc_goal_left);
-        mCalendarView= findViewById(R.id.history_calendarView);
-        goal_lft_pert = findViewById(R.id.desc_goal_leftper);
-        // rel= findViewById(R.id.RelativeLayout);
-        //recyclerView = findViewById(R.id.history_recyler);
-
-        add_img = findViewById(R.id.add_img);
-        goalPic = findViewById(R.id.imageIcon);
-
-        //Streak Overview
-        Tdays = findViewById(R.id.totalDays);
-        Dleft = findViewById(R.id.daysLeft);
-        Sdate = findViewById(R.id.startDate);
-        Edate = findViewById(R.id.endDate);
-
-        //Notes
-        notes = findViewById(R.id.Notes);
-
-        Leave = findViewById(R.id.LeaveButton);
-
-        NewNote = findViewById(R.id.newNote);
-
-    }
-
-    // Here is the second progress Dialog Box
     private void showProgressDialog() {
         progressDialog = new ProgressDialog(DashboardActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_diaglog);
         progressDialog.setCanceledOnTouchOutside(false);
         Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-//        Runnable progressRunnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                if (confirmation != 1) {
-//                    progressDialog.cancel();
-//                    Toast.makeText(DashboardActivity.this, "Fetching data from Firebase", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        };
-//
-//        Handler pdCanceller = new Handler();
-//        pdCanceller.postDelayed(progressRunnable, 5000);
     }
-
 
     private Bitmap screenShot(View view) {
         View screenView = view;
@@ -420,8 +400,6 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void share(Bitmap bitmap){
-
-
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -501,6 +479,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void updateGoal(long days) {
+
         Toast.makeText(this, ""+days, Toast.LENGTH_SHORT).show();
 
         int intt = (int) days;
@@ -546,8 +525,6 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     }
-
-
 
     private void RetriveData() {
 

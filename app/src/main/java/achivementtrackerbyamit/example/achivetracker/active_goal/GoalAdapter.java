@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker.active;
+package achivementtrackerbyamit.example.achivetracker.active_goal;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.preference.PreferenceManager;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,18 +21,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -43,13 +38,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import achivementtrackerbyamit.example.achivetracker.DashboardActivity;
 import achivementtrackerbyamit.example.achivetracker.R;
 import achivementtrackerbyamit.example.achivetracker.alarm.AlarmReceiver;
-import achivementtrackerbyamit.example.achivetracker.archive.ArchiveClass;
+import achivementtrackerbyamit.example.achivetracker.archive_goal.ArchiveClass;
 
 // Custom adapter for the RecyclerView for displaying goals
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHolder2> {
@@ -456,7 +449,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         long daysInMilli = hoursInMilli * 24;
 
         long elapsedDays = different / daysInMilli;
-        different = different % daysInMilli;
 
         return elapsedDays;
     }

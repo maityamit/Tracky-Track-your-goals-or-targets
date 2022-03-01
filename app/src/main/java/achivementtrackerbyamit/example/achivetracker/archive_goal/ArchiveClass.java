@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker.archive;
+package achivementtrackerbyamit.example.achivetracker.archive_goal;
 
 
 public class ArchiveClass {

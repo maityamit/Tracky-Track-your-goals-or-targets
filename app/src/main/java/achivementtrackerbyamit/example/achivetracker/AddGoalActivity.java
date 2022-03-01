@@ -27,20 +27,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import achivementtrackerbyamit.example.achivetracker.active.GoingCLass;
+import achivementtrackerbyamit.example.achivetracker.active_goal.GoingCLass;
 
 public class AddGoalActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener  {
@@ -48,7 +45,7 @@ public class AddGoalActivity extends AppCompatActivity
     String[] courses = {"High","Medium","Less"};;
     public Button yes,no;
     private EditText tripname;
-    private String currentUserID;
+    private String currentUserID = "";
     private DatePicker datepicker;
     private boolean isNewGoal= false;
     private DatabaseReference RootRef, ActiveRef,activityRef;
@@ -56,10 +53,12 @@ public class AddGoalActivity extends AppCompatActivity
     EditText  goalDesc;
     Spinner spino;
     @Nullable private String TAG;
-    //Bundle bundle;
     private String dataKey;
     Set<String> set;
-    //private String prevConsistency;
+    ImageView spinnerImageView;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +67,7 @@ public class AddGoalActivity extends AppCompatActivity
 
 
         InitializationMethod();
+
         TAG= getIntent().getStringExtra(DashboardActivity.ADD_TRIP_TAG);
         //bundle= getIntent().getExtras();
         Edit += getIntent().getStringExtra("Edit"); //Edit = true; is called from Edit Activity else Edit = "";
@@ -79,6 +79,12 @@ public class AddGoalActivity extends AppCompatActivity
             findViewById(R.id.create_goal_text_view).setVisibility(View.VISIBLE);
         }
 
+        spinnerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spino.performClick();
+            }
+        });
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,15 +98,7 @@ public class AddGoalActivity extends AppCompatActivity
 
     private void InitializationMethod() {
 
-        ImageView spinnerImageView = findViewById(R.id.spinnerImageView);
-        spinnerImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                spino.performClick();
-            }
-        });
-
-
+         spinnerImageView = findViewById(R.id.spinnerImageView);
 
         spino = findViewById(R.id.priority_spinner);
         spino.setOnItemSelectedListener(this);
@@ -112,7 +110,6 @@ public class AddGoalActivity extends AppCompatActivity
                 android.R.layout
                         .simple_spinner_dropdown_item);
         spino.setAdapter(ad);
-
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
@@ -158,24 +155,22 @@ public class AddGoalActivity extends AppCompatActivity
 
         if(TAG!=null && TAG.equals(DashboardActivity.ADD_TRIP_VALUE)) {
             isNewGoal= false;
-            CreteATripNew(dataKey);
+            CreteANewGoal(dataKey);
         }
         else {
             String trip_key = RootRef.child("Goals").child("Active").push().getKey();
             isNewGoal= true;
-            CreteATripNew(trip_key);
+            CreteANewGoal(trip_key);
         }
 
     }
 
 
-
-    private void CreteATripNew(String string_trip) {
+    private void CreteANewGoal(String string_trip) {
 
 
         Date today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
-        SimpleDateFormat format1_only = new SimpleDateFormat("yyyy-M-dd");
 
 
         //String todaay is Today's Date
@@ -223,6 +218,7 @@ public class AddGoalActivity extends AppCompatActivity
         if (TextUtils.isEmpty (string))
         {
             Toast.makeText(AddGoalActivity.this, "Enter any Trip name ..", Toast.LENGTH_SHORT).show();
+
         } else if(set.contains(string) && !Edit.equals("true")) { //also checks if the function is called from Edit Activity
             Toast.makeText(this, "Goal Name Exists", Toast.LENGTH_SHORT).show();
         } else if(bool2 || bool3) //If the selected date is Future or Today's Date

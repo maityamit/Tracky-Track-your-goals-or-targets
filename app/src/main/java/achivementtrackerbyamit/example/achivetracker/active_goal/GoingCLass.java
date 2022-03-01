@@ -1,4 +1,4 @@
-package achivementtrackerbyamit.example.achivetracker.active;
+package achivementtrackerbyamit.example.achivetracker.active_goal;
 
 
 public class GoingCLass {

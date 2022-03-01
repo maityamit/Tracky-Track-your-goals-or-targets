@@ -2,7 +2,6 @@ package achivementtrackerbyamit.example.achivetracker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
@@ -56,7 +55,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import achivementtrackerbyamit.example.achivetracker.active.GoingCLass;
+import achivementtrackerbyamit.example.achivetracker.active_goal.GoingCLass;
 import achivementtrackerbyamit.example.achivetracker.auth.Users;
 import achivementtrackerbyamit.example.achivetracker.splash.SplasshActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
