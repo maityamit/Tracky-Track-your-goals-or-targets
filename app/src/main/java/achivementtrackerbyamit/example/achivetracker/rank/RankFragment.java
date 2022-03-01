@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.common.collect.Lists;
 import com.google.firebase.auth.FirebaseAuth;
@@ -94,12 +95,12 @@ public class RankFragment extends Fragment {
         dialog = view.findViewById(R.id.loader_rank);
 
 
-        Methods();
+        RetriveDataMethods();
 
         return  view;
     }
 
-    private void Methods() {
+    private void RetriveDataMethods() {
 
         // Getting list of best goals
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -125,6 +126,33 @@ public class RankFragment extends Fragment {
                 if(ranks.size()>0)
                 {
                     DataSnapshot dataSnapshot = ranks.get(0);
+
+
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+
+                    String key = dataSnapshot.getKey();
+
+                    reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshott) {
+
+                            if (snapshott.hasChild("name")){
+                                firstName.setText(snapshott.child("name").getValue().toString());
+                            }
+
+                            if (snapshott.hasChild("user_image")){
+                                Picasso.get().load(snapshott.child("user_image").getValue().toString()).into(firstImage);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getContext(), "Cannot fetch data", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
                //     firstName.setText(dataSnapshot.child("name").getValue(String.class));
                     firstGoal.setText(dataSnapshot.child("consistency").getValue(String.class));
                     int consistency = Integer.parseInt(dataSnapshot.child("goal_Name").getValue(String.class));
@@ -138,6 +166,34 @@ public class RankFragment extends Fragment {
                 if(ranks.size()>1)
                 {
                     DataSnapshot dataSnapshot = ranks.get(1);
+
+
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+
+                    String key = dataSnapshot.getKey();
+
+                    reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshott) {
+
+                            if (snapshott.hasChild("name")){
+                                secondName.setText(snapshott.child("name").getValue().toString());
+                            }
+
+                            if (snapshott.hasChild("user_image")){
+                                Picasso.get().load(snapshott.child("user_image").getValue().toString()).into(secondImage);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getContext(), "Cannot fetch data", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+
              //       secondName.setText(dataSnapshot.child("name").getValue(String.class));
                     secondGoal.setText(dataSnapshot.child("consistency").getValue(String.class));
                     int consistency = Integer.parseInt(dataSnapshot.child("goal_Name").getValue(String.class));
@@ -145,12 +201,38 @@ public class RankFragment extends Fragment {
               //      Picasso.get().load(dataSnapshot.child("user_image").getValue(String.class)).into(secondImage);
                     secondLayout.setVisibility(View.VISIBLE);
                 }
+
                 else secondLayout.setVisibility(View.GONE);
 
                 // Displaying third ranked goal
                 if(ranks.size()>2)
                 {
                     DataSnapshot dataSnapshot = ranks.get(2);
+
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+
+                    String key = dataSnapshot.getKey();
+
+                    reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshott) {
+
+                            if (snapshott.hasChild("name")){
+                                thirdName.setText(snapshott.child("name").getValue().toString());
+                            }
+
+                            if (snapshott.hasChild("user_image")){
+                                Picasso.get().load(snapshott.child("user_image").getValue().toString()).into(thirdImage);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getContext(), "Cannot fetch data", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                //     thirdName.setText(dataSnapshot.child("name").getValue(String.class));
                     thirdGoal.setText(dataSnapshot.child("consistency").getValue(String.class));
                     int consistency = Integer.parseInt(dataSnapshot.child("goal_Name").getValue(String.class));

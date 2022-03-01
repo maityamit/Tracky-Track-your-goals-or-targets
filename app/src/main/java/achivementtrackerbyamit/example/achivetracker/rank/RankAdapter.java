@@ -6,17 +6,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import achivementtrackerbyamit.example.achivetracker.ProfileActivity;
 import achivementtrackerbyamit.example.achivetracker.R;
+import achivementtrackerbyamit.example.achivetracker.auth.Users;
 
 public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder> {
 
@@ -44,6 +51,35 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder
         int consistency = Integer.parseInt(snapshot.child("goal_Name").getValue(String.class));
         if(consistency>=0) holder.goalConsistency.setText(consistency+"%");
        // Picasso.get().load(snapshot.child("user_image").getValue(String.class)).into(holder.goalImage);
+
+
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+
+        String key = snapshot.getKey();
+
+        reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshott) {
+
+                if (snapshott.hasChild("name")){
+                    holder.userName.setText(snapshott.child("name").getValue().toString());
+                }
+
+                if (snapshott.hasChild("user_image")){
+                    Picasso.get().load(snapshott.child("user_image").getValue().toString()).into(holder.goalImage);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context.getApplicationContext(), "Cannot fetch data", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
     }
 
     @Override
