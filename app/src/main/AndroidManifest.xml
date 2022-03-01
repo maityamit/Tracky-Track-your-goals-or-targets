@@ -23,10 +23,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
         <activity
+            android:name=".GraphConsistency"
+            android:exported="false" />
+        <activity
             android:name=".splash.Onboarding"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity
             android:name=".splash.IntroViewPagerAdapter"
             android:exported="true"
@@ -34,9 +36,9 @@
         <activity
             android:name=".alarm.AlarmActivity"
             android:exported="true" />
-        <activity android:name=".HomeActivity"
-            android:exported="true">
-        </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true"></activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".auth.ForgetpassActivity" />
         <activity android:name=".auth.SignupActivity" />
@@ -51,7 +53,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".auth.RegisterActivity"
+        <activity
+            android:name=".auth.RegisterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,6 +65,7 @@
         <activity android:name=".DashboardActivity" />
 
         <receiver android:name=".alarm.AlarmReceiver" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +22,18 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -38,19 +43,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 
-import achivementtrackerbyamit.example.achivetracker.alarm.AlarmReceiver;
 import achivementtrackerbyamit.example.achivetracker.DashboardActivity;
 import achivementtrackerbyamit.example.achivetracker.R;
+import achivementtrackerbyamit.example.achivetracker.alarm.AlarmReceiver;
 import achivementtrackerbyamit.example.achivetracker.archive.ArchiveClass;
 
 // Custom adapter for the RecyclerView for displaying goals
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHolder2> {
 
     // List of goals, goals are stored as a pair of the key of the goal and the goal object
-    ArrayList<Pair<String, GoingCLass>> goalList;
+    ArrayList<Pair<String,GoingCLass>> goalList;
     ActiveGoalFragment fragment;
-
 
     GoalAdapter(ActiveGoalFragment fragment, ArrayList<Pair<String,GoingCLass>> goalList)
     {
@@ -159,7 +165,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         });
 
 
-     //   Toast.makeText(fragment.getContext(), ""+retriveBreakEndDate, Toast.LENGTH_SHORT).show();
+        //   Toast.makeText(fragment.getContext(), ""+retriveBreakEndDate, Toast.LENGTH_SHORT).show();
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd-M-yyyy");
 
         // Goal object is the second element of the pair
@@ -193,7 +199,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         holder.const_text.setText("Consistency :" +model.getConsistency()+" %");
 
 
-        
         // Retrieve Goal Image into CurrentGoal Frag Recyclerview items
         fragment.RootRef.child(listPostKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -209,9 +214,9 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
 
             }
         });
-        
-        
-        
+
+
+
         fragment.RootRef.child(listPostKey).child("Win").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -280,7 +285,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(fragment.getContext(), DashboardActivity.class);
+                Intent intent = new Intent(fragment.getContext(),DashboardActivity.class);
                 intent.putExtra("LISTKEY",listPostKey);
                 fragment.startActivity(intent);
             }
@@ -301,11 +306,92 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
                         @Override
                         public void onClick(DialogInterface dialog, int which) { //For True
                             // perform logic
+
                             HashMap<String, Object> onlineStat = new HashMap<>();
                             onlineStat.put("Value", "true");
                             fragment.RootRef.child(listPostKey).child("Win").child(jys_da)
                                     .updateChildren(onlineStat);
                             holder.checkBox_true.setVisibility(View.INVISIBLE);
+
+                            fragment.RootRef.child(listPostKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    int count_nodes = (int) snapshot.child("Win").getChildrenCount();
+                                    if((DayReturn(todaay,model.getTodayTime()))>=0){
+                                        String dt = ConsistentFn(count_nodes,todaay,model.getTodayTime());
+                                        HashMap<String,Object> onlineStat = new HashMap<> (  );
+                                        onlineStat.put ( "Consistency", dt);
+                                        fragment.RootRef.child(listPostKey)
+                                                .updateChildren ( onlineStat );
+
+
+                                        long sum = fragment.sum, count = fragment.count;
+                                        sum+=Long.parseLong(dt);
+                                        long avg = sum/count;
+                                        Toast.makeText(fragment.getContext(), ""+avg, Toast.LENGTH_SHORT).show();
+                                        fragment.RootRefUpdate.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                String fetchD, fetchS, td;
+                                                fetchD = snapshot.child("Average").child("PDate").getValue().toString();
+                                                fetchS = snapshot.child("Average").child("String").getValue().toString();
+                                                SimpleDateFormat newFormat = new SimpleDateFormat("dd/M/yyyy");
+                                                Date t = new Date();
+                                                td = newFormat.format(t);
+                                                try {
+                                                    Date PDate = newFormat.parse(fetchD);
+                                                    Date today = newFormat.parse(td);
+
+                                                    long xf = PDate.getTime() - today.getTime();
+                                                    long s_econdsInMilli = 1000;
+                                                    long m_inutesInMilli = s_econdsInMilli * 60;
+                                                    long h_oursInMilli = m_inutesInMilli * 60;
+                                                    long d_aysInMilli = h_oursInMilli * 24;
+
+                                                    long diff = xf / d_aysInMilli;
+                                                    if(diff==0) {
+                                                        String[] sp = fetchS.split(";");
+                                                        sp[sp.length-1] = String.valueOf(avg);
+
+                                                        String up = "";
+                                                        for(int i=0; i<6; i++) {
+                                                            up+=sp[i]+";";
+                                                        }
+                                                        up+=sp[sp.length-1];
+
+                                                        HashMap<String, Object> map = new HashMap<>();
+                                                        map.put("Average/String", up);
+                                                        fragment.RootRefUpdate.updateChildren ( map );
+                                                    }
+
+                                                } catch (ParseException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
+
+
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+
+
+
+
+
 
 
                             String key= fragment.activityRef.push().getKey();
@@ -313,6 +399,8 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
                             fragment.activityRef.child(key).setValue(value, new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                    //Updating Average Node
+
                                 }
                             });
 
@@ -338,8 +426,44 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         holder.completedBar.setProgress(DashboardActivity.GoalCOmpleteFn(todaay,model.getTodayTime(),model.getEndTime()),true);
     }
 
+    public String ConsistentFn(int node,String today_date,String create_date){
+
+
+        float fl  = (float)(node*100)/(DayReturn(today_date,create_date)+1);
+        int iu = Math.round(fl);
+        return String.valueOf(iu);
+
+    }
+
+    public static long DayReturn(String high,String low){
+
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd/M/yyyy");
+        Date date1=null,date2 = null;
+        try {
+            date2 = simpleDateFormat2.parse(low);
+            date1 = simpleDateFormat2.parse(high);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long different = date1.getTime() - date2.getTime();
+
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        long elapsedDays = different / daysInMilli;
+        different = different % daysInMilli;
+
+        return elapsedDays;
+    }
+
+
     private void createAlarm(String end, String name) {
-     //   Toast.makeText(fragment.getContext(), end, Toast.LENGTH_SHORT).show();
+        //   Toast.makeText(fragment.getContext(), end, Toast.LENGTH_SHORT).show();
         SimpleDateFormat newFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
         Calendar cal = Calendar.getInstance();
         Date send = null;
@@ -397,6 +521,3 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         }
     }
 }
-
-
-
