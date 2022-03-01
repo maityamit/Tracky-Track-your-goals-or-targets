@@ -1,0 +1,11 @@
+name: "Push notification on Whatsapp with custom messages"
+description: "Triggers a Private Message to the specified Whatsapp forked from https://github.com/ishween/whatsapp-push-notify-action"
+author: "Ishween Kaur"
+branding:
+  icon: message-square
+  color: blue
+
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
