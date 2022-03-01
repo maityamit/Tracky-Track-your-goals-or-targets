@@ -227,24 +227,6 @@ public class AddGoalActivity extends AppCompatActivity
             Toast.makeText(this, "Goal Name Exists", Toast.LENGTH_SHORT).show();
         } else if(bool2 || bool3) //If the selected date is Future or Today's Date
         {
-            RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Date today = new Date();
-                    String td = formatt.format(today);
-                    if(!snapshot.hasChild("Average")) {
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("Average/String", "00;00;00;00;00;00;00");
-                        map.put("Average/PDate", td);
-                        RootRef.updateChildren ( map );
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
 
             HashMap<String,Object> onlineStat = new HashMap<> (  );
             onlineStat.put ( "GoalName", string);

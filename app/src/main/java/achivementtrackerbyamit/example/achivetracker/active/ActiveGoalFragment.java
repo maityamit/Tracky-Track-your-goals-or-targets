@@ -177,6 +177,29 @@ public class ActiveGoalFragment extends Fragment {
     }
 
     private void getAvg() {
+
+        SimpleDateFormat formatt = new SimpleDateFormat("dd/M/yyyy");
+
+        RootRefUpdate.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Date today = new Date();
+                String td = formatt.format(today);
+                if(!snapshot.hasChild("Average")) {
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("Average/String", "00;00;00;00;00;00;00");
+                    map.put("Average/PDate", td);
+                    RootRefUpdate.updateChildren ( map );
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

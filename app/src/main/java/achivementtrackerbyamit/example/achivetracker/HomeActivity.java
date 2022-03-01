@@ -175,11 +175,9 @@ public class HomeActivity extends AppCompatActivity {
                                 break;
                             case R.id.nav_new_ranking:
                                 fragment = new RankFragment();
-                                relativeLayout.setVisibility(View.GONE);
                                 break;
                             case R.id.nav_settings:
                                 fragment = new SettingsFragment();
-                                relativeLayout.setVisibility(View.GONE);
                                 break;
                         }
                         getSupportFragmentManager().beginTransaction()
