@@ -27,13 +27,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -153,15 +156,15 @@ public class AddGoalActivity extends AppCompatActivity
 
     private void YESONCLICK() {
 
-          if(TAG!=null && TAG.equals(DashboardActivity.ADD_TRIP_VALUE)) {
-              isNewGoal= false;
-              CreteATripNew(dataKey);
-          }
-          else {
-              String trip_key = RootRef.child("Goals").child("Active").push().getKey();
-              isNewGoal= true;
-              CreteATripNew(trip_key);
-          }
+        if(TAG!=null && TAG.equals(DashboardActivity.ADD_TRIP_VALUE)) {
+            isNewGoal= false;
+            CreteATripNew(dataKey);
+        }
+        else {
+            String trip_key = RootRef.child("Goals").child("Active").push().getKey();
+            isNewGoal= true;
+            CreteATripNew(trip_key);
+        }
 
     }
 
@@ -224,8 +227,24 @@ public class AddGoalActivity extends AppCompatActivity
             Toast.makeText(this, "Goal Name Exists", Toast.LENGTH_SHORT).show();
         } else if(bool2 || bool3) //If the selected date is Future or Today's Date
         {
+            RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Date today = new Date();
+                    String td = formatt.format(today);
+                    if(!snapshot.hasChild("Average")) {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("Average/String", "00;00;00;00;00;00;00");
+                        map.put("Average/PDate", td);
+                        RootRef.updateChildren ( map );
+                    }
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
+                }
+            });
 
             HashMap<String,Object> onlineStat = new HashMap<> (  );
             onlineStat.put ( "GoalName", string);
@@ -267,7 +286,7 @@ public class AddGoalActivity extends AppCompatActivity
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
-       }
+    }
 
 
     private void retrievePreviousData() {
@@ -281,7 +300,7 @@ public class AddGoalActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Get the previous goal name
                 String prevName= snapshot.child ( "GoalName" ).getValue ().toString ();
-               // Set the goal name
+                // Set the goal name
                 tripname.setText(prevName);
 
                 // Get the previous date
@@ -306,7 +325,7 @@ public class AddGoalActivity extends AppCompatActivity
                         (calendar.get(Calendar.MONTH)),
                         calendar.get(Calendar.DAY_OF_MONTH),null);
 
-               //Update other UI element
+                //Update other UI element
                 findViewById(R.id.create_goal_text_view).setVisibility(View.GONE);
                 yes.setText("Submit");
             }

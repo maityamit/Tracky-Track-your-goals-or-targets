@@ -432,4 +432,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    public void Graph(View view) {
+        Intent i = new Intent(ProfileActivity.this, GraphConsistency.class);
+        startActivity(i);
+    }
 }
