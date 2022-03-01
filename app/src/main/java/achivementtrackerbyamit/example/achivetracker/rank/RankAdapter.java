@@ -39,11 +39,11 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder
     public void onBindViewHolder(@NonNull RankViewHolder holder, int position) {
         DataSnapshot snapshot = rankList.get(position);
         holder.goalRank.setText((position+4)+".");
-        holder.userName.setText(snapshot.child("name").getValue(String.class));
-        holder.goalName.setText(snapshot.child("goal_Name").getValue(String.class));
-        int consistency = Integer.parseInt(snapshot.child("consistency").getValue(String.class));
+        //holder.userName.setText(snapshot.child("name").getValue(String.class));
+        holder.goalName.setText(snapshot.child("consistency").getValue(String.class));
+        int consistency = Integer.parseInt(snapshot.child("goal_Name").getValue(String.class));
         if(consistency>=0) holder.goalConsistency.setText(consistency+"%");
-        Picasso.get().load(snapshot.child("user_image").getValue(String.class)).into(holder.goalImage);
+       // Picasso.get().load(snapshot.child("user_image").getValue(String.class)).into(holder.goalImage);
     }
 
     @Override

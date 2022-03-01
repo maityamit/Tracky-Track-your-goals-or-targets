@@ -25,8 +25,10 @@ import com.squareup.picasso.Picasso;
 import java.util.Map;
 import java.util.Objects;
 
-import achivementtrackerbyamit.example.achivetracker.active.ActiveGoalFragment;
-import achivementtrackerbyamit.example.achivetracker.archive.ArchiveGoalFragment;
+import achivementtrackerbyamit.example.achivetracker.active_goal.ActiveGoalFragment;
+import achivementtrackerbyamit.example.achivetracker.active_goal.ActiveGoalFragment;
+import achivementtrackerbyamit.example.achivetracker.archive_goal.ArchiveGoalFragment;
+import achivementtrackerbyamit.example.achivetracker.archive_goal.ArchiveGoalFragment;
 import achivementtrackerbyamit.example.achivetracker.rank.RankFragment;
 import achivementtrackerbyamit.example.achivetracker.rank.Topper;
 
@@ -84,6 +86,9 @@ public class HomeActivity extends AppCompatActivity {
         RootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+
                 int max =0;
                 String max_con = String.valueOf(max);
                 String GoalName = "goal";

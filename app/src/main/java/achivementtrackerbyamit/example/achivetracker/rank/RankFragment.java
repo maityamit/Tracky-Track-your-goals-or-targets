@@ -92,12 +92,14 @@ public class RankFragment extends Fragment {
         rankList = view.findViewById(R.id.rank_list);
 
         dialog = view.findViewById(R.id.loader_rank);
+
+
+        Methods();
+
         return  view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    private void Methods() {
 
         // Getting list of best goals
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -111,7 +113,7 @@ public class RankFragment extends Fragment {
                 ranks.sort(new Comparator<DataSnapshot>() {
                     @Override
                     public int compare(DataSnapshot d1, DataSnapshot d2) {
-                        return Integer.parseInt(d2.child("consistency").getValue(String.class))-Integer.parseInt(d1.child("consistency").getValue(String.class));
+                        return Integer.parseInt(d2.child("goal_Name").getValue(String.class).toString())-Integer.parseInt(d1.child("goal_Name").getValue(String.class).toString());
                     }
                 });
 
@@ -123,11 +125,11 @@ public class RankFragment extends Fragment {
                 if(ranks.size()>0)
                 {
                     DataSnapshot dataSnapshot = ranks.get(0);
-                    firstName.setText(dataSnapshot.child("name").getValue(String.class));
-                    firstGoal.setText(dataSnapshot.child("goal_Name").getValue(String.class));
-                    int consistency = Integer.parseInt(dataSnapshot.child("consistency").getValue(String.class));
+               //     firstName.setText(dataSnapshot.child("name").getValue(String.class));
+                    firstGoal.setText(dataSnapshot.child("consistency").getValue(String.class));
+                    int consistency = Integer.parseInt(dataSnapshot.child("goal_Name").getValue(String.class));
                     if(consistency>=0) firstConsistency.setText(consistency+"%");
-                    Picasso.get().load(dataSnapshot.child("user_image").getValue(String.class)).into(firstImage);
+              //      Picasso.get().load(dataSnapshot.child("user_image").getValue(String.class)).into(firstImage);
                     firstLayout.setVisibility(View.VISIBLE);
                 }
                 else firstLayout.setVisibility(View.GONE);
@@ -136,11 +138,11 @@ public class RankFragment extends Fragment {
                 if(ranks.size()>1)
                 {
                     DataSnapshot dataSnapshot = ranks.get(1);
-                    secondName.setText(dataSnapshot.child("name").getValue(String.class));
-                    secondGoal.setText(dataSnapshot.child("goal_Name").getValue(String.class));
-                    int consistency = Integer.parseInt(dataSnapshot.child("consistency").getValue(String.class));
+             //       secondName.setText(dataSnapshot.child("name").getValue(String.class));
+                    secondGoal.setText(dataSnapshot.child("consistency").getValue(String.class));
+                    int consistency = Integer.parseInt(dataSnapshot.child("goal_Name").getValue(String.class));
                     if(consistency>=0) secondConsistency.setText(consistency+"%");
-                    Picasso.get().load(dataSnapshot.child("user_image").getValue(String.class)).into(secondImage);
+              //      Picasso.get().load(dataSnapshot.child("user_image").getValue(String.class)).into(secondImage);
                     secondLayout.setVisibility(View.VISIBLE);
                 }
                 else secondLayout.setVisibility(View.GONE);
@@ -149,11 +151,11 @@ public class RankFragment extends Fragment {
                 if(ranks.size()>2)
                 {
                     DataSnapshot dataSnapshot = ranks.get(2);
-                    thirdName.setText(dataSnapshot.child("name").getValue(String.class));
-                    thirdGoal.setText(dataSnapshot.child("goal_Name").getValue(String.class));
-                    int consistency = Integer.parseInt(dataSnapshot.child("consistency").getValue(String.class));
+               //     thirdName.setText(dataSnapshot.child("name").getValue(String.class));
+                    thirdGoal.setText(dataSnapshot.child("consistency").getValue(String.class));
+                    int consistency = Integer.parseInt(dataSnapshot.child("goal_Name").getValue(String.class));
                     if(consistency>=0) thirdConsistency.setText(consistency+"%");
-                    Picasso.get().load(dataSnapshot.child("user_image").getValue(String.class)).into(thirdImage);
+             //       Picasso.get().load(dataSnapshot.child("user_image").getValue(String.class)).into(thirdImage);
                     thirdLayout.setVisibility(View.VISIBLE);
                 }
                 else thirdLayout.setVisibility(View.GONE);
@@ -171,5 +173,8 @@ public class RankFragment extends Fragment {
 
             }
         });
+
     }
+
+
 }
