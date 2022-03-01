@@ -1,6 +1,8 @@
 package achivementtrackerbyamit.example.achivetracker;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -124,4 +126,14 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
+
+
+    // Function for github link view
+    public void GithubLinkClick(View view) {
+
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/maityamit/Tracky-Track-your-goals-or-targets"));
+        startActivity(browserIntent);
+
+    }
+
 }

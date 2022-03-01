@@ -309,13 +309,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    // Function for github link view
-    public void GithubLinkClick(View view) {
-
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/maityamit/Tracky-Track-your-goals-or-targets"));
-        startActivity(browserIntent);
-
-    }
 
     public void EditName() {
 

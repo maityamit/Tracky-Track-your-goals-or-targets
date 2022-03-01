@@ -84,20 +84,17 @@
     </LinearLayout>
 
 
-
-
-
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:cnb_unselectedColor="@android:color/white"
         android:layout_alignParentBottom="true"
-        android:backgroundTint="#3a67ff"
         android:layout_gravity="bottom"
         android:background="#fff"
+        android:backgroundTint="#3a67ff"
         android:fadingEdge="horizontal"
-        app:cnb_menuResource="@menu/menu" />
+        app:cnb_menuResource="@menu/menu"
+        app:cnb_unselectedColor="@android:color/white" />
 
 
 </RelativeLayout>
