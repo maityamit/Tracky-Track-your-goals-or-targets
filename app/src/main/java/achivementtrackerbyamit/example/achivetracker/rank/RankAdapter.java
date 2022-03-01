@@ -41,7 +41,8 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder
         holder.goalRank.setText((position+4)+".");
         holder.userName.setText(snapshot.child("name").getValue(String.class));
         holder.goalName.setText(snapshot.child("goal_Name").getValue(String.class));
-        holder.goalConsistency.setText(snapshot.child("consistency").getValue(String.class)+"%");
+        int consistency = Integer.parseInt(snapshot.child("consistency").getValue(String.class));
+        if(consistency>=0) holder.goalConsistency.setText(consistency+"%");
         Picasso.get().load(snapshot.child("user_image").getValue(String.class)).into(holder.goalImage);
     }
 
