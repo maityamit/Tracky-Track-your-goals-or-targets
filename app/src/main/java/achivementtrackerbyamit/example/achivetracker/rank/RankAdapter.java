@@ -47,8 +47,16 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder
     public void onBindViewHolder(@NonNull RankViewHolder holder, int position) {
         DataSnapshot snapshot = rankList.get(position);
         holder.goalRank.setText((position+4)+".");
-        holder.goalName.setText(snapshot.child("goal_Name").getValue(String.class));
-        int consistency = Integer.parseInt(snapshot.child("consistency").getValue(String.class));
+        String goalName = snapshot.child("goal_Name").getValue(String.class);
+        String consistencyNode = snapshot.child("consistency").getValue(String.class);
+        int consistency = 0;
+        try{
+            consistency = Integer.parseInt(consistencyNode);
+        }catch (NumberFormatException e){
+            consistency = Integer.parseInt(goalName);
+            goalName = consistencyNode;
+        }
+        holder.goalName.setText(goalName);
         if(consistency>=0) holder.goalConsistency.setText(consistency+"%");
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");

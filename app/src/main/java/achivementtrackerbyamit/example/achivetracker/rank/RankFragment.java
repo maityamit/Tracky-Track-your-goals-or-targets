@@ -114,7 +114,26 @@ public class RankFragment extends Fragment {
                 ranks.sort(new Comparator<DataSnapshot>() {
                     @Override
                     public int compare(DataSnapshot d1, DataSnapshot d2) {
-                        return Integer.parseInt(d2.child("consistency").getValue(String.class).toString())-Integer.parseInt(d1.child("consistency").getValue(String.class).toString());
+
+                        String goalName = d1.child("goal_Name").getValue(String.class);
+                        String consistencyNode = d1.child("consistency").getValue(String.class);
+                        int consistency1 = 0;
+                        try{
+                            consistency1 = Integer.parseInt(consistencyNode);
+                        }catch (NumberFormatException e){
+                            consistency1 = Integer.parseInt(goalName);
+                        }
+
+                        goalName = d2.child("goal_Name").getValue(String.class);
+                        consistencyNode = d2.child("consistency").getValue(String.class);
+                        int consistency2 = 0;
+                        try{
+                            consistency2 = Integer.parseInt(consistencyNode);
+                        }catch (NumberFormatException e){
+                            consistency2 = Integer.parseInt(goalName);
+                        }
+
+                        return consistency2-consistency1;
                     }
                 });
 
@@ -155,8 +174,16 @@ public class RankFragment extends Fragment {
                     });
 
 
-                    firstGoal.setText(dataSnapshot.child("goal_Name").getValue(String.class));
-                    int consistency = Integer.parseInt(dataSnapshot.child("consistency").getValue(String.class));
+                    String goalName = dataSnapshot.child("goal_Name").getValue(String.class);
+                    String consistencyNode = dataSnapshot.child("consistency").getValue(String.class);
+                    int consistency = 0;
+                    try{
+                        consistency = Integer.parseInt(consistencyNode);
+                    }catch (NumberFormatException e){
+                        consistency = Integer.parseInt(goalName);
+                        goalName = consistencyNode;
+                    }
+                    firstGoal.setText(goalName);
                     if(consistency>=0) firstConsistency.setText(consistency+"%");
                     firstLayout.setVisibility(View.VISIBLE);
                 }
@@ -194,10 +221,16 @@ public class RankFragment extends Fragment {
                         }
                     });
 
-
-
-                    secondGoal.setText(dataSnapshot.child("goal_Name").getValue(String.class));
-                    int consistency = Integer.parseInt(dataSnapshot.child("consistency").getValue(String.class));
+                    String goalName = dataSnapshot.child("goal_Name").getValue(String.class);
+                    String consistencyNode = dataSnapshot.child("consistency").getValue(String.class);
+                    int consistency = 0;
+                    try{
+                        consistency = Integer.parseInt(consistencyNode);
+                    }catch (NumberFormatException e){
+                        consistency = Integer.parseInt(goalName);
+                        goalName = consistencyNode;
+                    }
+                    secondGoal.setText(goalName);
                     if(consistency>=0) secondConsistency.setText(consistency+"%");
                     secondLayout.setVisibility(View.VISIBLE);
                 }
@@ -235,8 +268,16 @@ public class RankFragment extends Fragment {
                         }
                     });
 
-                    thirdGoal.setText(dataSnapshot.child("goal_Name").getValue(String.class));
-                    int consistency = Integer.parseInt(dataSnapshot.child("consistency").getValue(String.class));
+                    String goalName = dataSnapshot.child("goal_Name").getValue(String.class);
+                    String consistencyNode = dataSnapshot.child("consistency").getValue(String.class);
+                    int consistency = 0;
+                    try{
+                        consistency = Integer.parseInt(consistencyNode);
+                    }catch (NumberFormatException e){
+                        consistency = Integer.parseInt(goalName);
+                        goalName = consistencyNode;
+                    }
+                    thirdGoal.setText(goalName);
                     if(consistency>=0) thirdConsistency.setText(consistency+"%");
                     thirdLayout.setVisibility(View.VISIBLE);
                 }
