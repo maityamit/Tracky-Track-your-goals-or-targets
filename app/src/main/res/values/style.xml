@@ -14,6 +14,11 @@
         <item name="android:textColor">#DB4437</item>
     </style>
 
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
 
     <!--For Activity Goal Fragment-->
     <style name="AlertDialogTheme1" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
