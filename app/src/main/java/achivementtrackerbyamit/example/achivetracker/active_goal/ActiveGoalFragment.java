@@ -185,6 +185,7 @@ public class ActiveGoalFragment extends Fragment {
                     userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(!snapshot.exists()) return;
                             SimpleDateFormat newFormat = new SimpleDateFormat("dd/M/yyyy");
                             String s = snapshot.child("String").getValue().toString();
                             String d = snapshot.child("PDate").getValue().toString();

@@ -87,12 +87,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-
-
-                int max =0;
-                String max_con = String.valueOf(max);
-                String GoalName = "goal";
-                Topper topper = new Topper(GoalName,max_con);
+                int max =-1;
+                String GoalName = "No goals yet";
+                Topper topper = new Topper(GoalName,"-1");
                 NewRef.setValue(topper);
                 for (DataSnapshot ds : snapshot.getChildren()){
                     try {
@@ -109,10 +106,8 @@ public class HomeActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                String goalname = GoalName;
-                String max_consis = String.valueOf(max);
-                NewRef.child("consistency").setValue(goalname);
-                NewRef.child("goal_Name").setValue(max_consis);
+                NewRef.child("consistency").setValue(String.valueOf(max));
+                NewRef.child("goal_Name").setValue(GoalName);
             }
 
             @Override

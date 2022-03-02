@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,13 +47,17 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder
     public void onBindViewHolder(@NonNull RankViewHolder holder, int position) {
         DataSnapshot snapshot = rankList.get(position);
         holder.goalRank.setText((position+4)+".");
-        //holder.userName.setText(snapshot.child("name").getValue(String.class));
-        holder.goalName.setText(snapshot.child("consistency").getValue(String.class));
-        int consistency = Integer.parseInt(snapshot.child("goal_Name").getValue(String.class));
+        String goalName = snapshot.child("goal_Name").getValue(String.class);
+        String consistencyNode = snapshot.child("consistency").getValue(String.class);
+        int consistency = 0;
+        try{
+            consistency = Integer.parseInt(consistencyNode);
+        }catch (NumberFormatException e){
+            consistency = Integer.parseInt(goalName);
+            goalName = consistencyNode;
+        }
+        holder.goalName.setText(goalName);
         if(consistency>=0) holder.goalConsistency.setText(consistency+"%");
-       // Picasso.get().load(snapshot.child("user_image").getValue(String.class)).into(holder.goalImage);
-
-
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -63,7 +68,9 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder
             public void onDataChange(@NonNull DataSnapshot snapshott) {
 
                 if (snapshott.hasChild("name")){
-                    holder.userName.setText(snapshott.child("name").getValue().toString());
+                    String name = snapshott.child("name").getValue().toString();
+                    if(FirebaseAuth.getInstance().getUid().equals(key)) name="Me";
+                    holder.userName.setText(name);
                 }
 
                 if (snapshott.hasChild("user_image")){
