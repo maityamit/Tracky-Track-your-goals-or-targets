@@ -58,4 +58,9 @@
         <item name="cornerSize">18%</item>
 
     </style>
+
+    <style name="EditTextTintTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/black</item>
+    </style>
+
 </resources>
