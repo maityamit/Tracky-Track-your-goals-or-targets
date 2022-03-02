@@ -40,6 +40,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
@@ -432,29 +433,30 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void getLeaveDays() {
-        AlertDialog.Builder mydialog = new AlertDialog.Builder(DashboardActivity.this); //Created alert Dialog
-        mydialog.setTitle("How many days of break you need?"); //Title of EditText
-        final EditText weightInput = new EditText(DashboardActivity.this);
-        weightInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mydialog.setView(weightInput);
-        mydialog.setPositiveButton("Request Break", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String myText = weightInput.getText().toString(); //Saving Entered name in String
-                int Days = Integer.parseInt(myText);
-                if(myText.isEmpty())
-                    Toast.makeText(DashboardActivity.this, "Please input number of Days", Toast.LENGTH_SHORT).show();
-                else
-                    askLeave(Days);
-            }
-        });
-        mydialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel(); //cancel button
-            }
-        });
-        mydialog.show();
+        new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+                .setTopColorRes(R.color.blue)
+                .setTitle("Take Break from Current Goal")
+                .setMessage("How many days of break you need?")
+                .setIcon(R.drawable.ic_baseline_edit_24)
+                .setInputFilter("Wrong Input, please try again!", new LovelyTextInputDialog.TextFilter() {
+                    @Override
+                    public boolean check(String text) {
+                        return text.matches("\\w+");
+                    }
+                })
+                .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
+                    @Override
+                    public void onTextInputConfirmed(String text) {
+                        String myText = text; //Saving Entered name in String
+                        int Days = Integer.parseInt(myText);
+                        if(myText.isEmpty())
+                            Toast.makeText(DashboardActivity.this, "Please input number of Days", Toast.LENGTH_SHORT).show();
+                        else
+                            askLeave(Days);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show();
     }
 
     private void askLeave(int days) {
@@ -795,39 +797,37 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void getNote() {
-        AlertDialog.Builder mydialog = new AlertDialog.Builder(DashboardActivity.this); //Created alert Dialog
-        mydialog.setTitle("Enter your note"); //Title of EditText
-        final EditText note = new EditText(DashboardActivity.this);
-        note.setInputType(InputType.TYPE_CLASS_TEXT);
-        mydialog.setView(note);
-        mydialog.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String text = note.getText().toString();
-                Date date = new Date();
-                String temp = simpleDateFormat.format(date);
+        new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+                .setTopColorRes(R.color.blue)
+                .setTitle("Save Notes anytime")
+                .setMessage("Enter your note")
+                .setIcon(R.drawable.ic_baseline_edit_24)
+                .setInputFilter("Wrong Input, please try again!", new LovelyTextInputDialog.TextFilter() {
+                    @Override
+                    public boolean check(String text) {
+                        return text.matches("\\w+");
+                    }
+                })
+                .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
+                    @Override
+                    public void onTextInputConfirmed(String text) {
+                        Date date = new Date();
+                        String temp = simpleDateFormat.format(date);
 
-                    Toast.makeText(DashboardActivity.this, temp, Toast.LENGTH_SHORT).show();
+                        String key= FirebaseDatabase.getInstance ().getReference ().
+                                child("Users").child(currentUserID).child("Goals").
+                                child("Active").child(id).child("Notes").push().getKey();
 
-                String key= FirebaseDatabase.getInstance ().getReference ().
-                        child("Users").child(currentUserID).child("Goals").
-                        child("Active").child(id).child("Notes").push().getKey();
-
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("Date: ", temp);
-                    map.put("Note: ", text);
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("Date: ", temp);
+                        map.put("Note: ", text);
 
 
-                    RootRef.child(id).child("Notes").child(key).setValue(map);
-            }
-        });
-        mydialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel(); //cancel button
-            }
-        });
-        mydialog.show();
+                        RootRef.child(id).child("Notes").child(key).setValue(map);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show();
     }
 
 }

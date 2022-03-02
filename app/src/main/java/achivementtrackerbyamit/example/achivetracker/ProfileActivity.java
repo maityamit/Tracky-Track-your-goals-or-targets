@@ -42,6 +42,8 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.squareup.picasso.Picasso;
+import com.yarolegovich.lovelydialog.LovelySaveStateHandler;
+import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import org.eazegraph.lib.charts.ValueLineChart;
 import org.eazegraph.lib.models.ValueLinePoint;
@@ -78,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
     ArrayList<String> GoalName;
     String fileName;
     File pdf;
+    private LovelySaveStateHandler saveStateHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +132,9 @@ public class ProfileActivity extends AppCompatActivity {
         // Button for adding profile pic
         profilePicButton = (ImageButton) findViewById(R.id.profile_pic_button);
         profilePic = (CircleImageView) findViewById(R.id.profile_pic);
+
+
+        saveStateHandler = new LovelySaveStateHandler();
 
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -321,28 +327,26 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void EditName() {
-
-        AlertDialog.Builder mydialog = new AlertDialog.Builder(ProfileActivity.this); //Created alert Dialog
-        mydialog.setTitle("Enter your new name"); //Title of EditText
-        final EditText weightInput = new EditText(ProfileActivity.this);
-        weightInput.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
-        mydialog.setView(weightInput);
-        mydialog.setPositiveButton("Update", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String myText = weightInput.getText().toString(); //Saving Entered name in String
-
-                reference.child(userID).child("name").setValue(myText); //calling child and setting
-                welcome1.setText(myText);
-            }
-        });
-        mydialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel(); //cancel button
-            }
-        });
-        mydialog.show();
+        new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+                .setTopColorRes(R.color.blue)
+                .setTitle("Enter your Name")
+                .setMessage("This will update your current Name")
+                .setIcon(R.drawable.ic_baseline_edit_24)
+                .setInputFilter("Wrong Input, please try again!", new LovelyTextInputDialog.TextFilter() {
+                    @Override
+                    public boolean check(String text) {
+                        return text.matches("\\w+");
+                    }
+                })
+                .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
+                    @Override
+                    public void onTextInputConfirmed(String text) {
+                        reference.child(userID).child("name").setValue(text); //calling child and setting
+                        welcome1.setText(text);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show();
     }
 
     public void PDF(View view) {
@@ -355,7 +359,6 @@ public class ProfileActivity extends AppCompatActivity {
                     GoingCLass going = snapshot1.getValue(GoingCLass.class);
                     String s = going.getGoalName(); //Get data of Goal Name from that ID
                     GoalName.add(s); //add in arraylist
-                    // Toast.makeText(ProfileActivity.this, s, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -368,25 +371,27 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void Naming() {
-        AlertDialog.Builder mydialog = new AlertDialog.Builder(ProfileActivity.this); //Created alert Dialog
-        mydialog.setTitle("Enter PDF name"); //Title of EditText
-        final EditText f = new EditText(ProfileActivity.this);
-        f.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
-        mydialog.setView(f);
-        mydialog.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                fileName = f.getText().toString(); //Saving Entered name in String
-                createPDF();
-            }
-        });
-        mydialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel(); //cancel button
-            }
-        });
-        mydialog.show();
+
+        new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+                .setTopColorRes(R.color.blue)
+                .setTitle("Save PDF")
+                .setMessage("Enter a name for your PDF.")
+                .setIcon(R.drawable.ic_baseline_edit_24)
+                .setInputFilter("Wrong Input, please try again!", new LovelyTextInputDialog.TextFilter() {
+                    @Override
+                    public boolean check(String text) {
+                        return text.matches("\\w+");
+                    }
+                })
+                .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
+                    @Override
+                    public void onTextInputConfirmed(String text) {
+                        fileName = text; //Saving Entered name in String
+                        createPDF();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show();
     }
 
     private void createPDF() {
