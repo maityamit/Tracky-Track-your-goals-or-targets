@@ -54,7 +54,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 import achivementtrackerbyamit.example.achivetracker.active_goal.GoingCLass;
@@ -279,7 +281,10 @@ public class ProfileActivity extends AppCompatActivity {
     // Function for updating profile picture
     private void updateProfilePic(Bitmap bitmap) {
 
-        StorageReference storageReference = UserProfileImagesRef.child ( FirebaseAuth.getInstance().getUid() + ".jpg");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentDateTime = dateFormat.format(new Date());
+
+        StorageReference storageReference = UserProfileImagesRef.child ( FirebaseAuth.getInstance().getUid() + "_" + currentDateTime + ".jpg");
 
         showProgressDialog();
 
@@ -319,7 +324,7 @@ public class ProfileActivity extends AppCompatActivity {
                     });
                 } else {
                     progressDialog.dismiss();
-                    Toast.makeText(ProfileActivity.this, "Failed to update profile picture", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, "Failed to update profile picture"+task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
