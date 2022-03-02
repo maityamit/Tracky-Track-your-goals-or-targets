@@ -1,15 +1,18 @@
 package achivementtrackerbyamit.example.achivetracker.active_goal;
 
 import android.app.AlarmManager;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -317,6 +320,8 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
                                         fragment.RootRef.child(listPostKey)
                                                 .updateChildren ( onlineStat );
 
+                                        showDialog();
+
 
                                         long sum = fragment.sum, count = fragment.count;
                                         sum+=Long.parseLong(dt);
@@ -368,9 +373,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
                                             }
                                         });
 
-
-
-
                                     }
                                 }
 
@@ -379,13 +381,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
 
                                 }
                             });
-
-
-
-
-
-
-
 
                             String key= fragment.activityRef.push().getKey();
                             String value= "Checked in "+model.getGoalName()+" on "+todaay;
@@ -396,7 +391,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
 
                                 }
                             });
-
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -417,6 +411,29 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
 
         // Set completed goal percentage on the progress bar
         holder.completedBar.setProgress(DashboardActivity.GoalCOmpleteFn(todaay,model.getTodayTime(),model.getEndTime()),true);
+    }
+
+    private void showDialog() {
+        Dialog dialog;
+        //Create the Dialog here
+        dialog = new Dialog(fragment.getContext());
+        dialog.setContentView(R.layout.dialog_fragment);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.getWindow().setBackgroundDrawable(fragment.getContext().getDrawable(R.drawable.custom_dialog_background));
+        }
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false); //Optional
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+
+        Button Okay = dialog.findViewById(R.id.btn_okay);
+
+        Okay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     public String ConsistentFn(int node,String today_date,String create_date){
