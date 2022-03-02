@@ -30,8 +30,11 @@ import com.leo.simplearcloader.SimpleArcLoader;
 
 
 import java.io.ByteArrayOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import achivementtrackerbyamit.example.achivetracker.R;
@@ -43,11 +46,14 @@ public class ArchiveGoalFragment extends Fragment {
     DatabaseReference archiveDataRef;
     ArchiveAdapter archiveAdapter;
     ArrayList<ArchiveClass> dataList;
+   // ArrayList<String> keyList;
     ExtendedFloatingActionButton floatingActionButton;
     SimpleArcLoader mDialog;
     ImageView emptyArchive;
     FirebaseRecyclerAdapter<ArchiveClass, StudentViewHolder3> adapter;
+    static String dataKey="";
     String userID;
+    static boolean flag=false;
     DatabaseReference reference;
 
 
@@ -63,7 +69,7 @@ public class ArchiveGoalFragment extends Fragment {
         userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
-
+//        keyList= new ArrayList<>();
 
 
 
@@ -142,7 +148,7 @@ public class ArchiveGoalFragment extends Fragment {
         recyclerView.setVisibility(View.GONE);
 
         dataList= new ArrayList<>();
-        archiveAdapter= new ArchiveAdapter(getContext(),dataList);
+        archiveAdapter= new ArchiveAdapter(this,dataList);
         recyclerView.setAdapter(archiveAdapter);
 
         archiveDataRef.addValueEventListener(new ValueEventListener() {
@@ -159,7 +165,37 @@ public class ArchiveGoalFragment extends Fragment {
                     for(DataSnapshot dataSnapshot: snapshot.getChildren()){
 
                         ArchiveClass itemData= dataSnapshot.getValue(ArchiveClass.class);
-                        dataList.add(itemData);
+                         dataKey= dataSnapshot.getKey();
+                       // keyList.add(dataKey);
+                         if(itemData.getGoalName()!=null && !dataKey.isEmpty()) {
+                             archiveDataRef.child(dataKey).child("Status_On").addValueEventListener(new ValueEventListener() {
+                                 @Override
+                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                     if (snapshot.exists()) {
+                                         String value = snapshot.getValue(String.class);
+                                         if (value.equals("true")) {
+
+                                             if (timeExceed(itemData.getEndTime())) {
+
+                                                     deleteData(dataKey);
+
+
+                                             }else{
+                                                 dataList.add(itemData);
+                                             }
+
+                                         }
+                                     }
+
+                                 }
+
+                                 @Override
+                                 public void onCancelled(@NonNull DatabaseError error) {
+
+                                 }
+                             });
+                         }
                     }
                     archiveAdapter.notifyDataSetChanged();
                     mDialog.setVisibility(View.GONE);
@@ -188,6 +224,7 @@ public class ArchiveGoalFragment extends Fragment {
     }
 
 
+
     public static class StudentViewHolder3 extends  RecyclerView.ViewHolder
     {
       public StudentViewHolder3(@NonNull View itemView) {
@@ -196,7 +233,37 @@ public class ArchiveGoalFragment extends Fragment {
     }
 
 
+    public void deleteData(String dataKey) {
 
+        archiveDataRef.child(dataKey).removeValue();
+        // remove the value from dataList also
+        //dataList.remove(itemData);
+
+    }
+
+    public boolean timeExceed(String firstWord) {
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/M/yyyy");
+        String secondWord = calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.YEAR);
+        Date date1 = null, date2 = null;
+
+        try {
+            date1 = dateFormat.parse(firstWord);
+            date2 = dateFormat.parse(secondWord);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long diff = date2.getTime() - date1.getTime();
+        long diff_in_days = (diff / (1000 * 60 * 60 * 24)) % 365;
+
+        if (diff_in_days > 7)
+            return true;
+
+        else
+            return false;
+    }
 
 
 
