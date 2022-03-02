@@ -109,4 +109,7 @@ dependencies {
     // Lottie Animation Dependency
     implementation 'com.airbnb.android:lottie:4.2.2'
 
+    //CustomDialog
+    implementation 'com.yarolegovich:lovely-dialog:1.1.1'
+
 }
