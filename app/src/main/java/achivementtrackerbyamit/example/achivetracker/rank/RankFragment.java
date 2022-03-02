@@ -114,7 +114,7 @@ public class RankFragment extends Fragment {
                 ranks.sort(new Comparator<DataSnapshot>() {
                     @Override
                     public int compare(DataSnapshot d1, DataSnapshot d2) {
-                        return Integer.parseInt(d2.child("goal_Name").getValue(String.class).toString())-Integer.parseInt(d1.child("goal_Name").getValue(String.class).toString());
+                        return Integer.parseInt(d2.child("consistency").getValue(String.class).toString())-Integer.parseInt(d1.child("consistency").getValue(String.class).toString());
                     }
                 });
 
@@ -137,7 +137,9 @@ public class RankFragment extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot snapshott) {
 
                             if (snapshott.hasChild("name")){
-                                firstName.setText(snapshott.child("name").getValue().toString());
+                                String name = snapshott.child("name").getValue().toString();
+                                if(FirebaseAuth.getInstance().getUid().equals(key)) name="Me";
+                                firstName.setText(name);
                             }
 
                             if (snapshott.hasChild("user_image")){
@@ -153,11 +155,9 @@ public class RankFragment extends Fragment {
                     });
 
 
-               //     firstName.setText(dataSnapshot.child("name").getValue(String.class));
-                    firstGoal.setText(dataSnapshot.child("consistency").getValue(String.class));
-                    int consistency = Integer.parseInt(dataSnapshot.child("goal_Name").getValue(String.class));
+                    firstGoal.setText(dataSnapshot.child("goal_Name").getValue(String.class));
+                    int consistency = Integer.parseInt(dataSnapshot.child("consistency").getValue(String.class));
                     if(consistency>=0) firstConsistency.setText(consistency+"%");
-              //      Picasso.get().load(dataSnapshot.child("user_image").getValue(String.class)).into(firstImage);
                     firstLayout.setVisibility(View.VISIBLE);
                 }
                 else firstLayout.setVisibility(View.GONE);
@@ -177,7 +177,9 @@ public class RankFragment extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot snapshott) {
 
                             if (snapshott.hasChild("name")){
-                                secondName.setText(snapshott.child("name").getValue().toString());
+                                String name = snapshott.child("name").getValue().toString();
+                                if(FirebaseAuth.getInstance().getUid().equals(key)) name="Me";
+                                secondName.setText(name);
                             }
 
                             if (snapshott.hasChild("user_image")){
@@ -194,11 +196,9 @@ public class RankFragment extends Fragment {
 
 
 
-             //       secondName.setText(dataSnapshot.child("name").getValue(String.class));
-                    secondGoal.setText(dataSnapshot.child("consistency").getValue(String.class));
-                    int consistency = Integer.parseInt(dataSnapshot.child("goal_Name").getValue(String.class));
+                    secondGoal.setText(dataSnapshot.child("goal_Name").getValue(String.class));
+                    int consistency = Integer.parseInt(dataSnapshot.child("consistency").getValue(String.class));
                     if(consistency>=0) secondConsistency.setText(consistency+"%");
-              //      Picasso.get().load(dataSnapshot.child("user_image").getValue(String.class)).into(secondImage);
                     secondLayout.setVisibility(View.VISIBLE);
                 }
 
@@ -218,7 +218,9 @@ public class RankFragment extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot snapshott) {
 
                             if (snapshott.hasChild("name")){
-                                thirdName.setText(snapshott.child("name").getValue().toString());
+                                String name = snapshott.child("name").getValue().toString();
+                                if(FirebaseAuth.getInstance().getUid().equals(key)) name="Me";
+                                thirdName.setText(name);
                             }
 
                             if (snapshott.hasChild("user_image")){
@@ -233,11 +235,9 @@ public class RankFragment extends Fragment {
                         }
                     });
 
-               //     thirdName.setText(dataSnapshot.child("name").getValue(String.class));
-                    thirdGoal.setText(dataSnapshot.child("consistency").getValue(String.class));
-                    int consistency = Integer.parseInt(dataSnapshot.child("goal_Name").getValue(String.class));
+                    thirdGoal.setText(dataSnapshot.child("goal_Name").getValue(String.class));
+                    int consistency = Integer.parseInt(dataSnapshot.child("consistency").getValue(String.class));
                     if(consistency>=0) thirdConsistency.setText(consistency+"%");
-             //       Picasso.get().load(dataSnapshot.child("user_image").getValue(String.class)).into(thirdImage);
                     thirdLayout.setVisibility(View.VISIBLE);
                 }
                 else thirdLayout.setVisibility(View.GONE);
