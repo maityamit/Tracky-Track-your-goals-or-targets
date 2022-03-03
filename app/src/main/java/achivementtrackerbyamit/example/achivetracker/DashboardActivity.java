@@ -535,10 +535,10 @@ public class DashboardActivity extends AppCompatActivity {
         super.onStart ();
 
         showProgressDialog();
-        FirebaseRecyclerOptions<Notes> options = new FirebaseRecyclerOptions.Builder<Notes>().setQuery(notesRef,Notes.class).build();
-        FirebaseRecyclerAdapter<Notes,NotesViewHolder> adapter = new FirebaseRecyclerAdapter<Notes, NotesViewHolder>(options) {
+        FirebaseRecyclerOptions<NotesClass> options = new FirebaseRecyclerOptions.Builder<NotesClass>().setQuery(notesRef,NotesClass.class).build();
+        FirebaseRecyclerAdapter<NotesClass,NotesViewHolder> adapter = new FirebaseRecyclerAdapter<NotesClass, NotesViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull NotesViewHolder holder, int position, @NonNull Notes model) {
+            protected void onBindViewHolder(@NonNull NotesViewHolder holder, int position, @NonNull NotesClass model) {
                 holder.notestext.setText(model.getNote());
                 holder.notesdate.setText(model.getDate());
             }
@@ -830,12 +830,6 @@ public class DashboardActivity extends AppCompatActivity {
                 .setTitle("Save Notes anytime")
                 .setMessage("Enter your note")
                 .setIcon(R.drawable.ic_baseline_edit_24)
-                .setInputFilter("Wrong Input, please try again!", new LovelyTextInputDialog.TextFilter() {
-                    @Override
-                    public boolean check(String text) {
-                        return text.matches("\\w+");
-                    }
-                })
                 .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
                     @Override
                     public void onTextInputConfirmed(String text) {

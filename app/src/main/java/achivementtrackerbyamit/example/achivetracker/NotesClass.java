@@ -1,13 +1,13 @@
 package achivementtrackerbyamit.example.achivetracker;
 
-public class Notes {
+public class NotesClass {
 
     String Date,Note;
 
-    public Notes() {
+    public NotesClass() {
 
     }
-    public Notes(String Date , String Note){
+    public NotesClass(String Date , String Note){
         this.Date = Date;
         this.Note = Note;
     }
