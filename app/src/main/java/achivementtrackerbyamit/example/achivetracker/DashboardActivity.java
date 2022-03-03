@@ -449,6 +449,7 @@ public class DashboardActivity extends AppCompatActivity {
                 .setTopColorRes(R.color.blue)
                 .setTitle("Take Break from Current Goal")
                 .setMessage("How many days of break you need?")
+                .setInputType(InputType.TYPE_CLASS_NUMBER)
                 .setIcon(R.drawable.ic_baseline_edit_24)
                 .setInputFilter("Wrong Input, please try again!", new LovelyTextInputDialog.TextFilter() {
                     @Override
