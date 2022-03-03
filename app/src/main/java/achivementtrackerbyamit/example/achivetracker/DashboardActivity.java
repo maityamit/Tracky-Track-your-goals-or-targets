@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -598,6 +599,19 @@ public class DashboardActivity extends AppCompatActivity {
 
 
                 String goal_const = snapshot.child ( "Consistency" ).getValue ().toString ();
+
+                int x = Integer.parseInt(goal_const);
+                LinearLayout lr = findViewById(R.id.lr);
+
+                if(x <= 33) {
+                    lr.setBackgroundResource(R.drawable.orangish_bg);
+                } else if (x >=34 && x <= 66) {
+                    lr.setBackgroundResource(R.drawable.greenish_bg);
+                } else {
+                    lr.setBackgroundResource(R.drawable.blueish_bg);
+                }
+
+
                 //Shared Preference to use the value of 'goal_const' in share() function
                 PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("consistency", goal_const).commit();
 
