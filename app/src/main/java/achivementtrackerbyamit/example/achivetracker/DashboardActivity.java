@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -16,10 +18,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,6 +32,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -67,6 +74,7 @@ public class DashboardActivity extends AppCompatActivity {
     private final int GALLERY_INTENT_CODE = 993;
     private final int CAMERA_INTENT_CODE = 990;
 
+    RecyclerView recyclerView;
     TextView name,consis,left,goal_lft_pert, notes;
     TextView Tdays, Dleft, Sdate, Edate;
     RelativeLayout rel;
@@ -80,7 +88,7 @@ public class DashboardActivity extends AppCompatActivity {
     private StorageReference UserProfileImagesRef;
     ImageView shareNotes;
     ProgressDialog progressDialog;
-    DatabaseReference RootRef,HelloREf,newRef;
+    DatabaseReference RootRef,HelloREf,newRef,notesRef;
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
     private Handler handler = new Handler();
@@ -188,6 +196,9 @@ public class DashboardActivity extends AppCompatActivity {
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
         HelloREf = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Win");
 
+        notesRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Notes");
+        recyclerView = findViewById(R.id.streaknotes);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         newRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         name = findViewById(R.id.desc_goal_name);
         extendedFloatingShareButton = findViewById(R.id.share_Sss);
@@ -524,7 +535,24 @@ public class DashboardActivity extends AppCompatActivity {
         super.onStart ();
 
         showProgressDialog();
+        FirebaseRecyclerOptions<Notes> options = new FirebaseRecyclerOptions.Builder<Notes>().setQuery(notesRef,Notes.class).build();
+        FirebaseRecyclerAdapter<Notes,NotesViewHolder> adapter = new FirebaseRecyclerAdapter<Notes, NotesViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull NotesViewHolder holder, int position, @NonNull Notes model) {
+                holder.notestext.setText(model.getNote());
+                holder.notesdate.setText(model.getDate());
+            }
 
+            @NonNull
+            @Override
+            public NotesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notelist, parent , false);
+                NotesViewHolder notesViewHolder = new NotesViewHolder(view);
+                return  notesViewHolder;
+            }
+        };
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
 
     }
 
@@ -819,8 +847,8 @@ public class DashboardActivity extends AppCompatActivity {
                                 child("Active").child(id).child("Notes").push().getKey();
 
                         HashMap<String, Object> map = new HashMap<>();
-                        map.put("Date: ", temp);
-                        map.put("Note: ", text);
+                        map.put("Date", temp);
+                        map.put("Note", text);
 
 
                         RootRef.child(id).child("Notes").child(key).setValue(map);
@@ -828,6 +856,16 @@ public class DashboardActivity extends AppCompatActivity {
                 })
                 .setNegativeButton(android.R.string.no, null)
                 .show();
+    }
+    public static class NotesViewHolder extends  RecyclerView.ViewHolder
+    {
+
+        TextView notestext,notesdate;
+        public NotesViewHolder(@NonNull View itemView) {
+            super ( itemView );
+            notestext = itemView.findViewById ( R.id.notedata);
+            notesdate = itemView.findViewById(R.id.notedate);
+        }
     }
 
 }
