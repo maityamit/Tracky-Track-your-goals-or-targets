@@ -33,6 +33,7 @@ android:layout_height="match_parent">
 
 
             <LinearLayout
+                android:id="@+id/lr"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:background="@drawable/back_for_dash"
