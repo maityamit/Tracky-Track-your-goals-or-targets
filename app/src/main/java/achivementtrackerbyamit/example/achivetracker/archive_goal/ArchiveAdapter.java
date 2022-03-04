@@ -58,6 +58,14 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
 
         // Set consistency percentage on the progress bar
         holder.consistencyBar.setProgress(Integer.parseInt(data.getConsistency()),true);
+
+       if (holder.switchCompat.isChecked()){
+           // Function implement
+       }
+
+
+
+
     }
 
     @Override
@@ -69,6 +77,7 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
 
         private TextView goal_name_text, consistency_text,target_date_text;
         private ProgressBar consistencyBar;
+        private SwitchCompat switchCompat;
 
         public ArchiveViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +86,7 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
             consistency_text= itemView.findViewById(R.id.archieve_goal_const);
             target_date_text= itemView.findViewById(R.id.archieve_target_date);
             consistencyBar = itemView.findViewById(R.id.consistency_progress);
+            switchCompat = itemView.findViewById(R.id.auto_delete);
         }
     }
 }
