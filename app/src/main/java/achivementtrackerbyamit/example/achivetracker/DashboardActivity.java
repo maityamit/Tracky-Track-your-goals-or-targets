@@ -169,6 +169,8 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        checkBreak();
+
         Leave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,6 +187,8 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     }
+
+
 
     private void InitializationMethod() {
 
@@ -230,6 +234,22 @@ public class DashboardActivity extends AppCompatActivity {
 
         NewNote = findViewById(R.id.newNote);
 
+    }
+
+    private void checkBreak() {
+        HelloREf.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChildren()) {
+                    Leave.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void DeleteGoalMethod() {
