@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -168,6 +169,8 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        checkBreak();
+
         Leave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,6 +187,8 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     }
+
+
 
     private void InitializationMethod() {
 
@@ -229,6 +234,22 @@ public class DashboardActivity extends AppCompatActivity {
 
         NewNote = findViewById(R.id.newNote);
 
+    }
+
+    private void checkBreak() {
+        HelloREf.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChildren()) {
+                    Leave.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void DeleteGoalMethod() {
@@ -448,6 +469,7 @@ public class DashboardActivity extends AppCompatActivity {
                 .setTopColorRes(R.color.blue)
                 .setTitle("Take Break from Current Goal")
                 .setMessage("How many days of break you need?")
+                .setInputType(InputType.TYPE_CLASS_NUMBER)
                 .setIcon(R.drawable.ic_baseline_edit_24)
                 .setInputFilter("Wrong Input, please try again!", new LovelyTextInputDialog.TextFilter() {
                     @Override
@@ -598,6 +620,19 @@ public class DashboardActivity extends AppCompatActivity {
 
 
                 String goal_const = snapshot.child ( "Consistency" ).getValue ().toString ();
+
+                int x = Integer.parseInt(goal_const);
+                LinearLayout lr = findViewById(R.id.lr);
+
+                if(x <= 33) {
+                    lr.setBackgroundResource(R.drawable.orangish_bg);
+                } else if (x >=34 && x <= 66) {
+                    lr.setBackgroundResource(R.drawable.greenish_bg);
+                } else {
+                    lr.setBackgroundResource(R.drawable.blueish_bg);
+                }
+
+
                 //Shared Preference to use the value of 'goal_const' in share() function
                 PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("consistency", goal_const).commit();
 
