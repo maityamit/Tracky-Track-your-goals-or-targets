@@ -1,5 +1,6 @@
 package achivementtrackerbyamit.example.achivetracker.archive_goal;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -148,7 +149,7 @@ public class ArchiveGoalFragment extends Fragment {
         recyclerView.setVisibility(View.GONE);
 
         dataList= new ArrayList<>();
-        archiveAdapter= new ArchiveAdapter(this,dataList);
+        archiveAdapter= new ArchiveAdapter(getContext(),dataList);
         recyclerView.setAdapter(archiveAdapter);
 
         archiveDataRef.addValueEventListener(new ValueEventListener() {
@@ -165,37 +166,7 @@ public class ArchiveGoalFragment extends Fragment {
                     for(DataSnapshot dataSnapshot: snapshot.getChildren()){
 
                         ArchiveClass itemData= dataSnapshot.getValue(ArchiveClass.class);
-                         dataKey= dataSnapshot.getKey();
-                       // keyList.add(dataKey);
-                         if(itemData.getGoalName()!=null && !dataKey.isEmpty()) {
-                             archiveDataRef.child(dataKey).child("Status_On").addValueEventListener(new ValueEventListener() {
-                                 @Override
-                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                     if (snapshot.exists()) {
-                                         String value = snapshot.getValue(String.class);
-                                         if (value.equals("true")) {
-
-                                             if (timeExceed(itemData.getEndTime())) {
-
-                                                     deleteData(dataKey);
-
-
-                                             }else{
-                                                 dataList.add(itemData);
-                                             }
-
-                                         }
-                                     }
-
-                                 }
-
-                                 @Override
-                                 public void onCancelled(@NonNull DatabaseError error) {
-
-                                 }
-                             });
-                         }
+                        dataList.add(itemData);
                     }
                     archiveAdapter.notifyDataSetChanged();
                     mDialog.setVisibility(View.GONE);
@@ -222,7 +193,6 @@ public class ArchiveGoalFragment extends Fragment {
 
 
     }
-
 
 
     public static class StudentViewHolder3 extends  RecyclerView.ViewHolder
