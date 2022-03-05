@@ -112,4 +112,16 @@ dependencies {
     //CustomDialog
     implementation 'com.yarolegovich:lovely-dialog:1.1.1'
 
+    // County Code Picker
+    implementation 'com.hbb20:ccp:2.5.1'
+
+    // Pin View
+    implementation 'com.chaos.view:pinview:1.4.4'
+
+    //Browser
+    implementation 'androidx.browser:browser:1.3.0'
+
+    //Safety Net
+    implementation 'com.google.firebase:firebase-appcheck-safetynet:16.0.0-beta04'
+
 }
