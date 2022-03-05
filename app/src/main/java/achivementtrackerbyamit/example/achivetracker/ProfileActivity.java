@@ -219,24 +219,25 @@ public class ProfileActivity extends AppCompatActivity {
 
     // Function for logout method
     private void LogOutMethod() {
-        new AlertDialog.Builder(ProfileActivity.this)
-                .setTitle("Are you sure want to Logout ? ")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this,R.style.AlertDialogTheme);
+        builder.setTitle("Logout");
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                FirebaseAuth.getInstance().signOut();
+                Intent loginIntenttt = new Intent(ProfileActivity.this, SplasshActivity.class);
+                loginIntenttt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginIntenttt);
+                finish();
+            }
+        });
+        builder.setNegativeButton(android.R.string.no, null);
 
+        builder.show();
 
-                        FirebaseAuth.getInstance().signOut();
-                        Intent loginIntenttt = new Intent(ProfileActivity.this, SplasshActivity.class);
-                        loginIntenttt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(loginIntenttt);
-                        finish();
-                    }
-                })
-
-                // A null listener allows the button to dismiss the dialog and take no further action.
-                .setNegativeButton(android.R.string.no, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
 
     }
 
