@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import achivementtrackerbyamit.example.achivetracker.HomeActivity;
+import achivementtrackerbyamit.example.achivetracker.PhoneNoSignin;
 import achivementtrackerbyamit.example.achivetracker.R;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -53,10 +54,20 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         gotoGoogle=findViewById(R.id.gotoGoogleBtn);
         LinearLayout emailSignin = findViewById(R.id.emailsignin);
+        LinearLayout phonenosignin = findViewById(R.id.phonenosignin);
 
 
         firestore = FirebaseFirestore.getInstance();
 
+        // Intent to Sign in with Phone No Activity
+        phonenosignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RegisterActivity.this, PhoneNoSignin.class);
+                startActivity(i);
+            }
+        });
+        // Intent to Email sign in Activity
         emailSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
