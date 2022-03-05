@@ -3,6 +3,7 @@ package achivementtrackerbyamit.example.achivetracker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -107,7 +108,7 @@ public class DashboardActivity extends AppCompatActivity {
     public static final String ADD_TRIP_VALUE= DashboardActivity.class.getName();
     public static final String ADD_TRIP_TAG="ADD_TRIP_TAG";
     public static final String ADD_TRIP_DATA_KEY="ADD_TRIP_DATA_KEY";
-    View Leave;
+    AppCompatButton Leave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,7 +175,7 @@ public class DashboardActivity extends AppCompatActivity {
         Leave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLeaveDays();
+                checkStatus();
             }
         });
 
@@ -188,6 +189,63 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
+    private void checkStatus() {
+        RootRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String status = snapshot.child("Status").getValue().toString();
+                if(status.equals("OnBreak")) {
+                    String e = snapshot.child("EndTime").getValue().toString();
+                    String s = snapshot.child("BreakEndDate").getValue().toString();
+                    cancelBreak(s, e);
+                } else {
+                    getLeaveDays();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void cancelBreak(String s, String e1) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        Date n = new Date();
+        String n1 = dateFormat.format(n);
+        try {
+            Date bEnd = dateFormat.parse(s);
+            Date td = dateFormat.parse(n1);
+            Date GoalEnd = dateFormat.parse(e1);
+
+            long diff = bEnd.getTime() - td.getTime();
+            long Days = diff / (24 * 60 * 60 * 1000);
+
+            if(Days > 0) {
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(GoalEnd);// this would default to now
+                calendar.add(Calendar.DAY_OF_MONTH, -1 * (int)Days);
+                Date x = calendar.getTime();
+                String x1 = dateFormat.format(x);
+
+                DatabaseReference db = RootRef.child(id);
+                db.child("Status").setValue("Active");
+                db.child("EndTime").setValue(x1);
+                db.child("BreakEndDate").removeValue();
+                Intent i = new Intent(DashboardActivity.this, HomeActivity.class);
+                startActivity(i);
+                finish();
+            }
+
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     private void InitializationMethod() {
@@ -235,6 +293,9 @@ public class DashboardActivity extends AppCompatActivity {
         NewNote = findViewById(R.id.newNote);
 
     }
+
+
+
 
     private void checkBreak() {
         HelloREf.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -549,6 +610,10 @@ public class DashboardActivity extends AppCompatActivity {
 
         RootRef.child(id)
                 .updateChildren ( onlineStat );
+
+        Intent i = new Intent(DashboardActivity.this, HomeActivity.class);
+        startActivity(i);
+        finish();
     }
 
 
@@ -575,6 +640,21 @@ public class DashboardActivity extends AppCompatActivity {
         };
         recyclerView.setAdapter(adapter);
         adapter.startListening();
+
+        RootRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild("BreakEndDate")) {
+                    Leave.setBackgroundResource(R.drawable.logout_button);
+                    Leave.setText("Cancel Break");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
