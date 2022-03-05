@@ -97,7 +97,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Runnable runnable;
     ImageView extendedFloatingShareButton;
     ImageView extendedFloatingEditButton;
-    ImageView deleteGoal, NewNote;
+    ImageView deleteGoal, NewNote, resetGoal;
     ImageButton add_img;
     ImageView shareCal;
     CircleImageView goalPic;
@@ -186,6 +186,12 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        resetGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetG();
+            }
+        });
 
     }
 
@@ -279,6 +285,8 @@ public class DashboardActivity extends AppCompatActivity {
         add_img = findViewById(R.id.add_img);
         goalPic = findViewById(R.id.imageIcon);
 
+        resetGoal = findViewById(R.id.reset);
+
         //Streak Overview
         Tdays = findViewById(R.id.totalDays);
         Dleft = findViewById(R.id.daysLeft);
@@ -292,6 +300,56 @@ public class DashboardActivity extends AppCompatActivity {
 
         NewNote = findViewById(R.id.newNote);
 
+    }
+
+
+    private void resetG() {
+        RootRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String st = snapshot.child("Status").getValue().toString();
+                if(st.equals("Active") && !snapshot.child("Win").hasChildren()) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                    String end = snapshot.child("EndTime").getValue().toString();
+                    String start = snapshot.child("TodayTime").getValue().toString();
+                    Date n = new Date();
+                    String nx = dateFormat.format(n);
+                    try {
+                        Date endx = dateFormat.parse(end);
+                        Date startx = dateFormat.parse(start);
+                        Date today = dateFormat.parse(nx);
+
+                        long diff = endx.getTime() - startx.getTime();
+                        long Days = diff / (24 * 60 * 60 * 1000);
+
+                        if(Days > 0 ) {
+                            Calendar c = Calendar.getInstance();
+                            c.setTime(today);
+                            c.add(Calendar.DAY_OF_MONTH, (int)Days);
+
+                            Date up = c.getTime();
+                            String upx = dateFormat.format(up);
+
+                            RootRef.child(id).child("EndTime").setValue(upx);
+                            RootRef.child(id).child("TodayTime").setValue(nx);
+                        } else {
+                            Toast.makeText(DashboardActivity.this, "Can't reset same date", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    Toast.makeText(DashboardActivity.this, "Can't reset", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
