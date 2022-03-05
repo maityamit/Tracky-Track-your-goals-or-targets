@@ -5,44 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F4FAFF"
     tools:context=".AddGoalActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <View
-            android:id="@+id/view1"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="#4d9dff"/>
-
-        <View
-            android:id="@+id/view4"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@drawable/ic_wave__9" />
-
-        <soup.neumorphism.NeumorphTextView
+        <TextView
             android:id="@+id/create_goal_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="18sp"
+            android:text="Create a new Goal"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
-            android:fontFamily="sans-serif"
-            android:text="Create a new goal"
-            android:textColor="#283593"
-            android:textSize="24dp"
-            android:textStyle="bold" />
+            android:textColor="@color/blue"
+            android:textStyle="bold"/>
+
 
         <soup.neumorphism.NeumorphCardView
             android:id="@+id/goal_enter_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/view4"
             app:neumorph_shapeType="basin"
             android:layout_marginHorizontal="10dp">
 
@@ -53,7 +40,7 @@
                 android:paddingVertical="5dp"
                 android:gravity="center"
                 android:hint="Enter your Goal Name"
-                android:background="@color/background_neumor"
+                android:background="@color/white"
                 android:textSize="17sp"
                 android:id="@+id/edit_text_trip_name"
                 android:inputType="textShortMessage"
@@ -76,7 +63,7 @@
                 android:paddingVertical="5dp"
                 android:gravity="center"
                 android:hint="Enter your Goal Description"
-                android:background="@color/background_neumor"
+                android:background="@color/white"
                 android:textSize="17sp"
                 android:id="@+id/edit_text_trip_desc"
                 android:inputType="textLongMessage"
@@ -90,6 +77,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_margin="10dp"
+            app:cardCornerRadius="10dp"
             android:layout_below="@id/goal_desc_card"
             android:layout_height="wrap_content">
 
@@ -129,6 +117,7 @@
                         app:neumorph_shadowElevation="2dp"
                         android:background="@color/background_neumor"
                         app:neumorph_inset="12dp"
+                        android:padding="1dp"
                         app:neumorph_lightSource="rightBottom"
                         app:neumorph_shapeType="flat"
                         android:textAlignment="center"
@@ -219,7 +208,7 @@
 
         </androidx.cardview.widget.CardView>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </ScrollView>
