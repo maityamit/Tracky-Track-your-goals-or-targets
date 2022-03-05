@@ -23,9 +23,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
         <activity
+            android:name=".VerifyOTP"
+            android:exported="false" />
+        <activity
+            android:name=".PhoneNoSignin"
+            android:exported="false" />
+        <activity
             android:name=".splash.Onboarding"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".splash.IntroViewPagerAdapter"
             android:exported="true"
@@ -35,7 +41,7 @@
             android:exported="true" />
         <activity
             android:name=".HomeActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".auth.ForgetpassActivity" />
         <activity android:name=".auth.SignupActivity" />
