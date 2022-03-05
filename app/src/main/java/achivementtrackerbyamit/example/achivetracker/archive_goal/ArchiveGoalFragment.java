@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -91,8 +92,28 @@ public class ArchiveGoalFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View gh = view.findViewById(R.id.archieve_recycler_view);
-                share(screenShot(gh));
+                archiveDataRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if (!snapshot.exists()){
+                            Toast.makeText(getActivity(), "No Archived Goals", Toast.LENGTH_SHORT).show();
+                        }
+                        //fetch all the data
+                        if(snapshot.exists()){
+                            View gh = view.findViewById(R.id.archieve_recycler_view);
+                            share(screenShot(gh));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+//                View gh = view.findViewById(R.id.archieve_recycler_view);
+//                share(screenShot(gh));
             }
         });
 
