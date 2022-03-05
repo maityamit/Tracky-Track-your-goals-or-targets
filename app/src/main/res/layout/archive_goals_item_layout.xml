@@ -130,10 +130,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal"
+            android:layout_marginEnd="10dp"
+            android:gravity="end"
             android:layout_gravity="end">
 
             <androidx.appcompat.widget.SwitchCompat
@@ -146,10 +148,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="#FFB8B8"
                 android:id="@+id/auto_del_text"
-                android:text="autodelete"
-                android:textColor="#03A9F4"
-                android:textStyle="bold"
+                android:padding="3dp"
+                android:gravity="center"
+                android:text="Auto Delete"
+                android:drawableStart="@drawable/ic_delete"
+                android:textColor="#F44336"
+                android:textSize="12sp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 

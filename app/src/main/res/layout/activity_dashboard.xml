@@ -33,6 +33,7 @@ android:layout_height="match_parent">
 
 
             <LinearLayout
+                android:id="@+id/lr"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:background="@drawable/back_for_dash"
@@ -45,6 +46,13 @@ android:layout_height="match_parent">
                     android:orientation="horizontal"
                     android:padding="5dp">
 
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/reset"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/reset" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/LeaveButton"
@@ -52,6 +60,7 @@ android:layout_height="match_parent">
                         android:layout_height="35dp"
                         android:text="Take Break"
                         android:textAllCaps="false"
+                        android:textSize="13dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/white"
@@ -715,6 +724,11 @@ android:layout_height="match_parent">
                             android:text="Total Days"
                             android:textColor="@color/black"
                             android:textSize="17dp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/streaknotes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 

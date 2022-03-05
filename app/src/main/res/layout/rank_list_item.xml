@@ -48,6 +48,7 @@
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_marginVertical="2dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"

@@ -41,7 +41,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/first_rank_pfp"
-                tools:src="@drawable/ic_search"
+                android:src="@drawable/profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -108,7 +108,7 @@
                     android:id="@+id/second_rank_pfp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:src="@drawable/ic_search" />
+                    android:src="@drawable/profile" />
 
         </androidx.cardview.widget.CardView>
 

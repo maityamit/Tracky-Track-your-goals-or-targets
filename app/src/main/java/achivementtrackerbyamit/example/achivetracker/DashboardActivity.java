@@ -3,7 +3,10 @@ package achivementtrackerbyamit.example.achivetracker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -16,17 +19,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -67,6 +76,7 @@ public class DashboardActivity extends AppCompatActivity {
     private final int GALLERY_INTENT_CODE = 993;
     private final int CAMERA_INTENT_CODE = 990;
 
+    RecyclerView recyclerView;
     TextView name,consis,left,goal_lft_pert, notes;
     TextView Tdays, Dleft, Sdate, Edate;
     RelativeLayout rel;
@@ -80,14 +90,14 @@ public class DashboardActivity extends AppCompatActivity {
     private StorageReference UserProfileImagesRef;
     ImageView shareNotes;
     ProgressDialog progressDialog;
-    DatabaseReference RootRef,HelloREf,newRef;
+    DatabaseReference RootRef,HelloREf,newRef,notesRef;
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
     private Handler handler = new Handler();
     private Runnable runnable;
     ImageView extendedFloatingShareButton;
     ImageView extendedFloatingEditButton;
-    ImageView deleteGoal, NewNote;
+    ImageView deleteGoal, NewNote, resetGoal;
     ImageButton add_img;
     ImageView shareCal;
     CircleImageView goalPic;
@@ -98,7 +108,7 @@ public class DashboardActivity extends AppCompatActivity {
     public static final String ADD_TRIP_VALUE= DashboardActivity.class.getName();
     public static final String ADD_TRIP_TAG="ADD_TRIP_TAG";
     public static final String ADD_TRIP_DATA_KEY="ADD_TRIP_DATA_KEY";
-    View Leave;
+    AppCompatButton Leave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,10 +170,12 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        checkBreak();
+
         Leave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLeaveDays();
+                checkStatus();
             }
         });
 
@@ -174,8 +186,73 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        resetGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetG();
+            }
+        });
 
     }
+
+    private void checkStatus() {
+        RootRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String status = snapshot.child("Status").getValue().toString();
+                if(status.equals("OnBreak")) {
+                    String e = snapshot.child("EndTime").getValue().toString();
+                    String s = snapshot.child("BreakEndDate").getValue().toString();
+                    cancelBreak(s, e);
+                } else {
+                    getLeaveDays();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void cancelBreak(String s, String e1) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        Date n = new Date();
+        String n1 = dateFormat.format(n);
+        try {
+            Date bEnd = dateFormat.parse(s);
+            Date td = dateFormat.parse(n1);
+            Date GoalEnd = dateFormat.parse(e1);
+
+            long diff = bEnd.getTime() - td.getTime();
+            long Days = diff / (24 * 60 * 60 * 1000);
+
+            if(Days > 0) {
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(GoalEnd);// this would default to now
+                calendar.add(Calendar.DAY_OF_MONTH, -1 * (int)Days);
+                Date x = calendar.getTime();
+                String x1 = dateFormat.format(x);
+
+                DatabaseReference db = RootRef.child(id);
+                db.child("Status").setValue("Active");
+                db.child("EndTime").setValue(x1);
+                db.child("BreakEndDate").removeValue();
+                Intent i = new Intent(DashboardActivity.this, HomeActivity.class);
+                startActivity(i);
+                finish();
+            }
+
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     private void InitializationMethod() {
 
@@ -188,6 +265,9 @@ public class DashboardActivity extends AppCompatActivity {
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
         HelloREf = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Win");
 
+        notesRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Goals").child("Active").child(id).child("Notes");
+        recyclerView = findViewById(R.id.streaknotes);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         newRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         name = findViewById(R.id.desc_goal_name);
         extendedFloatingShareButton = findViewById(R.id.share_Sss);
@@ -205,6 +285,8 @@ public class DashboardActivity extends AppCompatActivity {
         add_img = findViewById(R.id.add_img);
         goalPic = findViewById(R.id.imageIcon);
 
+        resetGoal = findViewById(R.id.reset);
+
         //Streak Overview
         Tdays = findViewById(R.id.totalDays);
         Dleft = findViewById(R.id.daysLeft);
@@ -218,6 +300,75 @@ public class DashboardActivity extends AppCompatActivity {
 
         NewNote = findViewById(R.id.newNote);
 
+    }
+
+
+    private void resetG() {
+        RootRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String st = snapshot.child("Status").getValue().toString();
+                if(st.equals("Active") && !snapshot.child("Win").hasChildren()) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                    String end = snapshot.child("EndTime").getValue().toString();
+                    String start = snapshot.child("TodayTime").getValue().toString();
+                    Date n = new Date();
+                    String nx = dateFormat.format(n);
+                    try {
+                        Date endx = dateFormat.parse(end);
+                        Date startx = dateFormat.parse(start);
+                        Date today = dateFormat.parse(nx);
+
+                        long diff = endx.getTime() - startx.getTime();
+                        long Days = diff / (24 * 60 * 60 * 1000);
+
+                        if(Days > 0 ) {
+                            Calendar c = Calendar.getInstance();
+                            c.setTime(today);
+                            c.add(Calendar.DAY_OF_MONTH, (int)Days);
+
+                            Date up = c.getTime();
+                            String upx = dateFormat.format(up);
+
+                            RootRef.child(id).child("EndTime").setValue(upx);
+                            RootRef.child(id).child("TodayTime").setValue(nx);
+                        } else {
+                            Toast.makeText(DashboardActivity.this, "Can't reset same date", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    Toast.makeText(DashboardActivity.this, "Can't reset", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+
+
+    private void checkBreak() {
+        HelloREf.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChildren()) {
+                    Leave.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void DeleteGoalMethod() {
@@ -437,6 +588,7 @@ public class DashboardActivity extends AppCompatActivity {
                 .setTopColorRes(R.color.blue)
                 .setTitle("Take Break from Current Goal")
                 .setMessage("How many days of break you need?")
+                .setInputType(InputType.TYPE_CLASS_NUMBER)
                 .setIcon(R.drawable.ic_baseline_edit_24)
                 .setInputFilter("Wrong Input, please try again!", new LovelyTextInputDialog.TextFilter() {
                     @Override
@@ -516,6 +668,10 @@ public class DashboardActivity extends AppCompatActivity {
 
         RootRef.child(id)
                 .updateChildren ( onlineStat );
+
+        Intent i = new Intent(DashboardActivity.this, HomeActivity.class);
+        startActivity(i);
+        finish();
     }
 
 
@@ -524,7 +680,39 @@ public class DashboardActivity extends AppCompatActivity {
         super.onStart ();
 
         showProgressDialog();
+        FirebaseRecyclerOptions<NotesClass> options = new FirebaseRecyclerOptions.Builder<NotesClass>().setQuery(notesRef,NotesClass.class).build();
+        FirebaseRecyclerAdapter<NotesClass,NotesViewHolder> adapter = new FirebaseRecyclerAdapter<NotesClass, NotesViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull NotesViewHolder holder, int position, @NonNull NotesClass model) {
+                holder.notestext.setText(model.getNote());
+                holder.notesdate.setText(model.getDate());
+            }
 
+            @NonNull
+            @Override
+            public NotesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notelist, parent , false);
+                NotesViewHolder notesViewHolder = new NotesViewHolder(view);
+                return  notesViewHolder;
+            }
+        };
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+
+        RootRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild("BreakEndDate")) {
+                    Leave.setBackgroundResource(R.drawable.logout_button);
+                    Leave.setText("Cancel Break");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
@@ -570,6 +758,19 @@ public class DashboardActivity extends AppCompatActivity {
 
 
                 String goal_const = snapshot.child ( "Consistency" ).getValue ().toString ();
+
+                int x = Integer.parseInt(goal_const);
+                LinearLayout lr = findViewById(R.id.lr);
+
+                if(x <= 33) {
+                    lr.setBackgroundResource(R.drawable.orangish_bg);
+                } else if (x >=34 && x <= 66) {
+                    lr.setBackgroundResource(R.drawable.greenish_bg);
+                } else {
+                    lr.setBackgroundResource(R.drawable.blueish_bg);
+                }
+
+
                 //Shared Preference to use the value of 'goal_const' in share() function
                 PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this).edit().putString("consistency", goal_const).commit();
 
@@ -802,12 +1003,6 @@ public class DashboardActivity extends AppCompatActivity {
                 .setTitle("Save Notes anytime")
                 .setMessage("Enter your note")
                 .setIcon(R.drawable.ic_baseline_edit_24)
-                .setInputFilter("Wrong Input, please try again!", new LovelyTextInputDialog.TextFilter() {
-                    @Override
-                    public boolean check(String text) {
-                        return text.matches("\\w+");
-                    }
-                })
                 .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
                     @Override
                     public void onTextInputConfirmed(String text) {
@@ -819,8 +1014,8 @@ public class DashboardActivity extends AppCompatActivity {
                                 child("Active").child(id).child("Notes").push().getKey();
 
                         HashMap<String, Object> map = new HashMap<>();
-                        map.put("Date: ", temp);
-                        map.put("Note: ", text);
+                        map.put("Date", temp);
+                        map.put("Note", text);
 
 
                         RootRef.child(id).child("Notes").child(key).setValue(map);
@@ -828,6 +1023,16 @@ public class DashboardActivity extends AppCompatActivity {
                 })
                 .setNegativeButton(android.R.string.no, null)
                 .show();
+    }
+    public static class NotesViewHolder extends  RecyclerView.ViewHolder
+    {
+
+        TextView notestext,notesdate;
+        public NotesViewHolder(@NonNull View itemView) {
+            super ( itemView );
+            notestext = itemView.findViewById ( R.id.notedata);
+            notesdate = itemView.findViewById(R.id.notedate);
+        }
     }
 
 }

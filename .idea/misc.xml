@@ -44,6 +44,12 @@
         <entry key="..\:/Tracky/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Tracky/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_signin.xml" value="0.36666666666666664" />
         <entry key="..\:/Tracky/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/progress_diaglog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1735" />
+        <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/indicator_default.xml" value="0.1735" />
+        <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/indicator_selected.xml" value="0.1735" />
+        <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/indicator_selector.xml" value="0.1735" />
+        <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/material_dialog_box.xml" value="0.1735" />
+        <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/next_btn.xml" value="0.1735" />
         <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_addgoal.xml" value="0.2484375" />
         <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_alarm.xml" value="0.264" />
         <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_app_intro.xml" value="0.2484375" />
@@ -67,6 +73,7 @@
         <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_welcome.xml" value="0.2484375" />
         <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/layout_screen.xml" value="0.2484375" />
         <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/main_tiles_layout.xml" value="0.2484375" />
+        <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/notelist.xml" value="0.2484375" />
         <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/progress_diaglog.xml" value="0.2484375" />
         <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/rank_list_item.xml" value="0.264" />
         <entry key="..\:/Users/AMIT/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/show_log_dialog.xml" value="0.2484375" />
@@ -91,6 +98,7 @@
         <entry key="..\:/Users/Manjot/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_rank.xml" value="0.264" />
         <entry key="..\:/Users/Manjot/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/main_tiles_layout.xml" value="0.25" />
         <entry key="..\:/Users/Manjot/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/rank_list_item.xml" value="0.25" />
+        <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets-3/app/src/main/res/layout/activity_dashboard.xml" value="0.209375" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/black_fill.xml" value="0.1855" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/custom_dialog_background.xml" value="0.204" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/next_btn.xml" value="0.1855" />

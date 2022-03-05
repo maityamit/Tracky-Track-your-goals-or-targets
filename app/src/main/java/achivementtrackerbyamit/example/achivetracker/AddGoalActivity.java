@@ -155,13 +155,45 @@ public class AddGoalActivity extends AppCompatActivity
 
         if(TAG!=null && TAG.equals(DashboardActivity.ADD_TRIP_VALUE)) {
             isNewGoal= false;
-            CreteANewGoal(dataKey);
+            UpdateGoal(dataKey);
         }
         else {
             String trip_key = RootRef.child("Goals").child("Active").push().getKey();
             isNewGoal= true;
             CreteANewGoal(trip_key);
         }
+
+    }
+
+    private void UpdateGoal(String dataKey) {
+
+        String string = tripname.getText().toString();
+        String description = goalDesc.getText().toString();
+
+
+
+        if (TextUtils.isEmpty (string))
+        {
+            Toast.makeText(AddGoalActivity.this, "Enter any Trip name ..", Toast.LENGTH_SHORT).show();
+
+        }
+        else
+        {
+
+            HashMap<String, Object> onlineStat = new HashMap<>();
+            onlineStat.put("GoalName", string);
+            onlineStat.put("Goal_Description", description);
+
+            RootRef.child("Goals").child("Active").child(dataKey)
+                    .updateChildren(onlineStat);
+            Intent loginIntent = new Intent ( AddGoalActivity.this,HomeActivity.class );
+            loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+            startActivity ( loginIntent );
+
+        }
+
+
+
 
     }
 
@@ -174,7 +206,7 @@ public class AddGoalActivity extends AppCompatActivity
 
 
         //String todaay is Today's Date
-        String todaay = format.format(today);
+        String todaay  = format.format(today);
 
 
         int year = datepicker.getYear();
@@ -241,6 +273,7 @@ public class AddGoalActivity extends AppCompatActivity
             if(isNewGoal){
                 addActivity(string,todaay);
             }
+
             Intent loginIntent = new Intent ( AddGoalActivity.this,HomeActivity.class );
             loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
             startActivity ( loginIntent );
@@ -281,31 +314,11 @@ public class AddGoalActivity extends AppCompatActivity
                 // Set the goal name
                 tripname.setText(prevName);
 
-                // Get the previous date
-                String prevDate= snapshot.child("EndTime").getValue().toString();
-                prevDate= prevDate.substring(0,prevDate.indexOf(" "));
-                Date date1 = null;
-                try {
-                    //prevDate= prevDate.substring(0, prevDate.indexOf(" "));
-                    date1 = new SimpleDateFormat("dd/M/yyyy").parse(prevDate);
-
-
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                Calendar calendar= Calendar.getInstance();
-                calendar.setLenient(true);
-                calendar.setTime(date1);
-
-                //Set the previous target date to date picker
-                datepicker.init(calendar.get(Calendar.YEAR),
-                        (calendar.get(Calendar.MONTH)),
-                        calendar.get(Calendar.DAY_OF_MONTH),null);
-
                 //Update other UI element
                 findViewById(R.id.create_goal_text_view).setVisibility(View.GONE);
-                yes.setText("Submit");
+                findViewById(R.id.edit_text_trip_date).setVisibility(View.GONE);
+                findViewById(R.id.priority_layout).setVisibility(View.GONE);
+                yes.setText("Update");
             }
 
             @Override
