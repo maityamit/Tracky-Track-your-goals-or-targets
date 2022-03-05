@@ -81,7 +81,7 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Cannot Fetch Data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Cannot Fetch Data", Toast.LENGTH_SHORT).show();
             }
         });
 
