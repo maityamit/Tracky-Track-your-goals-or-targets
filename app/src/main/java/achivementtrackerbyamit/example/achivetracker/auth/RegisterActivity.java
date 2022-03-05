@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -37,7 +38,7 @@ import achivementtrackerbyamit.example.achivetracker.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    LinearLayout gotoGoogle;
+    ImageView gotoGoogle;
 
     GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
@@ -53,9 +54,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         gotoGoogle=findViewById(R.id.gotoGoogleBtn);
+
         LinearLayout emailSignin = findViewById(R.id.emailsignin);
         LinearLayout phonenosignin = findViewById(R.id.phonenosignin);
-
 
         firestore = FirebaseFirestore.getInstance();
 
