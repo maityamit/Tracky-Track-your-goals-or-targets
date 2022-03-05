@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -29,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.nio.InvalidMarkException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,8 +57,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         gotoGoogle=findViewById(R.id.gotoGoogleBtn);
 
-        LinearLayout emailSignin = findViewById(R.id.emailsignin);
-        LinearLayout phonenosignin = findViewById(R.id.phonenosignin);
+        ImageView emailSignin = findViewById(R.id.emailsignin);
+        ImageView phonenosignin = findViewById(R.id.phonenosignin);
 
         firestore = FirebaseFirestore.getInstance();
 
