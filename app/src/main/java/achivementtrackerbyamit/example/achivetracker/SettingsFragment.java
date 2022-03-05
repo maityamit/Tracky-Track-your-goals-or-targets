@@ -73,6 +73,15 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=achivementtrackerbyamit.example.achivetracker"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
         // Show logs button onClickListener
         showLogs.setOnClickListener(new View.OnClickListener() {
             @Override
