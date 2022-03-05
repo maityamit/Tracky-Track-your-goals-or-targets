@@ -4,23 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#F4FAFF"
     tools:context=".auth.SigninActivity">
 
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/top1c"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
 
         <TextView
@@ -30,9 +28,9 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="176dp"
+            android:layout_marginTop="10dp"
             android:text="Hello!"
-            android:textColor="@color/black"
+            android:textColor="#434343"
             android:textSize="40dp"
             android:textStyle="bold" />
 
@@ -41,48 +39,22 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/toptext"
             android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
             android:layout_marginStart="40dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="16dp"
             android:text="Sign in to your Account"
-            android:textColor="@color/black"
+            android:textColor="#434343"
             android:textSize="15dp" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="107dp"
-            android:layout_height="107dp"
-            android:layout_alignBottom="@+id/relativeLayout"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="150dp"
-            android:layout_marginBottom="140dp"
-            android:elevation="12dp">
-
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/main_kogo" />
-
-        </androidx.cardview.widget.CardView>
-
 
 
     </RelativeLayout>
-
 
     <EditText
         android:id="@+id/loginemail"
         android:layout_width="330dp"
         android:layout_height="60dp"
         android:layout_marginBottom="168dp"
-        android:background="@drawable/edittextbox"
+        android:background="@drawable/editfield"
+        android:elevation="2dp"
         android:ems="10"
         android:hint="Enter our Email ID"
         android:inputType="textEmailAddress"
@@ -99,8 +71,9 @@
         android:id="@+id/loginpassword"
         android:layout_width="330dp"
         android:layout_height="60dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/edittextbox"
+        android:elevation="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/editfield"
         android:ems="10"
         android:hint="Enter your Password"
         android:inputType="textPassword"
@@ -118,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="208dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="Forgot Password?"
         android:textColor="@color/red"
@@ -129,7 +102,6 @@
     <RelativeLayout
         android:layout_width="256dp"
         android:layout_height="38dp"
-        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/signin"
         app:layout_constraintStart_toStartOf="@+id/signin"
@@ -160,11 +132,11 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
-            android:textSize="15sp"
             android:layout_marginBottom="0dp"
             android:gravity="center"
             android:text="Don't have an account?"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
     </RelativeLayout>
 
@@ -172,13 +144,12 @@
         android:id="@+id/signin"
         android:layout_width="330dp"
         android:layout_height="55dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/button"
         android:text="Sign in"
         android:textAllCaps="false"
-        android:textSize="19dp"
         android:textColor="@color/white"
+        android:textSize="19dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/frgtpass"
         app:layout_constraintHorizontal_bias="0.0"
@@ -202,7 +173,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.42" />
+        app:layout_constraintGuide_percent="0.53" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="410dp"
+        android:layout_height="241dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        app:srcCompat="@drawable/signin_ill" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

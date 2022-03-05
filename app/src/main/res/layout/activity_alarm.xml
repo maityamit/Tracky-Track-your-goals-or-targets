@@ -4,16 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F4FAFF"
     tools:context=".alarm.AlarmActivity">
 
-
-    <ImageView
-        android:id="@+id/reminder_backgorund_img"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/reminder_page_background"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/reminder_content_layout"
@@ -29,19 +22,18 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/DateView"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/card_background"
-                android:paddingHorizontal="10dp"
-                android:paddingTop="11dp"
+                android:gravity="center"
+                android:textStyle="bold"
                 android:text="Pick a Date"
-                android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -50,13 +42,13 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/reminder_button_background"
+                android:background="@drawable/edittextbox"
                 android:paddingHorizontal="10dp"
                 android:paddingBottom="5dp"
                 android:text="Select Date"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textColor="@color/black"
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,11 +62,10 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/card_background"
-                android:paddingHorizontal="10dp"
-                android:paddingTop="11dp"
+                android:textStyle="bold"
                 android:text="Pick a Time"
-                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -83,13 +74,13 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/reminder_button_background"
+                android:background="@drawable/edittextbox"
                 android:paddingHorizontal="10dp"
                 android:paddingBottom="5dp"
                 android:text="Select Time"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textColor="@color/black"
+                android:textSize="16dp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -100,36 +91,20 @@
         android:layout_width="190dp"
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/set_reminder_background"
+        android:background="@drawable/button"
         android:onClick="SetAlarmMan"
         android:paddingHorizontal="10dp"
         android:paddingBottom="5dp"
         android:text="Set Reminder"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/reminder_content_layout"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="@+id/reminder_content_layout"
         app:layout_constraintTop_toBottomOf="@+id/reminder_content_layout"
-        app:layout_constraintVertical_bias="0.306" />
-
-    <!--        <androidx.appcompat.widget.AppCompatButton-->
-    <!--            android:id="@+id/cancelAlarm"-->
-    <!--            android:layout_width="190dp"-->
-    <!--            android:layout_height="50dp"-->
-    <!--            android:background="@drawable/set_reminder_background"-->
-    <!--            android:onClick="cancelAlarm"-->
-    <!--            android:text="Cancel Reminder"-->
-    <!--            android:textAllCaps="false"-->
-    <!--            android:textColor="@color/white"-->
-    <!--            android:textSize="20sp"-->
-    <!--            android:paddingHorizontal="10dp"-->
-    <!--            android:paddingBottom="5dp"-->
-    <!--            android:layout_marginVertical="15dp"-->
-    <!--            app:layout_constraintEnd_toEndOf="@+id/reminder_content_layout"-->
-    <!--            app:layout_constraintStart_toStartOf="@+id/reminder_content_layout"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/SetAlarm" />-->
+        app:layout_constraintVertical_bias="0.062" />
 
     <TextView
         android:id="@+id/textView"
@@ -138,6 +113,7 @@
         android:layout_marginTop="30dp"
         android:text="Please select Date and Time"
         android:textColor="@color/black"
+        android:textSize="17dp"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -146,13 +122,25 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:text="@string/create_a_reminder"
-        android:textColor="#0018EE"
+        android:textColor="@color/black"
         android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reminder_backgorund_img" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="410dp"
+        android:layout_height="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.039"
+        app:srcCompat="@drawable/clock" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

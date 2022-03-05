@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,11 +42,12 @@ public class SettingsFragment extends Fragment {
 
 
 
-    private TextView username , rateus , share , privacypolicy;
+    private TextView rateus , share , privacypolicy;
     private Button showLogs;
     private DatabaseReference reference;
     private String userID;
     CircleImageView profilePic;
+    ImageView github;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -55,33 +57,19 @@ public class SettingsFragment extends Fragment {
         rateus = view.findViewById(R.id.rateus);
         share = view.findViewById(R.id.share);
         privacypolicy = view.findViewById(R.id.privacy);
-        username = view.findViewById(R.id.users_name);
         showLogs = view.findViewById(R.id.show_logs);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        github = view.findViewById(R.id.github_button);
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
 
 
-        // Fetching data from firebase and displaying in the SettingsFragment
-        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        github.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Users users = snapshot.getValue(Users.class);
-                if(users!=null){
-                    String name = users.name;
-
-                    username.setText(name);
-                }
-                Object url = snapshot.child("user_image").getValue();
-                if (url!=null){
-                    Picasso.get().load(url.toString()).placeholder(R.drawable.profile).error(R.drawable.profile).into(profilePic);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-//                Toast.makeText(getActivity(), "Cannot Fetch Data", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/maityamit/Tracky-Track-your-goals-or-targets"));
+                startActivity(browserIntent);
             }
         });
 
@@ -127,13 +115,5 @@ public class SettingsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
-
-    // Function for github link view
-    public void GithubLinkClick(View view) {
-
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/maityamit/Tracky-Track-your-goals-or-targets"));
-        startActivity(browserIntent);
-
-    }
 
 }
