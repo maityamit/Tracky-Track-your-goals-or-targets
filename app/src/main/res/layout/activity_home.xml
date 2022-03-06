@@ -35,7 +35,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/main_kogo"
+                    android:src="@drawable/logo"
                     android:scaleType="fitXY"/>
 
             </androidx.cardview.widget.CardView>
