@@ -16,7 +16,7 @@
         android:layout_margin="20dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
-        app:cardElevation="30dp"
+        app:cardElevation="35dp"
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -107,7 +107,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/button"
         android:layout_gravity="center_horizontal"
-        android:text="Reset Account"
+        android:text="Remove All Goals"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16dp" />
