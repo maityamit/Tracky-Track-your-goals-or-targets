@@ -16,10 +16,10 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/main_kogo"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/main_kogo"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
         <activity
