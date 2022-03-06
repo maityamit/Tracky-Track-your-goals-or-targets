@@ -679,7 +679,6 @@ public class DashboardActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart ();
 
-        showProgressDialog();
         FirebaseRecyclerOptions<NotesClass> options = new FirebaseRecyclerOptions.Builder<NotesClass>().setQuery(notesRef,NotesClass.class).build();
         FirebaseRecyclerAdapter<NotesClass,NotesViewHolder> adapter = new FirebaseRecyclerAdapter<NotesClass, NotesViewHolder>(options) {
             @Override
@@ -717,7 +716,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void RetriveData() {
-
+        showProgressDialog();
         RootRef.child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
