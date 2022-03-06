@@ -168,6 +168,7 @@ android:layout_height="match_parent">
                         </androidx.cardview.widget.CardView>
 
                         <ImageView
+                            android:id="@+id/alarm"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginStart="10dp"

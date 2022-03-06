@@ -99,7 +99,7 @@ public class DashboardActivity extends AppCompatActivity {
     ImageView extendedFloatingEditButton;
     ImageView deleteGoal, NewNote, resetGoal;
     ImageButton add_img;
-    ImageView shareCal;
+    ImageView shareCal, Alarm;
     CircleImageView goalPic;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
@@ -162,6 +162,8 @@ public class DashboardActivity extends AppCompatActivity {
                 DeleteGoalMethod();
             }
         });
+
+
 
         add_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,6 +275,7 @@ public class DashboardActivity extends AppCompatActivity {
         extendedFloatingShareButton = findViewById(R.id.share_Sss);
         deleteGoal = findViewById(R.id.delete_goal);
         shareStreak = findViewById(R.id.streakButOV);
+        Alarm = findViewById(R.id.alarm);
 
         extendedFloatingEditButton = findViewById(R.id.edit_goal_btn);
         shareNotes = findViewById(R.id.shareButNotes);
@@ -361,6 +364,9 @@ public class DashboardActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChildren()) {
                     Leave.setVisibility(View.GONE);
+                    Alarm.setVisibility(View.GONE);
+                    resetGoal.setVisibility(View.GONE);
+                    extendedFloatingEditButton.setVisibility(View.GONE);
                 }
             }
 
@@ -658,8 +664,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         String today_date_after_increse_string = simpleDateFormat2.format(today_date_after_increse);
         String create_date_after_increse_string = simpleDateFormat2.format(create_date_after_increse);
-
-     //   Toast.makeText(DashboardActivity.this, today_date_after_increse_string+"\n"+create_date_after_increse_string, Toast.LENGTH_SHORT).show();
 
         HashMap<String,Object> onlineStat = new HashMap<> (  );
         onlineStat.put ( "TodayTime", create_date_after_increse_string);
