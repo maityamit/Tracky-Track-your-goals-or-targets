@@ -103,6 +103,7 @@ public class DashboardActivity extends AppCompatActivity {
     CircleImageView goalPic;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
+    private String JUSTDATE_FORMAT = "dd/M/yyyy";
     ImageView shareStreak;
     String GoalName;
     public static final String ADD_TRIP_VALUE= DashboardActivity.class.getName();
@@ -344,6 +345,7 @@ public class DashboardActivity extends AppCompatActivity {
                 String st = snapshot.child("Status").getValue().toString();
                 if(st.equals("Active") && !snapshot.child("Win").hasChildren()) {
                     SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                    SimpleDateFormat justdateFormat = new SimpleDateFormat(JUSTDATE_FORMAT);
                     String end = snapshot.child("EndTime").getValue().toString();
                     String start = snapshot.child("TodayTime").getValue().toString();
                     Date n = new Date();
@@ -362,7 +364,10 @@ public class DashboardActivity extends AppCompatActivity {
                             c.add(Calendar.DAY_OF_MONTH, (int)Days);
 
                             Date up = c.getTime();
-                            String upx = dateFormat.format(up);
+                            String upx = justdateFormat.format(up) + " 23:59:59";
+                            Toast.makeText(DashboardActivity.this, nx, Toast.LENGTH_LONG).show();
+                            Toast.makeText(DashboardActivity.this, upx, Toast.LENGTH_LONG).show();
+
 
                             RootRef.child(id).child("EndTime").setValue(upx);
                             RootRef.child(id).child("TodayTime").setValue(nx);
