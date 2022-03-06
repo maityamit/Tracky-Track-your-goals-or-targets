@@ -32,8 +32,11 @@ public class ForgetpassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgetpass);
 
-        Auth2 = FirebaseAuth.getInstance();
+
         email = findViewById(R.id.editTextTextEmailAddress);
+
+
+        Auth2 = FirebaseAuth.getInstance();
         resetpass = findViewById(R.id.button2);
 
         resetpass.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +77,7 @@ public class ForgetpassActivity extends AppCompatActivity {
                             }
                             catch (Exception e){
                                 e.printStackTrace();
-                                Log.d(TAG,"Email sent");
+                                Log.d(TAG,"Email not sent");
                                 return;
                             }
                         }
