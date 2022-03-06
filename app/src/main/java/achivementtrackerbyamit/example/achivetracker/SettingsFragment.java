@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.common.collect.Lists;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -48,6 +51,8 @@ public class SettingsFragment extends Fragment {
     private String userID;
     CircleImageView profilePic;
     ImageView github;
+    private ReviewInfo reviewInfo;
+    private ReviewManager manager;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -84,6 +89,29 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        // Rate Us Feature
+        rateus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager = ReviewManagerFactory.create(getActivity());
+                com.google.android.play.core.tasks.Task<ReviewInfo> request = manager.requestReviewFlow();
+                request.addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // We can get the ReviewInfo object
+                        reviewInfo = task.getResult();
+                    } else {
+                        // There was some problem, log or handle the error code.
+                        Toast.makeText(getActivity(), "Review failed to start", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                if (reviewInfo!=null){
+                    com.google.android.play.core.tasks.Task<Void> flow = manager.launchReviewFlow(getActivity(),reviewInfo);
+                    flow.addOnCompleteListener(task -> {
+                        Toast.makeText(getActivity(), "Rating is completed", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            }
+        });
         // Show logs button onClickListener
         showLogs.setOnClickListener(new View.OnClickListener() {
             @Override
