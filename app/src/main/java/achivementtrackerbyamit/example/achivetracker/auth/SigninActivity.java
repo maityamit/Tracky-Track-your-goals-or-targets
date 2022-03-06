@@ -87,17 +87,10 @@ public class SigninActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                if (user.isEmailVerified()){
-                                    progressBar.setVisibility(View.GONE);
-                                    Intent intent2 = new Intent(SigninActivity.this, HomeActivity.class);
-                                    startActivity(intent2);
-                                    finishAffinity();
-                                }
-                                else{
-                                    progressBar.setVisibility(View.GONE);
-                                    user.sendEmailVerification();
-                                    Toast.makeText(SigninActivity.this, "Check your email to verify your account and Login again", Toast.LENGTH_SHORT).show();
-                                }
+                                progressBar.setVisibility(View.GONE);
+                                Intent intent2 = new Intent(SigninActivity.this, HomeActivity.class);
+                                startActivity(intent2);
+                                finishAffinity();
                             }
                             else {
                                 progressBar.setVisibility(View.GONE);
