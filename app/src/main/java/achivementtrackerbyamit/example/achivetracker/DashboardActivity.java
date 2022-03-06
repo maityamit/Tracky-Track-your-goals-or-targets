@@ -159,7 +159,38 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                DeleteGoalMethod();
+                //Add here Logic
+                newRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String email = snapshot.child("email").getValue().toString();
+
+                        new LovelyTextInputDialog(DashboardActivity.this, R.style.EditTextTintTheme)
+                                .setTopColorRes(R.color.blue)
+                                .setTitle("Enter Email")
+                                .setMessage("To delete your Goal we need to cross-check your Email ID")
+                                .setInputType(InputType.TYPE_CLASS_TEXT)
+                                .setIcon(R.drawable.ic_baseline_edit_24)
+                                .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
+                                    @Override
+                                    public void onTextInputConfirmed(String text) {
+                                        if((text.trim()).equals(email.trim().toLowerCase())) {
+                                            DeleteGoalMethod();
+                                        } else {
+                                            Toast.makeText(DashboardActivity.this, "Wrong Email", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, null)
+                                .show();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
