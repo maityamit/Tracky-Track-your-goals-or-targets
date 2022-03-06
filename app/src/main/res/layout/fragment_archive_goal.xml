@@ -22,7 +22,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/empty_archive_image"
+        android:src="@drawable/no2"
         android:id="@+id/empty_archive_img"
         android:layout_marginHorizontal="90dp"
         android:paddingBottom="30dp"
@@ -30,15 +30,14 @@
         android:layout_centerInParent="true"/>
 
     <com.leo.simplearcloader.SimpleArcLoader
-        android:visibility="visible"
         android:id="@+id/loader_archive_goal"
-        android:layout_centerInParent="true"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        custom:arc_style="simple_arc"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        custom:arc_margin="3dp"
         custom:arc_speed="medium"
-        custom:arc_margin="3dp">
-    </com.leo.simplearcloader.SimpleArcLoader>
+        custom:arc_style="simple_arc"></com.leo.simplearcloader.SimpleArcLoader>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/download_button"
