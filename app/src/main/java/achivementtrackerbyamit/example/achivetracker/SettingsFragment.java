@@ -43,8 +43,8 @@ public class SettingsFragment extends Fragment {
 
 
     private TextView rateus , share , privacypolicy;
-    private Button showLogs;
-    private DatabaseReference reference;
+    private Button showLogs, delAll;
+    private DatabaseReference reference, tillActive;
     private String userID;
     CircleImageView profilePic;
     ImageView github;
@@ -61,8 +61,10 @@ public class SettingsFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         github = view.findViewById(R.id.github_button);
+        delAll = view.findViewById(R.id.delall);
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
+        tillActive = reference.child(userID).child("Goals").child("Active");
 
 
         github.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +113,32 @@ public class SettingsFragment extends Fragment {
                             alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.material_dialog_box);
                             alertDialog.show();
                         }
+                    }
+                });
+
+            }
+        });
+
+
+        delAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tillActive.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.hasChildren()) {
+                            tillActive.removeValue();
+                            Toast.makeText(getContext(), "All Goals removed successfully", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(getContext(), HomeActivity.class);
+                            startActivity(i);
+                        } else {
+                            Toast.makeText(getContext(), "No Goals found to remove", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
                 });
 
