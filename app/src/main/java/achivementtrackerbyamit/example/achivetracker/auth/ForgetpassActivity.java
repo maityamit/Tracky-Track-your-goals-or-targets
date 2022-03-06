@@ -55,13 +55,14 @@ public class ForgetpassActivity extends AppCompatActivity {
             email.requestFocus();
             return;
         }
+        // Checking whether the email is valid or not
         else if (!Patterns.EMAIL_ADDRESS.matcher(emailnew).matches()){
             email.setError("Please enter a valid Email id");
             email.requestFocus();
             return;
         }
         else{
-
+            // Sending the mail to your email
             Auth2.sendPasswordResetEmail(emailnew)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
