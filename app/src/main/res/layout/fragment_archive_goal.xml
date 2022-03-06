@@ -8,19 +8,15 @@
     tools:context=".archive_goal.ArchiveGoalFragment">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/archieve_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F4FAFF"
+        android:nestedScrollingEnabled="true">
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/archieve_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#e1f1ff"
-            android:nestedScrollingEnabled="true"
-          >
-
-
-
-        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 
     <ImageView
@@ -48,10 +44,10 @@
         android:id="@+id/download_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="25sp"
+        android:layout_marginBottom="20dp"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="16sp"

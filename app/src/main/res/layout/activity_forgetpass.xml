@@ -4,52 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#F4FAFF"
     tools:context=".auth.ForgetpassActivity">
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/top1c"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="107dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="102dp"
-            android:layout_marginBottom="43dp"
-            android:text="Forgot Password?"
-            android:textColor="@color/black"
-            android:textSize="25dp" />
-
-        <ImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_alignBottom="@+id/relativeLayout"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="150dp"
-            android:layout_marginBottom="151dp"
-            android:src="@drawable/main_kogo" />
-
-    </RelativeLayout>
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -57,40 +13,67 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.41" />
+        app:layout_constraintGuide_percent="0.59" />
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="306dp"
-        android:layout_height="59dp"
-        android:background="@drawable/edittextbox"
-        android:ems="10"
-        android:hint="Enter your Email ID"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="15dp"
-        android:textColor="@color/black"
-        android:textColorHint="#302F2F"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="266dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.116" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.051">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
-        android:layout_width="330dp"
-        android:layout_height="55dp"
-        android:background="@drawable/button"
-        android:text="Reset password"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintVertical_bias="0.328" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password?"
+            android:textColor="#434343"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+        <EditText
+            android:id="@+id/editTextTextEmailAddress"
+            android:layout_width="330dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/editfield"
+            android:elevation="2dp"
+            android:ems="10"
+            android:hint="Enter your Email ID"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="#302F2F"
+            app:layout_constraintEnd_toEndOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button2"
+            android:layout_width="330dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button"
+            android:text="Reset password"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
+            app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+            app:layout_constraintVertical_bias="0.328" />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar3"
@@ -105,10 +88,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="367dp"
+        android:layout_height="365dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:srcCompat="@drawable/illus" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fpass" />
 </androidx.constraintlayout.widget.ConstraintLayout>
