@@ -75,6 +75,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:hint="Your Email ID"
+        android:background="@drawable/editfield"
         tools:layout_editor_absoluteY="320dp"
         android:paddingLeft="15dp"
         android:inputType="textEmailAddress"
@@ -88,7 +89,8 @@
         android:layout_width="330dp"
         android:layout_height="56dp"
         android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/editfield">
 
         <ImageView
             android:id="@+id/editName"
@@ -97,7 +99,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="285dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="14dp"
             android:src="@drawable/edit" />
@@ -110,16 +112,16 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="15dp"
-            android:textStyle="bold"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="16dp"
             android:ems="10"
             android:gravity="center_vertical"
             android:hint="Your Name"
-            android:paddingLeft="15dp"
+            android:paddingLeft="80dp"
             android:textColor="@color/black"
             android:textColorHint="#302F2F"
             android:textSize="19dp"
+            android:textStyle="bold"
             tools:layout_editor_absoluteY="320dp" />
     </RelativeLayout>
 

@@ -23,20 +23,19 @@
             android:orientation="horizontal">
 
 
-
             <androidx.cardview.widget.CardView
                 android:layout_width="40dp"
-                android:layout_marginStart="20dp"
-                app:cardCornerRadius="12dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
-                android:layout_height="40dp">
+                android:layout_marginStart="20dp"
+                app:cardCornerRadius="12dp">
 
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/main_kogo"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/logo" />
 
             </androidx.cardview.widget.CardView>
 
@@ -46,10 +45,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="12sp"
-                android:textStyle="bold"
-                android:textSize="15sp"
+                android:text="Tracky : Track your goal"
                 android:textColor="#3a67ff"
-                android:text="Tracky : Track your goal"/>
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -58,14 +57,14 @@
             android:id="@+id/logout_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:scaleType="centerCrop"
             android:layout_alignParentEnd="true"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@android:color/white"
             android:layout_centerVertical="true"
             android:layout_gravity="end"
             android:layout_marginEnd="25dp"
-            android:src="@drawable/profile" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp" />
 
 
     </RelativeLayout>

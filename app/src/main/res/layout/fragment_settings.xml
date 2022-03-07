@@ -9,18 +9,6 @@
     android:gravity="center_horizontal"
     android:background="#F4FAFF">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/show_logs"
-        android:layout_width="330dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button"
-        android:layout_gravity="center_horizontal"
-        android:text="Show Log"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16dp" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_main_view"
         android:layout_width="330dp"
@@ -28,7 +16,7 @@
         android:layout_margin="20dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
-        app:cardElevation="30dp"
+        app:cardElevation="35dp"
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -99,6 +87,30 @@
             android:layout_height="57dp"
             android:onClick="GithubLinkClick"
             android:src="@drawable/gitgub" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/show_logs"
+        android:layout_width="330dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center_horizontal"
+        android:text="Show Log"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/delall"
+        android:layout_width="330dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center_horizontal"
+        android:text="Remove All Goals"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
 
 
 </LinearLayout>

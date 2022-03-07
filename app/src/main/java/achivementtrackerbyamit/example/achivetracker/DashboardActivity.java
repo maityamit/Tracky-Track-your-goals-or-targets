@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -26,6 +28,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -99,10 +102,11 @@ public class DashboardActivity extends AppCompatActivity {
     ImageView extendedFloatingEditButton;
     ImageView deleteGoal, NewNote, resetGoal;
     ImageButton add_img;
-    ImageView shareCal;
+    ImageView shareCal, Alarm;
     CircleImageView goalPic;
     private String EVENT_DATE_TIME = "null";
     private String DATE_FORMAT = "dd/M/yyyy hh:mm:ss";
+    private String JUSTDATE_FORMAT = "dd/M/yyyy";
     ImageView shareStreak;
     String GoalName;
     public static final String ADD_TRIP_VALUE= DashboardActivity.class.getName();
@@ -159,9 +163,42 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                DeleteGoalMethod();
+                //Add here Logic
+                newRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String email = snapshot.child("email").getValue().toString();
+
+                        new LovelyTextInputDialog(DashboardActivity.this, R.style.EditTextTintTheme)
+                                .setTopColorRes(R.color.blue)
+                                .setTitle("Enter Email")
+                                .setMessage("To delete your Goal we need to cross-check your Email ID")
+                                .setInputType(InputType.TYPE_CLASS_TEXT)
+                                .setIcon(R.drawable.ic_baseline_edit_24)
+                                .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
+                                    @Override
+                                    public void onTextInputConfirmed(String text) {
+                                        if((text.trim()).equals(email.trim().toLowerCase())) {
+                                            DeleteGoalMethod();
+                                        } else {
+                                            Toast.makeText(DashboardActivity.this, "Wrong Email", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, null)
+                                .show();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
+
+
 
         add_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,6 +310,7 @@ public class DashboardActivity extends AppCompatActivity {
         extendedFloatingShareButton = findViewById(R.id.share_Sss);
         deleteGoal = findViewById(R.id.delete_goal);
         shareStreak = findViewById(R.id.streakButOV);
+        Alarm = findViewById(R.id.alarm);
 
         extendedFloatingEditButton = findViewById(R.id.edit_goal_btn);
         shareNotes = findViewById(R.id.shareButNotes);
@@ -310,6 +348,7 @@ public class DashboardActivity extends AppCompatActivity {
                 String st = snapshot.child("Status").getValue().toString();
                 if(st.equals("Active") && !snapshot.child("Win").hasChildren()) {
                     SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                    SimpleDateFormat justdateFormat = new SimpleDateFormat(JUSTDATE_FORMAT);
                     String end = snapshot.child("EndTime").getValue().toString();
                     String start = snapshot.child("TodayTime").getValue().toString();
                     Date n = new Date();
@@ -328,10 +367,31 @@ public class DashboardActivity extends AppCompatActivity {
                             c.add(Calendar.DAY_OF_MONTH, (int)Days);
 
                             Date up = c.getTime();
-                            String upx = dateFormat.format(up);
+                            String upx = justdateFormat.format(up) + " 23:59:59";
+
 
                             RootRef.child(id).child("EndTime").setValue(upx);
                             RootRef.child(id).child("TodayTime").setValue(nx);
+                            Dialog dialog;
+                            //Create the Dialog here
+                            dialog = new Dialog(DashboardActivity.this);
+                            dialog.setContentView(R.layout.reset_dialog);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                dialog.getWindow().setBackgroundDrawable(DashboardActivity.this.getDrawable(R.drawable.custom_dialog_background));
+                            }
+                            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            dialog.setCancelable(false); //Optional
+                            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+
+                            Button Okay = dialog.findViewById(R.id.btn_okay);
+
+                            Okay.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.show();
                         } else {
                             Toast.makeText(DashboardActivity.this, "Can't reset same date", Toast.LENGTH_SHORT).show();
                         }
@@ -361,6 +421,9 @@ public class DashboardActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChildren()) {
                     Leave.setVisibility(View.GONE);
+                    Alarm.setVisibility(View.GONE);
+                    resetGoal.setVisibility(View.GONE);
+                    extendedFloatingEditButton.setVisibility(View.GONE);
                 }
             }
 
@@ -658,8 +721,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         String today_date_after_increse_string = simpleDateFormat2.format(today_date_after_increse);
         String create_date_after_increse_string = simpleDateFormat2.format(create_date_after_increse);
-
-     //   Toast.makeText(DashboardActivity.this, today_date_after_increse_string+"\n"+create_date_after_increse_string, Toast.LENGTH_SHORT).show();
 
         HashMap<String,Object> onlineStat = new HashMap<> (  );
         onlineStat.put ( "TodayTime", create_date_after_increse_string);
