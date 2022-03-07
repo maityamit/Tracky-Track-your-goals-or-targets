@@ -90,6 +90,15 @@ public class SettingsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        privacypolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://pages.flycricket.io/tracky-track-your/privacy.html");
+                Intent i = new Intent(Intent.ACTION_VIEW,uri);
+                startActivity(i);
+            }
+        });
         delAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
