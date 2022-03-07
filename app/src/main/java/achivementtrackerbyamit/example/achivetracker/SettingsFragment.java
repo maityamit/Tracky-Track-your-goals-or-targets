@@ -1,6 +1,7 @@
 package achivementtrackerbyamit.example.achivetracker;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
@@ -88,6 +90,12 @@ public class SettingsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        delAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delAll();
+            }
+        });
 
         // Rate Us Feature
         rateus.setOnClickListener(new View.OnClickListener() {
@@ -147,10 +155,23 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_settings, container, false);
+    }
 
-        delAll.setOnClickListener(new View.OnClickListener() {
+    // Delete all Goal Feature
+    private void delAll(){
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity(),R.style.AlertDialogTheme);
+        builder.setTitle("Delete all Goals");
+        builder.setMessage("Are you sure you want to delete all goals");
+        builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box,null));
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(DialogInterface dialog, int i) {
                 tillActive.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -169,16 +190,10 @@ public class SettingsFragment extends Fragment {
 
                     }
                 });
-
             }
         });
+        builder.setNegativeButton("Cancel",null);
+        builder.show();
     }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
-    }
-
 
 }
