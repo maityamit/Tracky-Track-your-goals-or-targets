@@ -84,7 +84,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
 
 
 
-
         // Key of the goal is the first element of the pair
         String listPostKey = goalList.get(position).first;
         DatabaseReference db = fragment.RootRef.child(listPostKey);
@@ -421,6 +420,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
     }
 
     private void showDialog() {
+
         Dialog dialog;
         //Create the Dialog here
         dialog = new Dialog(fragment.getContext());

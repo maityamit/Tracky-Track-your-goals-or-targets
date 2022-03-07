@@ -29,7 +29,7 @@
             android:name=".VerifyOTP"
             android:exported="false" />
         <activity
-            android:name=".PhoneNoSignin"
+            android:name=".auth.PhoneNoSignin"
             android:exported="false" />
         <activity
             android:name=".splash.Onboarding"

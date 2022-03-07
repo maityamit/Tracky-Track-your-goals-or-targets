@@ -8,8 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -30,12 +28,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.nio.InvalidMarkException;
 import java.util.HashMap;
 import java.util.Map;
 
 import achivementtrackerbyamit.example.achivetracker.HomeActivity;
-import achivementtrackerbyamit.example.achivetracker.PhoneNoSignin;
 import achivementtrackerbyamit.example.achivetracker.R;
 import achivementtrackerbyamit.example.achivetracker.SignInDone;
 
