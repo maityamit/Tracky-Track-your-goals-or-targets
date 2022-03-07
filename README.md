@@ -77,6 +77,11 @@ If you are preparing to achive any goal or target then , one of the importance p
  
  ## 📸 Screenshots
  
+  
+ <p align="center">
+<img src="https://github.com/maityamit/Tracky-Track-your-goals-or-targets/blob/master/External%20Resources/Banner.png" width="90%" />
+ <br>
+ 
 ||||
 |:----------------------------------------:|:-----------------------------------------:|:-----------------------------------------: |
 | ![Imgur](External%20Resources/1.png) | ![Imgur](External%20Resources/2.png) | ![Imgur](External%20Resources/3.png) |
