@@ -1041,6 +1041,7 @@ public class DashboardActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         clearCalendar();
+        progressDialog.dismiss();
     }
 
     private void clearCalendar(){
