@@ -12,7 +12,7 @@
         android:id="@+id/handlee"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#e1f1ff"
+        android:background="@color/blue"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -46,7 +46,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="12sp"
                 android:text="Tracky : Track your goal"
-                android:textColor="#3a67ff"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
