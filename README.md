@@ -47,6 +47,8 @@ If you are preparing to achive any goal or target then , one of the importance p
  
  <br>
  
+ 
+ <p align="center">
 
  <table>
   <p align="center">
