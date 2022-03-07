@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15sp"
-        app:cardCornerRadius="11dp"
-        app:cardElevation="6dp">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp">
 
 
         <LinearLayout
@@ -38,7 +38,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        android:src="@drawable/goals" />
+                        android:src="@drawable/logo"/>
 
 
                 </androidx.cardview.widget.CardView>
@@ -61,6 +61,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="4"
+                            android:gravity="center_vertical"
                             android:text="Goal Name"
                             android:textColor="@android:color/black"
                             android:textSize="16sp"
@@ -74,9 +75,8 @@
                             android:layout_weight="2"
                             android:gravity="center"
                             android:text="19 days\nleft"
-                            android:textColor="#C62828"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/black"
+                            android:textSize="14sp"  />
 
 
                     </LinearLayout>
@@ -91,33 +91,22 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
 
-                            <androidx.cardview.widget.CardView
+                            <TextView
+                                android:id="@+id/lay_goal_priority"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                app:cardCornerRadius="5dp">
+                                android:layout_marginStart="2dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:gravity="center_vertical"
+                                android:text="Priority : High"
+                                android:textColor="#008EFF"
+                                android:textStyle="bold" />
 
-                                <RelativeLayout
-                                    android:id="@+id/goal_type_layout"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="#D3D8FB">
-
-                                    <TextView
-                                        android:id="@+id/lay_goal_priority"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_margin="2dp"
-                                        android:text="Priority : High"
-                                        android:textColor="#283593" />
-
-
-                                </RelativeLayout>
-
-
-                            </androidx.cardview.widget.CardView>
 
                         </RelativeLayout>
 
@@ -126,32 +115,21 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
 
-                            <androidx.cardview.widget.CardView
+
+                            <TextView
+                                android:id="@+id/lay_goal_const"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                app:cardCornerRadius="5dp">
+                                android:layout_marginStart="2dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:text="Consistency : 98.0"
+                                android:textColor="#009E08" />
 
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="#CCFFCF">
-
-                                    <TextView
-                                        android:id="@+id/lay_goal_const"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_margin="2dp"
-                                        android:text="Consistency : 98.0"
-                                        android:textColor="#2E7D32" />
-
-
-                                </RelativeLayout>
-
-
-                            </androidx.cardview.widget.CardView>
 
                         </RelativeLayout>
 
@@ -168,7 +146,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Today Check In : "
-                            android:textColor="#00838F" />
+                            android:textColor="@color/black"  />
 
                         <androidx.appcompat.widget.AppCompatCheckBox
                             android:id="@+id/true_checkbox"
@@ -195,7 +173,7 @@
                     android:layout_gravity="bottom"
                     android:indeterminate="false"
                     android:scaleY="4"
-                    android:progressTint="#0F9D58"
+                    android:progressTint="#01D86F"
                     tools:progress="70" />
             </FrameLayout>
 
