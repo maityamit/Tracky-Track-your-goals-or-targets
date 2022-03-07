@@ -124,6 +124,8 @@
             android:ems="10"
             android:layout_marginBottom="10dp"
             android:hint="Enter your Password"
+            android:drawableRight="@drawable/visibility_off"
+            android:paddingRight="10dp"
             android:inputType="textPassword"
             android:paddingLeft="15dp"
             android:textColor="@color/black"

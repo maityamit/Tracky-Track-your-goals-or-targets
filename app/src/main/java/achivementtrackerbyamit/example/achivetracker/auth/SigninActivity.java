@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +33,7 @@ public class SigninActivity extends AppCompatActivity {
     TextView frgtpass,gotosignup;
     ProgressBar progressBar;
     Button signin;
+    boolean passwordVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,33 @@ public class SigninActivity extends AppCompatActivity {
 
         InittializeMethods();
 
+        // Function to see password and hide password
+        pass.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int Right=2;
+                if (event.getAction()==MotionEvent.ACTION_UP){
+                    if (event.getRawX()>=pass.getRight()-pass.getCompoundDrawables()[Right].getBounds().width()){
+                        int selection = pass.getSelectionEnd();
+                        if (passwordVisible){
+                            pass.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.visibility_off,0);
+                            // for hide password
+                            pass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            passwordVisible=false;
+                        }else{
+                            pass.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.visibility,0);
+                            // for show password
+                            pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            passwordVisible=true;
+                        }
+                        pass.setSelection(selection);
+                        return true;
+                    }
+
+                }
+                return false;
+            }
+        });
         frgtpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
