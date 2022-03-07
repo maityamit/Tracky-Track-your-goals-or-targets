@@ -28,7 +28,7 @@
 
 
             <EditText
-                android:layout_width="350dp"
+                android:layout_width="360dp"
                 android:layout_height="50dp"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
@@ -44,7 +44,7 @@
 
 
             <EditText
-                android:layout_width="350dp"
+                android:layout_width="360dp"
                 android:layout_height="50dp"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
@@ -63,16 +63,18 @@
 
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
+            android:layout_width="360dp"
             android:layout_margin="10dp"
             app:cardCornerRadius="10dp"
+            android:background="@color/white"
             android:layout_below="@id/edit_text_trip_desc"
             android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
 
 
 
@@ -80,7 +82,6 @@
                     android:id="@+id/priority_layout"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginStart="10dp"
                     android:layout_marginBottom="10dp"
                     android:weightSum="2"
                     android:gravity="center"
@@ -153,9 +154,9 @@
 
 
                 <TextView
+                    android:id="@+id/TG"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="25sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
                     android:textColor="@android:color/black"
@@ -165,7 +166,7 @@
 
                 <DatePicker
                     android:id="@+id/edit_text_trip_date"
-                    android:layout_width="wrap_content"
+                    android:layout_width="360dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -179,7 +180,7 @@
                     android:layout_height="55dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/button"
-                    android:layout_marginLeft="140dp"
+                    android:layout_marginBottom="20dp"
                     android:text="Create Goal"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
