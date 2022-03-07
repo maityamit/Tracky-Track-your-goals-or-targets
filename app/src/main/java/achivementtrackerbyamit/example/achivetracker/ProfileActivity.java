@@ -469,7 +469,13 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                 ValueLineSeries series = new ValueLineSeries();
-                series.setColor(0xFF56B7F1);
+
+                int x = Integer.parseInt(sp[6]);
+
+                if(x>0 && x<=25) { series.setColor(getResources().getColor(R.color.red)); }
+                else if(x>25 && x<=50) { series.setColor(getResources().getColor(R.color.orange)); }
+                else if(x>50 && x<=75) { series.setColor(getResources().getColor(R.color.green)); }
+                else { series.setColor(0xFF56B7F1); }
 
                 series.addPoint(new ValueLinePoint("null", Integer.parseInt(sp[0])));
                 series.addPoint(new ValueLinePoint("7th", Integer.parseInt(sp[0])));
