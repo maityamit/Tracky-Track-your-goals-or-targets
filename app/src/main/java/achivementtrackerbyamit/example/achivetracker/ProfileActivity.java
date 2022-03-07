@@ -341,7 +341,8 @@ public class ProfileActivity extends AppCompatActivity {
                 .setInputFilter("Wrong Input, please try again!", new LovelyTextInputDialog.TextFilter() {
                     @Override
                     public boolean check(String text) {
-                        return text.matches("\\w+");
+                      //  return text.matches("\\w+");
+                        return text.matches("^[a-zA-z0-9_]+( [a-zA-z0-9_]+)*$");
                     }
                 })
                 .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
