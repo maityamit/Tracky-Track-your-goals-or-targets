@@ -16,6 +16,7 @@
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/button.xml" value="0.3165" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/card_background.xml" value="0.1655" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/cardview_background.xml" value="0.1655" />
+        <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/custom_dialog_background.xml" value="0.322" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/editfield.xml" value="0.2995" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/gradient_last_step_bg.xml" value="0.1615" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/gradient_visulization_bg.xml" value="0.1615" />
@@ -34,6 +35,7 @@
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_splassh.xml" value="0.32592592592592595" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_verify_otp.xml" value="0.33" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/archive_goals_item_layout.xml" value="0.5" />
+        <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/dialog_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_archive_goal.xml" value="0.32592592592592595" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_last_step.xml" value="0.22" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_settings.xml" value="0.36666666666666664" />

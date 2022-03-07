@@ -31,6 +31,7 @@ import achivementtrackerbyamit.example.achivetracker.archive_goal.ArchiveGoalFra
 import achivementtrackerbyamit.example.achivetracker.archive_goal.ArchiveGoalFragment;
 import achivementtrackerbyamit.example.achivetracker.rank.RankFragment;
 import achivementtrackerbyamit.example.achivetracker.rank.Topper;
+import nl.dionsegijn.konfetti.xml.KonfettiView;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -83,6 +84,8 @@ public class HomeActivity extends AppCompatActivity {
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid ();
         RootRef= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Goals").child("Active");
         NewRef = FirebaseDatabase.getInstance().getReference().child("Topper").child(currentUserID);
+
+
         RootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

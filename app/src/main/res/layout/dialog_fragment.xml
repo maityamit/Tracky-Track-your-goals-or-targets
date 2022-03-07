@@ -18,11 +18,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp">
+
+
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -86,5 +89,17 @@
         app:layout_constraintStart_toStartOf="@+id/relativeLayout5"
         app:layout_constraintTop_toTopOf="@+id/relativeLayout5"
         app:layout_constraintVertical_bias="0.51" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/confetti"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/confetti" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

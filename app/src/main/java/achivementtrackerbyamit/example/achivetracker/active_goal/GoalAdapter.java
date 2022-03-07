@@ -38,14 +38,25 @@ import com.squareup.picasso.Picasso;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import achivementtrackerbyamit.example.achivetracker.DashboardActivity;
+import achivementtrackerbyamit.example.achivetracker.HomeActivity;
 import achivementtrackerbyamit.example.achivetracker.R;
 import achivementtrackerbyamit.example.achivetracker.alarm.AlarmReceiver;
 import achivementtrackerbyamit.example.achivetracker.archive_goal.ArchiveClass;
+import nl.dionsegijn.konfetti.core.Party;
+import nl.dionsegijn.konfetti.core.PartyFactory;
+import nl.dionsegijn.konfetti.core.Position;
+import nl.dionsegijn.konfetti.core.emitter.Emitter;
+import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
+import nl.dionsegijn.konfetti.core.models.Shape;
+import nl.dionsegijn.konfetti.core.models.Size;
+import nl.dionsegijn.konfetti.xml.KonfettiView;
 
 // Custom adapter for the RecyclerView for displaying goals
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHolder2> {
@@ -302,7 +313,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
                         @Override
                         public void onClick(DialogInterface dialog, int which) { //For True
                             // perform logic
-
                             HashMap<String, Object> onlineStat = new HashMap<>();
                             onlineStat.put("Value", "true");
                             fragment.RootRef.child(listPostKey).child("Win").child(jys_da)
@@ -426,11 +436,22 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
 
         Button Okay = dialog.findViewById(R.id.btn_okay);
-
         Okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                Thread td = new Thread(){
+                    public void run(){
+                        try{
+                            sleep(2000);
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                        finally {
+                        }
+                    }
+                };td.start();
+
             }
         });
         dialog.show();
