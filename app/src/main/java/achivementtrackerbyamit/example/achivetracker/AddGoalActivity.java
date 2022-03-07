@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Scroller;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -315,7 +316,10 @@ public class AddGoalActivity extends AppCompatActivity
                 tripname.setText(prevName);
 
                 //Update other UI element
-                findViewById(R.id.create_goal_text_view).setVisibility(View.GONE);
+               // findViewById(R.id.create_goal_text_view).setVisibility(View.GONE);
+                TextView tx = findViewById(R.id.create_goal_text_view);
+                tx.setText("Edit your Goal");
+                findViewById(R.id.TG).setVisibility(View.GONE);
                 findViewById(R.id.edit_text_trip_date).setVisibility(View.GONE);
                 findViewById(R.id.priority_layout).setVisibility(View.GONE);
                 yes.setText("Update");
