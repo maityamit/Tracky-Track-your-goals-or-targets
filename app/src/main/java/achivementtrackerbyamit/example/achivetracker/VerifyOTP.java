@@ -102,7 +102,7 @@ public class VerifyOTP extends AppCompatActivity {
                             String currentuserid = mAuth.getCurrentUser().getUid().toString();
                             DatabaseReference Rootref = FirebaseDatabase.getInstance().getReference().child("Users");
                             Rootref.child(currentuserid).updateChildren(hashMap);
-                            startActivity(new Intent(VerifyOTP.this,HomeActivity.class));
+                            startActivity(new Intent(VerifyOTP.this,SignInDone.class));
                             finish();
                         } else {
                             Toast.makeText(VerifyOTP.this, "Failed to Login!", Toast.LENGTH_SHORT).show();

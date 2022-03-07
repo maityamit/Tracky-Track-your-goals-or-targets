@@ -37,6 +37,7 @@ import java.util.Map;
 import achivementtrackerbyamit.example.achivetracker.HomeActivity;
 import achivementtrackerbyamit.example.achivetracker.PhoneNoSignin;
 import achivementtrackerbyamit.example.achivetracker.R;
+import achivementtrackerbyamit.example.achivetracker.SignInDone;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -197,7 +198,7 @@ public class RegisterActivity extends AppCompatActivity {
                             storeUserOnFireBase(name,email,"+91 - ","",currentUserID,st);
                             Toast.makeText(RegisterActivity.this, "Authentication pass.",
                                     Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, SignInDone.class);
                             startActivity(intent);
                             RegisterActivity.this.finish();
                         }
