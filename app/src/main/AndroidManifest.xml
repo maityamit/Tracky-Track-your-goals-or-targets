@@ -23,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AchiveTracker">
         <activity
+            android:name=".SignInDone"
+            android:exported="false" />
+        <activity
             android:name=".VerifyOTP"
             android:exported="false" />
         <activity

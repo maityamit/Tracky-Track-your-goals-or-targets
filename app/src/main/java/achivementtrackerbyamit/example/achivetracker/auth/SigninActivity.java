@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import achivementtrackerbyamit.example.achivetracker.HomeActivity;
 import achivementtrackerbyamit.example.achivetracker.R;
+import achivementtrackerbyamit.example.achivetracker.SignInDone;
 
 public class SigninActivity extends AppCompatActivity {
 
@@ -88,7 +89,7 @@ public class SigninActivity extends AppCompatActivity {
                             if (task.isSuccessful()){
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 progressBar.setVisibility(View.GONE);
-                                Intent intent2 = new Intent(SigninActivity.this, HomeActivity.class);
+                                Intent intent2 = new Intent(SigninActivity.this, SignInDone.class);
                                 startActivity(intent2);
                                 finishAffinity();
                             }

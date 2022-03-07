@@ -60,6 +60,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import achivementtrackerbyamit.example.achivetracker.active_goal.GoingCLass;
+import achivementtrackerbyamit.example.achivetracker.auth.RegisterActivity;
 import achivementtrackerbyamit.example.achivetracker.auth.Users;
 import achivementtrackerbyamit.example.achivetracker.splash.SplasshActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -228,7 +229,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 FirebaseAuth.getInstance().signOut();
-                Intent loginIntenttt = new Intent(ProfileActivity.this, SplasshActivity.class);
+                Intent loginIntenttt = new Intent(ProfileActivity.this, RegisterActivity.class);
                 loginIntenttt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(loginIntenttt);
                 finish();
