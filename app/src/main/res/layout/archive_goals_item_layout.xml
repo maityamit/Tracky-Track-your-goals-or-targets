@@ -7,7 +7,7 @@
     android:id="@+id/item_cardView"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="15dp"
-    app:cardCornerRadius="11dp">
+    app:cardCornerRadius="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/goals"
+                    android:src="@drawable/logo"
                     android:scaleType="fitXY"/>
 
 
@@ -51,6 +51,7 @@
                     <TextView
                         android:id="@+id/archieve_goal_name"
                         android:layout_width="0dp"
+                        android:gravity="center_vertical"
                         android:layout_height="match_parent"
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
@@ -73,36 +74,20 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="2">
+                        android:layout_weight="2"
+                        android:gravity="center_vertical">
 
-                        <androidx.cardview.widget.CardView
+
+                        <TextView
+                            android:id="@+id/archieve_goal_const"
                             android:layout_width="wrap_content"
-                            android:layout_centerInParent="true"
-                            app:cardCornerRadius="5dp"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:text="Consistency : 98.0"
+                            android:textColor="#2E7D32" />
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="#CCFFCF">
-
-                                <TextView
-                                    android:id="@+id/archieve_goal_const"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="2dp"
-                                    android:layout_marginEnd="2dp"
-                                    android:layout_marginBottom="2dp"
-                                    android:text="Consistency : 98.0"
-                                    android:textColor="#2E7D32" />
-
-
-                            </RelativeLayout>
-
-
-
-
-                        </androidx.cardview.widget.CardView>
 
                     </RelativeLayout>
 
@@ -110,8 +95,7 @@
                         android:id="@+id/archieve_target_date"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:textColor="#8A7070"
-                        android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -148,15 +132,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button"
-                android:backgroundTint="#FFB8B8"
                 android:id="@+id/auto_del_text"
                 android:padding="3dp"
                 android:gravity="center"
                 android:text="Auto Delete"
-                android:drawableStart="@drawable/ic_delete"
                 android:textColor="#F44336"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
         </LinearLayout>
 
@@ -173,7 +155,7 @@
                 android:layout_gravity="bottom"
                 android:indeterminate="false"
                 android:scaleY="4"
-                android:progressTint="#0F9D58"
+                android:progressTint="#01D86F"
                 tools:progress="70" />
 
         </FrameLayout>

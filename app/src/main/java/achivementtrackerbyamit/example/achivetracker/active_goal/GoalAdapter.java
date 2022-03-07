@@ -179,16 +179,13 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
 
         if (model.getGoalType().equals("High")){
             holder.goal_priority.setText("Priority: "+model.getGoalType());
-            holder.goal_type_layout.setBackgroundColor(Color.parseColor("#FFD7D7"));
-            holder.goal_priority.setTextColor(Color.parseColor("#FF0000"));
+            holder.goal_priority.setTextColor(Color.parseColor("#D64343"));
         }else if (model.getGoalType().equals("Medium")) {
             holder.goal_priority.setText("Priority: "+model.getGoalType());
-            holder.goal_type_layout.setBackgroundColor(Color.parseColor("#FDFFD7"));
-            holder.goal_priority.setTextColor(Color.parseColor("#FFE000"));
+            holder.goal_priority.setTextColor(Color.parseColor("#E78A00"));
         }else{
             holder.goal_priority.setText("Priority: "+model.getGoalType());
-            holder.goal_type_layout.setBackgroundColor(Color.parseColor("#98FF9D"));
-            holder.goal_priority.setTextColor(Color.parseColor("#00C325"));
+            holder.goal_priority.setTextColor(Color.parseColor("#00AB26"));
         }
 
 
@@ -509,7 +506,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
     {
 
         TextView goal_name,goal_priority,left_day,const_text;
-        RelativeLayout goal_type_layout;
         LinearLayout check_in_layout;
         CheckBox checkBox_true;
         ProgressBar completedBar;
@@ -519,7 +515,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
             goal_name = itemView.findViewById ( R.id.lay_goal_name);
             goal_priority = itemView.findViewById ( R.id.lay_goal_priority);
             left_day = itemView.findViewById ( R.id.lay_goal_left);
-            goal_type_layout = itemView.findViewById(R.id.goal_type_layout);
 
             check_in_layout = itemView.findViewById(R.id.check_in_layout);
             const_text = itemView.findViewById ( R.id.lay_goal_const);
