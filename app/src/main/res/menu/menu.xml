@@ -15,7 +15,7 @@
         app:cnb_iconColor="#FFFFFF"/>
     <item
         android:id="@+id/nav_new_ranking"
-        android:icon="@drawable/ic_emoji_events_white_24dp"
+        android:icon="@drawable/trophy"
         android:title="Ranking"
         app:cnb_iconColor="#FFFFFF"/>
 
