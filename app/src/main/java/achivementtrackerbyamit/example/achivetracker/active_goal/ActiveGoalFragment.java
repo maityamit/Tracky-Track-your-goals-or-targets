@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,6 +55,7 @@ public class ActiveGoalFragment extends Fragment {
     EditText goalSearch;
     ArrayList<Pair<String,GoingCLass>> goalList = new ArrayList<>();
     ImageView emptyGoal;
+    TextView counter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +82,7 @@ public class ActiveGoalFragment extends Fragment {
         button = view.findViewById(R.id.create_button);
         userRef = FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID).child("Average");
         RootRefUpdate= FirebaseDatabase.getInstance ().getReference ().child("Users").child(currentUserID);
+        counter = view.findViewById(R.id.counter);
 
 
 
@@ -274,7 +277,12 @@ public class ActiveGoalFragment extends Fragment {
         RootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                if(snapshot.hasChildren()) {
+                    String x  = String.valueOf(snapshot.getChildrenCount());
+                    counter.setText("Total Goals: "+x);
+                } else {
+                    counter.setVisibility(View.GONE);
+                }
                 // Getting the latest list of goals and updating the goalList
                 ArrayList<Pair<String,GoingCLass>> currList = new ArrayList<>();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
