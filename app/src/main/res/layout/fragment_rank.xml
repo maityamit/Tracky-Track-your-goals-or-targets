@@ -7,233 +7,261 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".rank.RankFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center">
 
-
-    <LinearLayout
-        android:id="@+id/first_rank_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        tools:visibility="visible"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/goldt"/>
-
-
-        <androidx.cardview.widget.CardView
-            android:layout_gravity="center"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            app:cardCornerRadius="50dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/first_rank_pfp"
-                android:src="@drawable/profile"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </androidx.cardview.widget.CardView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:id="@+id/first_rank_name"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            tools:text="Sadgers"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/first_rank_goal_name"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            tools:text="Sadgers goal"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/first_rank_consistency"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textColor="#44FF00"
-            android:textSize="16sp"
-            tools:text="90%"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/second_rank_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="50dp"
-        android:visibility="invisible"
-        tools:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/first_rank_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/silvert" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            app:cardCornerRadius="40dp">
-
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/second_rank_pfp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/profile" />
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/second_rank_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:text="Second"/>
-
-        <TextView
-            android:id="@+id/second_rank_goal_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            tools:text="Sadgers goal" />
-
-        <TextView
-            android:id="@+id/second_rank_consistency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="#44FF00"
-            tools:text="90%" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/third_rank_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        tools:visibility="visible"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/first_rank_layout"
-        app:layout_constraintTop_toTopOf="@+id/second_rank_layout">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/bronzet" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            app:cardCornerRadius="40dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/third_rank_pfp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/profile" />
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/third_rank_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            tools:text="Sadgers" />
-
-        <TextView
-            android:id="@+id/third_rank_goal_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            tools:text="Sadgers goal" />
-
-        <TextView
-            android:id="@+id/third_rank_consistency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textColor="#44FF00"
-            android:textSize="14sp"
-            tools:text="90%" />
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:id="@+id/rank_list"
-        android:paddingTop="15dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:background="#F4FAFF"
-        tools:listitem="@layout/rank_list_item"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/second_rank_layout"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <com.leo.simplearcloader.SimpleArcLoader
-            android:id="@+id/loader_rank"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerInParent="true"
-            app:arc_margin="3dp"
-            app:arc_speed="medium"
-            app:arc_style="simple_arc"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/confetti"
+            android:layout_width="match_parent"
+            android:layout_height="415dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/confetti1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true">
+
+
+            <LinearLayout
+                android:id="@+id/first_rank_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/goldt" />
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/first_rank_pfp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/profile" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/first_rank_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Sadgers" />
+
+                <TextView
+                    android:id="@+id/first_rank_goal_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="Sadgers goal" />
+
+                <TextView
+                    android:id="@+id/first_rank_consistency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="#44FF00"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="90%" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/second_rank_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@+id/first_rank_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/silvert" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="40dp">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/second_rank_pfp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/profile" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/second_rank_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Second"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/second_rank_goal_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:text="Sadgers goal" />
+
+                <TextView
+                    android:id="@+id/second_rank_consistency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="#44FF00"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="90%" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/third_rank_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/first_rank_layout"
+                app:layout_constraintTop_toTopOf="@+id/second_rank_layout"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/bronzet" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="40dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/third_rank_pfp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/profile" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/third_rank_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="Sadgers" />
+
+                <TextView
+                    android:id="@+id/third_rank_goal_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:text="Sadgers goal" />
+
+                <TextView
+                    android:id="@+id/third_rank_consistency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="#44FF00"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="90%" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rank_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="#F4FAFF"
+                android:paddingTop="15dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/second_rank_layout"
+                tools:listitem="@layout/rank_list_item" />
+
+            <com.leo.simplearcloader.SimpleArcLoader
+                android:id="@+id/loader_rank"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                app:arc_margin="3dp"
+                app:arc_speed="medium"
+                app:arc_style="simple_arc"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
 
 
 </ScrollView>
