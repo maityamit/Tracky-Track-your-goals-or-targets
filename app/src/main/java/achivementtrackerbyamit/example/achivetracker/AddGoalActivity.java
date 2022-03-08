@@ -57,6 +57,7 @@ public class AddGoalActivity extends AppCompatActivity
     private String dataKey;
     Set<String> set;
     ImageView spinnerImageView;
+    SimpleDateFormat DateFormat = new SimpleDateFormat("dd/M/yyyy");
 
 
 
@@ -208,6 +209,8 @@ public class AddGoalActivity extends AppCompatActivity
 
         //String todaay is Today's Date
         String todaay  = format.format(today);
+        String justToday = DateFormat.format(today);
+        String Seven = "00:00:00:00:00:00:00";
 
 
         int year = datepicker.getYear();
@@ -267,6 +270,8 @@ public class AddGoalActivity extends AppCompatActivity
             onlineStat.put ( "Win","");
             onlineStat.put ("Status", "Active");
             onlineStat.put ("Notes", "");
+            onlineStat.put ("Data/Seven", Seven);
+            onlineStat.put ("Data/Date", justToday);
 
             RootRef.child("Goals").child("Active").child(string_trip)
                     .updateChildren ( onlineStat );

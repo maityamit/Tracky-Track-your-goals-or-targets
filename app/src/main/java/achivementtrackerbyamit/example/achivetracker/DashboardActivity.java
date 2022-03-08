@@ -55,7 +55,10 @@ import com.squareup.picasso.Picasso;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import org.eazegraph.lib.charts.PieChart;
+import org.eazegraph.lib.charts.ValueLineChart;
 import org.eazegraph.lib.models.PieModel;
+import org.eazegraph.lib.models.ValueLinePoint;
+import org.eazegraph.lib.models.ValueLineSeries;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -96,6 +99,7 @@ public class DashboardActivity extends AppCompatActivity {
     DatabaseReference RootRef,HelloREf,newRef,notesRef;
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
+    SimpleDateFormat justDateFormat = new SimpleDateFormat("dd/M/yyyy");
     private Handler handler = new Handler();
     private Runnable runnable;
     ImageView extendedFloatingShareButton;
@@ -762,10 +766,97 @@ public class DashboardActivity extends AppCompatActivity {
         RootRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //For Break Button
                 if(snapshot.hasChild("BreakEndDate")) {
                     Leave.setBackgroundResource(R.drawable.ripple_red);
                     Leave.setText("Cancel Break");
                 }
+
+                //For graph
+                String retDate = snapshot.child("Data").child("Date").getValue().toString();
+                String retSeven = snapshot.child("Data").child("Seven").getValue().toString();
+                String[] sp = retSeven.split(":");
+                String[] fin  = new String[7];
+                Date t = new Date();
+                String t1 = justDateFormat.format(t); // in dd/M/yyyy format
+                String goal_const = snapshot.child ("Consistency").getValue().toString();
+                try {
+                    Date ret = justDateFormat.parse(retDate); //Retrieved
+                    Date today = justDateFormat.parse(t1); //Today's date
+                    String sendDate = justDateFormat.format(today);
+
+                    //Now we find the difference between these two objects
+                    long xf = today.getTime() - ret.getTime();
+                    long s_econdsInMilli = 1000;
+                    long m_inutesInMilli = s_econdsInMilli * 60;
+                    long h_oursInMilli = m_inutesInMilli * 60;
+                    long d_aysInMilli = h_oursInMilli * 24;
+                    long diff = xf / d_aysInMilli; //Days difference
+
+
+                    if(diff >= 0) {
+                        if (diff == 0) {
+                            String up = "";
+                            for (int i = 0; i < sp.length - 1; i++) {
+                                up += sp[i] + ":";
+                            }
+                            up += goal_const;
+
+                            HashMap<String, Object> map = new HashMap<>();
+                            map.put("Data/Seven", up);
+                            RootRef.child(id).updateChildren(map);
+
+                        } else if(diff < 7){
+
+                            int i = (int) diff, j = 0;
+                            int x = (int) diff - 1, y = 0;
+                            while (i < 7) {
+                                fin[j] = sp[i];
+                                i++;
+                                j++;
+                            }
+                            while (y < x) {
+                                fin[j] = sp[i - 1];
+                                j++;
+                                y++;
+                            }
+
+                            String up = "";
+                            for (i = 0; i < 6; i++) {
+                                up += fin[i] + ":";
+                            }
+                            up += goal_const;
+
+                            HashMap<String, Object> map = new HashMap<>();
+                            map.put("Data/Seven", up);
+                            map.put("Data/Date", sendDate);
+                            RootRef.child(id).updateChildren(map);
+                        } else {
+                            for(int i=0; i<sp.length-1; i++) {
+                                fin[i] = "00";
+                            }
+                            fin[sp.length-1] = goal_const;
+
+                            String up = "";
+                            for (int i = 0; i < 6; i++) {
+                                up += fin[i] + ":";
+                            }
+                            up += goal_const;
+
+                            HashMap<String, Object> map = new HashMap<>();
+                            map.put("Data/Seven", up);
+                            map.put("Data/Date", sendDate);
+                            RootRef.child(id).updateChildren(map);
+                        }
+                    }
+
+
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
             }
 
             @Override
@@ -774,6 +865,50 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        Graph();
+
+    }
+
+    public void Graph() {
+
+        RootRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String fetch = snapshot.child("Data").child("Seven").getValue().toString();
+                String[] sp = fetch.split(":");
+
+
+                ValueLineChart mCubicValueLineChart = (ValueLineChart) findViewById(R.id.cubiclinechart);
+
+
+                ValueLineSeries series = new ValueLineSeries();
+
+                int x = Integer.parseInt(sp[6]);
+
+                if(x>0 && x<=33) { series.setColor(getResources().getColor(R.color.orange)); }
+                else if(x>33 && x<=66) { series.setColor(getResources().getColor(R.color.green)); }
+                else { series.setColor(0xFF56B7F1); }
+
+                series.addPoint(new ValueLinePoint("null", Integer.parseInt(sp[0])));
+                series.addPoint(new ValueLinePoint("7th", Integer.parseInt(sp[0])));
+                series.addPoint(new ValueLinePoint("6th", Integer.parseInt(sp[1])));
+                series.addPoint(new ValueLinePoint("5th", Integer.parseInt(sp[2])));
+                series.addPoint(new ValueLinePoint("4th", Integer.parseInt(sp[3])));
+                series.addPoint(new ValueLinePoint("3rd", Integer.parseInt(sp[4])));
+                series.addPoint(new ValueLinePoint("2nd", Integer.parseInt(sp[5])));
+                series.addPoint(new ValueLinePoint("Today", Integer.parseInt(sp[6])));
+                series.addPoint(new ValueLinePoint("null", Integer.parseInt(sp[6])));
+
+                mCubicValueLineChart.addSeries(series);
+                mCubicValueLineChart.startAnimation();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void RetriveData() {
