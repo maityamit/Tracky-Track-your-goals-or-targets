@@ -18,8 +18,6 @@ If you are preparing to achive any goal or target then , one of the importance p
 3. Recycler View with Simple and attractive UI Layout
 4. Pie Chart
 
- ## Fire Base Structure 
- <a href="https://github.com/maityamit"><img src="https://raw.githubusercontent.com/maityamit/Tracky-Track-your-goals-or-targets/master/Images%20Demo/firebase_St.png" width="25%" /></a>
   
   
  
