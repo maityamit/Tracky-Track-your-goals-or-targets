@@ -763,7 +763,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChild("BreakEndDate")) {
-                    Leave.setBackgroundResource(R.drawable.logout_button);
+                    Leave.setBackgroundResource(R.drawable.ripple_red);
                     Leave.setText("Cancel Break");
                 }
             }

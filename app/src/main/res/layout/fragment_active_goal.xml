@@ -83,6 +83,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="25sp"
         android:textAllCaps="false"
+        android:backgroundTint="@color/blue"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         app:icon="@drawable/add"

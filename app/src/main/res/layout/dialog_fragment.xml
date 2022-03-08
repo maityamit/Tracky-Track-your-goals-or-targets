@@ -64,7 +64,7 @@
                     android:layout_height="46dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
-                    android:background="@drawable/button"
+                    android:background="@drawable/ripple_blue"
                     android:stateListAnimator="@null"
                     android:text="Okay"
                     android:textAllCaps="false"

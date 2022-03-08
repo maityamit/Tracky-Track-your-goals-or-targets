@@ -116,6 +116,8 @@
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/custom_dialog_background.xml" value="0.204" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/editfield.xml" value="0.1855" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/next_btn.xml" value="0.1855" />
+        <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/ripple_blue.xml" value="0.1855" />
+        <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/drawable/ripple_red.xml" value="0.1855" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_addgoal.xml" value="0.22" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_alarm.xml" value="0.22" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_app_intro.xml" value="0.209375" />
@@ -126,6 +128,7 @@
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_phone_no_signin.xml" value="0.16" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_profile.xml" value="0.22" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_sign_in_done.xml" value="0.209375" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_signin.xml" value="0.33" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_signup.xml" value="0.2" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_splassh.xml" value="0.209375" />

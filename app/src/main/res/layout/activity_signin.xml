@@ -148,7 +148,7 @@
         android:layout_width="330dp"
         android:layout_height="55dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button"
+        android:background="@drawable/ripple_blue"
         android:text="Sign in"
         android:textAllCaps="false"
         android:textColor="@color/white"
