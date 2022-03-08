@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chaos.view.PinView;
@@ -49,6 +50,7 @@ public class VerifyOTP extends AppCompatActivity {
 
         initiateOTP();
 
+
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,8 +65,39 @@ public class VerifyOTP extends AppCompatActivity {
             }
         });
 
+        TextView resend = findViewById(R.id.resendotp);
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resendotp();
+            }
+        });
     }
 
+
+
+    private void resendotp(){
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phonenumber,
+                30,
+                TimeUnit.SECONDS,
+                this,
+                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    @Override
+                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                    }
+
+                    @Override
+                    public void onVerificationFailed(@NonNull FirebaseException e) {
+                        Toast.makeText(VerifyOTP.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCodeSent(@NonNull String a, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                        otpid=a;
+                    }
+                });
+    }
     private void initiateOTP() {
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -89,6 +122,7 @@ public class VerifyOTP extends AppCompatActivity {
                     }
                 });
     }
+
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
