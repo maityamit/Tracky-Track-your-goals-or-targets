@@ -9,6 +9,7 @@
     android:gravity="center_horizontal"
     android:background="#F4FAFF">
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_main_view"
         android:layout_width="330dp"
@@ -16,7 +17,7 @@
         android:layout_margin="20dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
-        app:cardElevation="35dp"
+        app:cardElevation="5dp"
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,46 +26,52 @@
         app:layout_constraintTop_toBottomOf="@+id/show_logs"
         app:layout_constraintVertical_bias="0.151">
 
-        <TextView
-            android:id="@+id/rateus"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:text="Rate Us"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:drawableLeft="@drawable/rateus"
-            android:paddingTop="20dp"/>
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal">
 
-        <TextView
-            android:id="@+id/share"
-            android:layout_width="120dp"
-            android:layout_height="90dp"
-            android:text="Share"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="25dp"
-            android:drawableLeft="@drawable/share"
-            android:paddingTop="55dp"/>
+            <TextView
+                android:id="@+id/rateus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate Us"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_margin="8dp"
+                android:drawableLeft="@drawable/rateus" />
 
-        <TextView
-            android:id="@+id/privacy"
-            android:layout_width="190dp"
-            android:layout_height="120dp"
-            android:text="Privacy Policy"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="25dp"
-            android:drawableLeft="@drawable/privacypolicy"
-            android:paddingTop="98dp"/>
+            <TextView
+                android:id="@+id/share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share"
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_margin="8dp"
+                android:drawableLeft="@drawable/share" />
+
+            <TextView
+                android:id="@+id/privacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Privacy Policy"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_margin="8dp"
+                android:drawableLeft="@drawable/privacypolicy" />
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
