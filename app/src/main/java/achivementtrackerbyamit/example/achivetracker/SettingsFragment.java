@@ -3,6 +3,8 @@ package achivementtrackerbyamit.example.achivetracker;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -85,9 +89,28 @@ public class SettingsFragment extends Fragment {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=achivementtrackerbyamit.example.achivetracker"); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+                reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String name = snapshot.child("name").getValue().toString();
+                        String send = "Hi. I'm " + name + " and I would like to invite you to install this app called Tracky \n" + "https://play.google.com/store/apps/details?id=achivementtrackerbyamit.example.achivetracker";
+                        Bitmap b = BitmapFactory.decodeResource(getResources(),R.drawable.banner);
+                        Intent share = new Intent(Intent.ACTION_SEND);
+                        share.setType("image/jpeg");
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        b.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                        share.putExtra(Intent.EXTRA_TEXT,send);
+                        String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), b, "Invite", null);
+                        Uri imageUri =  Uri.parse(path);
+                        share.putExtra(Intent.EXTRA_STREAM, imageUri);
+                        startActivity(Intent.createChooser(share, "Select"));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
