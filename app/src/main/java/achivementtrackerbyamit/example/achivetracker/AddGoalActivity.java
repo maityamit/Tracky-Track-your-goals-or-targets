@@ -315,10 +315,12 @@ public class AddGoalActivity extends AppCompatActivity
         RootRef.child("Goals").child("Active").child(dataKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Get the previous goal name
+                // Get the previous goal name and description
                 String prevName= snapshot.child ( "GoalName" ).getValue ().toString ();
-                // Set the goal name
+                String prevDesc = snapshot.child("Goal_Description").getValue().toString();
+                // Set the goal name and description
                 tripname.setText(prevName);
+                goalDesc.setText(prevDesc);
 
                 //Update other UI element
                // findViewById(R.id.create_goal_text_view).setVisibility(View.GONE);
