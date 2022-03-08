@@ -68,6 +68,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import achivementtrackerbyamit.example.achivetracker.alarm.AlarmActivity;
+import achivementtrackerbyamit.example.achivetracker.auth.RegisterActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 import sun.bob.mcalendarview.MCalendarView;
 import sun.bob.mcalendarview.MarkStyle;
@@ -342,74 +343,93 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     private void resetG() {
-        RootRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this,R.style.AlertDialogTheme);
+        builder.setTitle("Reset");
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setMessage("Are you sure you want to reset?");
+        builder.setBackground(getResources().getDrawable(R.drawable.material_dialog_box , null));
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String st = snapshot.child("Status").getValue().toString();
-                if(st.equals("Active") && !snapshot.child("Win").hasChildren()) {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-                    SimpleDateFormat justdateFormat = new SimpleDateFormat(JUSTDATE_FORMAT);
-                    String end = snapshot.child("EndTime").getValue().toString();
-                    String start = snapshot.child("TodayTime").getValue().toString();
-                    Date n = new Date();
-                    String nx = dateFormat.format(n);
-                    try {
-                        Date endx = dateFormat.parse(end);
-                        Date startx = dateFormat.parse(start);
-                        Date today = dateFormat.parse(nx);
+            public void onClick(DialogInterface dialogInterface, int i) {
+                RootRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String st = snapshot.child("Status").getValue().toString();
+                        if(st.equals("Active") && !snapshot.child("Win").hasChildren()) {
+                            SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                            SimpleDateFormat justdateFormat = new SimpleDateFormat(JUSTDATE_FORMAT);
+                            String end = snapshot.child("EndTime").getValue().toString();
+                            String start = snapshot.child("TodayTime").getValue().toString();
+                            Date n = new Date();
+                            String nx = dateFormat.format(n);
+                            try {
+                                Date endx = dateFormat.parse(end);
+                                Date startx = dateFormat.parse(start);
+                                Date today = dateFormat.parse(nx);
 
-                        long diff = endx.getTime() - startx.getTime();
-                        long Days = diff / (24 * 60 * 60 * 1000);
+                                long diff = endx.getTime() - startx.getTime();
+                                long Days = diff / (24 * 60 * 60 * 1000);
 
-                        if(Days > 0 ) {
-                            Calendar c = Calendar.getInstance();
-                            c.setTime(today);
-                            c.add(Calendar.DAY_OF_MONTH, (int)Days);
+                                if(Days > 0 ) {
+                                    Calendar c = Calendar.getInstance();
+                                    c.setTime(today);
+                                    c.add(Calendar.DAY_OF_MONTH, (int)Days);
 
-                            Date up = c.getTime();
-                            String upx = justdateFormat.format(up) + " 23:59:59";
+                                    Date up = c.getTime();
+                                    String upx = justdateFormat.format(up) + " 23:59:59";
 
 
-                            RootRef.child(id).child("EndTime").setValue(upx);
-                            RootRef.child(id).child("TodayTime").setValue(nx);
-                            Dialog dialog;
-                            //Create the Dialog here
-                            dialog = new Dialog(DashboardActivity.this);
-                            dialog.setContentView(R.layout.reset_dialog);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                dialog.getWindow().setBackgroundDrawable(DashboardActivity.this.getDrawable(R.drawable.custom_dialog_background));
-                            }
-                            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                            dialog.setCancelable(false); //Optional
-                            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+                                    RootRef.child(id).child("EndTime").setValue(upx);
+                                    RootRef.child(id).child("TodayTime").setValue(nx);
+                                    Dialog dialog;
+                                    //Create the Dialog here
+                                    dialog = new Dialog(DashboardActivity.this);
+                                    dialog.setContentView(R.layout.reset_dialog);
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                        dialog.getWindow().setBackgroundDrawable(DashboardActivity.this.getDrawable(R.drawable.custom_dialog_background));
+                                    }
+                                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    dialog.setCancelable(false); //Optional
+                                    dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
 
-                            Button Okay = dialog.findViewById(R.id.btn_okay);
+                                    Button Okay = dialog.findViewById(R.id.btn_okay);
 
-                            Okay.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
+                                    Okay.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    dialog.show();
+                                } else {
+                                    Toast.makeText(DashboardActivity.this, "Can't reset same date", Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                            dialog.show();
-                        } else {
-                            Toast.makeText(DashboardActivity.this, "Can't reset same date", Toast.LENGTH_SHORT).show();
-                        }
 
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Toast.makeText(DashboardActivity.this, "Can't reset", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
-                } else {
-                    Toast.makeText(DashboardActivity.this, "Can't reset", Toast.LENGTH_SHORT).show();
-                }
-            }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+                    }
+                });
             }
         });
+        builder.setNegativeButton(android.R.string.no, null);
+        builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getApplicationContext(), "Reset cancelled", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.show();
+
     }
 
 
