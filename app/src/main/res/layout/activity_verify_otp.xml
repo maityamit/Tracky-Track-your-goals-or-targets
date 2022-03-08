@@ -9,15 +9,14 @@
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
 
         <TextView
@@ -27,9 +26,9 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="176dp"
+            android:layout_marginTop="10dp"
             android:text="Verify"
-            android:textColor="@color/black"
+            android:textColor="#434343"
             android:textSize="40dp"
             android:textStyle="bold" />
 
@@ -38,67 +37,97 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/toptext"
             android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
             android:layout_marginStart="40dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="16dp"
-            android:text="OTP has been send to your Registered Phone No"
-            android:textColor="@color/black"
-            android:textSize="12dp" />
+            android:text="OTP has been send to your Mobile Number"
+            android:textColor="#434343"
+            android:textSize="15dp" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="107dp"
-            android:layout_height="107dp"
-            android:layout_alignBottom="@+id/relativeLayout"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="150dp"
-            android:layout_marginBottom="140dp"
-            android:elevation="12dp">
-
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/logo" />
-
-        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 
     <com.chaos.view.PinView
         android:id="@+id/pinView"
+        style="@style/PinWidget.PinView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="224dp"
+        android:inputType="number"
+        android:itemBackground="#F8F7F7"
         app:itemCount="6"
-        style="@style/PinWidget.PinView"
         app:itemHeight="50dp"
         app:itemRadius="10dp"
-        android:inputType="number"
+        app:itemSpacing="10dp"
         app:itemWidth="50dp"
+        app:cursorColor="@color/black"
+        app:hideLineWhenFilled="true"
+        android:cursorVisible="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:itemSpacing="10dp"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:paddingLeft="30dp"
+        android:text="Didn't receive the OTP?"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/resendotp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/pinView"
+        app:layout_constraintTop_toBottomOf="@+id/pinView" />
+
+    <TextView
+        android:id="@+id/resendotp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="36dp"
+        android:text="RESEND OTP"
+        android:textColor="@color/red"
+        android:textSize="16dp"
+        android:paddingLeft="10dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/pinView"
+        app:layout_constraintTop_toBottomOf="@+id/pinView" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="278dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/verifyotp"
         android:layout_width="330dp"
         android:layout_height="55dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/button"
         android:text="Verify OTP"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@+id/pinView"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="@+id/pinView"
-        app:layout_constraintTop_toBottomOf="@+id/pinView" />
+        app:layout_constraintTop_toBottomOf="@+id/resendotp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="410dp"
+        android:layout_height="180dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/verify_otp_illu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
