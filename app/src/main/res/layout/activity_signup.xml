@@ -140,7 +140,7 @@
         android:id="@+id/signupbtn"
         android:layout_width="330dp"
         android:layout_height="55dp"
-        android:background="@drawable/button"
+        android:background="@drawable/ripple_blue"
         android:text="Sign up"
         android:textAllCaps="false"
         android:textColor="@color/white"

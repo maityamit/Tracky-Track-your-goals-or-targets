@@ -195,7 +195,7 @@
         android:textColor="@color/white"
         android:textSize="16dp"
         android:onClick="PDF"
-        android:background="@drawable/button" />
+        android:background="@drawable/ripple_blue" />
 
 
 
@@ -204,7 +204,7 @@
         android:layout_width="120dp"
         android:layout_height="55dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/logout_button"
+        android:background="@drawable/ripple_red"
         android:text="Log Out"
         android:textAllCaps="false"
         android:layout_marginTop="20dp"

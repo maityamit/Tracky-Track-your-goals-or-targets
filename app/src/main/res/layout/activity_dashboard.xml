@@ -64,7 +64,7 @@ android:layout_height="match_parent">
                         android:layout_marginTop="5dp"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/white"
-                        android:background="@drawable/button"/>
+                        android:background="@drawable/ripple_blue"/>
 
                     <ImageView
                         android:layout_width="30dp"

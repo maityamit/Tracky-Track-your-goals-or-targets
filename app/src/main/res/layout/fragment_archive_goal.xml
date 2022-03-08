@@ -48,6 +48,7 @@
         android:layout_marginEnd="25sp"
         android:layout_marginBottom="20dp"
         android:textAllCaps="false"
+        android:backgroundTint="@color/blue"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         app:icon="@drawable/ic_baseline_share_24"
