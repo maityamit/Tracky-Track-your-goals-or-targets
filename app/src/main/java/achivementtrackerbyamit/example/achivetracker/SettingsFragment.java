@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +53,7 @@ public class SettingsFragment extends Fragment {
 
 
 
-    private TextView rateus , share , privacypolicy;
+    private TextView rateus , share , feedback, privacypolicy;
     private Button showLogs, delAll;
     private DatabaseReference reference, tillActive;
     private String userID;
@@ -73,6 +75,7 @@ public class SettingsFragment extends Fragment {
         userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         github = view.findViewById(R.id.github_button);
         delAll = view.findViewById(R.id.delall);
+        feedback = view.findViewById(R.id.feedback);
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
         tillActive = reference.child(userID).child("Goals").child("Active");
@@ -83,6 +86,18 @@ public class SettingsFragment extends Fragment {
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/maityamit/Tracky-Track-your-goals-or-targets"));
                 startActivity(browserIntent);
+            }
+        });
+
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://mail.google.com/mail/u/0/?fs=1&tf=cm&to=maityamit308@gmail.com");
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto","maityamit308@gmail.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Text");
+                startActivityForResult(Intent.createChooser(emailIntent, "Send email..."),0);
             }
         });
 
