@@ -30,6 +30,7 @@
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_app_intro.xml" value="0.19010416666666666" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_dashboard.xml" value="0.33" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_home.xml" value="0.32592592592592595" />
+        <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_onboarding.xml" value="0.36102564102564105" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_phone_no_signin.xml" value="0.33" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_profile.xml" value="0.31794871794871793" />
         <entry key="..\:/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_sign_in_done.xml" value="0.36666666666666664" />
@@ -162,7 +163,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
