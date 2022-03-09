@@ -13,7 +13,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_main_view"
         android:layout_width="330dp"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
@@ -57,6 +57,19 @@
                 android:textStyle="bold"
                 android:layout_margin="8dp"
                 android:drawableLeft="@drawable/share" />
+
+            <TextView
+                android:id="@+id/feedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feedback"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_margin="8dp"
+                android:drawableLeft="@drawable/feedbk" />
 
             <TextView
                 android:id="@+id/privacy"

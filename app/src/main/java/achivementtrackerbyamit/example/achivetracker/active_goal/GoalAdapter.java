@@ -188,18 +188,15 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         holder.goal_name.setText(model.getGoalName());
 
         if (model.getGoalType().equals("High")){
-            holder.goal_priority.setText("Priority: "+model.getGoalType());
-            holder.goal_priority.setTextColor(Color.parseColor("#D64343"));
+            holder.priority.setImageDrawable(fragment.getContext().getResources().getDrawable(R.drawable.rd));
         }else if (model.getGoalType().equals("Medium")) {
-            holder.goal_priority.setText("Priority: "+model.getGoalType());
-            holder.goal_priority.setTextColor(Color.parseColor("#E78A00"));
+            holder.priority.setImageDrawable(fragment.getContext().getResources().getDrawable(R.drawable.yl));
         }else{
-            holder.goal_priority.setText("Priority: "+model.getGoalType());
-            holder.goal_priority.setTextColor(Color.parseColor("#00AB26"));
+            holder.priority.setImageDrawable(fragment.getContext().getResources().getDrawable(R.drawable.gr));
         }
 
 
-        holder.const_text.setText("Consistency :" +model.getConsistency()+" %");
+      //  holder.const_text.setText("Consistency :" +model.getConsistency()+" %");
 
 
         // Retrieve Goal Image into CurrentGoal Frag Recyclerview items
@@ -530,15 +527,16 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         LinearLayout check_in_layout;
         CheckBox checkBox_true;
         ProgressBar completedBar;
-        ImageView goalimage;
+        ImageView goalimage, priority;
         public StudentViewHolder2(@NonNull View itemView) {
             super ( itemView );
             goal_name = itemView.findViewById ( R.id.lay_goal_name);
-            goal_priority = itemView.findViewById ( R.id.lay_goal_priority);
+       //     goal_priority = itemView.findViewById ( R.id.lay_goal_priority);
             left_day = itemView.findViewById ( R.id.lay_goal_left);
+            priority = itemView.findViewById(R.id.prio);
 
             check_in_layout = itemView.findViewById(R.id.check_in_layout);
-            const_text = itemView.findViewById ( R.id.lay_goal_const);
+            //const_text = itemView.findViewById ( R.id.lay_goal_const);
             checkBox_true = itemView.findViewById ( R.id.true_checkbox);
 
             completedBar = itemView.findViewById(R.id.completed_progress);
