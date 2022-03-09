@@ -61,7 +61,7 @@ If you are preparing to achive any goal or target then , one of the importance p
    
    <tr>
     <td align="center"><a href="https://github.com/ken1000minus7"><img src="https://avatars.githubusercontent.com/u/78747188?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Manjot Singh Oberoi
-</b></sub></a><br /></td>
+</b></sub><br /><br/><sub><img src="https://github.com/maityamit/Tracky-Track-your-goals-or-targets/blob/master/External%20Resources/Code%20History/ken1000minus7.png" width="120px;" alt=""/><br /></a><br /></td>
     <td align="center"><a href="https://github.com/shubhankar-bt"><img src="https://avatars.githubusercontent.com/u/78974094?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Shubhankar Das
 </b></sub><br /><br/><sub><img src="https://github.com/maityamit/Tracky-Track-your-goals-or-targets/blob/master/External%20Resources/Code%20History/shubhankar-bt.png" width="120px;" alt=""/><br /></a><br /></td>
    <td align="center"><a href="https://github.com/SB2318"><img src="https://avatars.githubusercontent.com/u/87614560?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Susmita Bhattacharya</b></sub><br /><br/><sub><img src="https://github.com/maityamit/Tracky-Track-your-goals-or-targets/blob/master/External%20Resources/Code%20History/SB2318.png" width="120px;" alt=""/><br /></a><br /></td>
