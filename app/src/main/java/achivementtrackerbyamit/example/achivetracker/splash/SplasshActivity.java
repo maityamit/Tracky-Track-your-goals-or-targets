@@ -29,15 +29,6 @@ public class SplasshActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splassh);
         mAuth = FirebaseAuth.getInstance ();
-    }
-
-
-
-    @Override
-    protected void onStart() {
-
-
-        super.onStart();
 
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
@@ -47,27 +38,25 @@ public class SplasshActivity extends AppCompatActivity {
 
             FirebaseUser currentUser = mAuth.getCurrentUser ();
 
-            if (currentUser == null)
-            {
+            if (currentUser == null) {
 
                 SendUserToLoginActivity();
-            }
-            else
-            {
+            } else {
 
                 currentUserID = mAuth.getCurrentUser ().getUid ();
 
 
-                Intent loginIntentt = new Intent ( SplasshActivity.this, HomeActivity.class );
-                loginIntentt.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-                startActivity ( loginIntentt );
-                finish ();
-
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent loginIntent = new Intent (SplasshActivity.this, HomeActivity.class  );
+                        loginIntent.addFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+                        startActivity ( loginIntent );
+                        finish ();
+                    }
+                }, 2900);
             }
-
-
-        }
-        else{
+        } else{
             connected=false;
             new AlertDialog.Builder(this)
                     .setTitle("You are Offline Dude ! ")
@@ -90,9 +79,5 @@ public class SplasshActivity extends AppCompatActivity {
             finish ();
             }
         }, 2900);
-
-
     }
-
-
 }
