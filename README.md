@@ -52,11 +52,11 @@ If you are preparing to achive any goal or target then , one of the importance p
   <p align="center">
   <tr>
     <td align="center"><a href="https://github.com/afreenabegum"><img src="https://avatars.githubusercontent.com/u/79068663?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Afreena begum</b></sub><br /><br/><sub><img src="https://github.com/maityamit/Tracky-Track-your-goals-or-targets/blob/master/External%20Resources/Code%20History/afreenabegum.png" width="120px;" alt=""/><br /></a><br /></td>
-   <td align="center"><a href="https://github.com/binayshaw7777"><img src="https://avatars.githubusercontent.com/u/62587060?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Binay Shaw</b></sub></a><br /></td>
+   <td align="center"><a href="https://github.com/binayshaw7777"><img src="https://avatars.githubusercontent.com/u/62587060?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Binay Shaw</b></sub><br /><br/><sub><img src="https://github.com/maityamit/Tracky-Track-your-goals-or-targets/blob/master/External%20Resources/Code%20History/binayshaw7777.png" width="120px;" alt=""/><br /></a><br /></td>
    <td align="center"><a href="https://github.com/aritra-tech"><img src="https://avatars.githubusercontent.com/u/80090908?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Aritra Das
-</b></sub></a><br /></td>
+</b></sub><br /><br/><sub><img src="https://github.com/maityamit/Tracky-Track-your-goals-or-targets/blob/master/External%20Resources/Code%20History/aritra-tech.png" width="120px;" alt=""/><br /></a><br /></td>
     <td align="center"><a href="https://github.com/Poulami2515"><img src="https://avatars.githubusercontent.com/u/91011865?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Poulami Paul</b></sub><br /><br/><sub><img src="https://github.com/maityamit/Tracky-Track-your-goals-or-targets/blob/master/External%20Resources/Code%20History/Poulami2515.png" width="120px;" alt=""/><br /></a><br /></td>
-    <td align="center"><a href="https://github.com/GeekLord04"><img src="https://avatars.githubusercontent.com/u/84928799?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Chirag Chakraborty</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/GeekLord04"><img src="https://avatars.githubusercontent.com/u/84928799?v=4?s=100" width="120px;" alt=""/><br /><sub><b>Chirag Chakraborty</b></sub><br /><br/><sub><img src="https://github.com/maityamit/Tracky-Track-your-goals-or-targets/blob/master/External%20Resources/Code%20History/GeekLord04.png" width="120px;" alt=""/><br /></a><br /></td>
  </tr>
    
    <tr>
