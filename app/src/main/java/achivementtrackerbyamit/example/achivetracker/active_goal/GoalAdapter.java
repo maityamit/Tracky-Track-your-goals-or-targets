@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,14 +47,6 @@ import achivementtrackerbyamit.example.achivetracker.HomeActivity;
 import achivementtrackerbyamit.example.achivetracker.R;
 import achivementtrackerbyamit.example.achivetracker.alarm.AlarmReceiver;
 import achivementtrackerbyamit.example.achivetracker.archive_goal.ArchiveClass;
-import nl.dionsegijn.konfetti.core.Party;
-import nl.dionsegijn.konfetti.core.PartyFactory;
-import nl.dionsegijn.konfetti.core.Position;
-import nl.dionsegijn.konfetti.core.emitter.Emitter;
-import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
-import nl.dionsegijn.konfetti.core.models.Shape;
-import nl.dionsegijn.konfetti.core.models.Size;
-import nl.dionsegijn.konfetti.xml.KonfettiView;
 
 // Custom adapter for the RecyclerView for displaying goals
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHolder2> {
@@ -170,8 +160,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
             }
         });
 
-
-        //   Toast.makeText(fragment.getContext(), ""+retriveBreakEndDate, Toast.LENGTH_SHORT).show();
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd-M-yyyy");
 
         // Goal object is the second element of the pair
@@ -196,7 +184,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         }
 
 
-      //  holder.const_text.setText("Consistency :" +model.getConsistency()+" %");
 
 
         // Retrieve Goal Image into CurrentGoal Frag Recyclerview items

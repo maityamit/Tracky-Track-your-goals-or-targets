@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +48,10 @@ public class ArchiveGoalFragment extends Fragment {
     String currentUserID;
     DatabaseReference archiveDataRef;
     ArchiveAdapter archiveAdapter;
-    ArrayList<ArchiveClass> dataList;
-   // ArrayList<String> keyList;
+    ArrayList<DataSnapshot> dataList;
     ExtendedFloatingActionButton floatingActionButton;
     SimpleArcLoader mDialog;
     ImageView emptyArchive;
-    FirebaseRecyclerAdapter<ArchiveClass, StudentViewHolder3> adapter;
     static String dataKey="";
     String userID;
     static boolean flag=false;
@@ -71,7 +70,6 @@ public class ArchiveGoalFragment extends Fragment {
         userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
-//        keyList= new ArrayList<>();
 
 
 
@@ -112,8 +110,6 @@ public class ArchiveGoalFragment extends Fragment {
                     }
                 });
 
-//                View gh = view.findViewById(R.id.archieve_recycler_view);
-//                share(screenShot(gh));
             }
         });
 
@@ -183,20 +179,24 @@ public class ArchiveGoalFragment extends Fragment {
                 }
                 //fetch all the data
                 if(snapshot.exists()){
-
+                    dataList = new ArrayList<>();
                     for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                        ArchiveClass archiveElement = dataSnapshot.getValue(ArchiveClass.class);
 
-                        ArchiveClass itemData= dataSnapshot.getValue(ArchiveClass.class);
-                        dataList.add(itemData);
+                        // Delete the archived goal if auto delete is on and seven days have passed
+                        if(dataSnapshot.hasChild("deleteDate") && archiveElement.isAutoDelete() && timeExceed(archiveElement.getDeleteDate()))
+                        {
+                            dataSnapshot.getRef().removeValue();
+                        }
+                        // Otherwise add it to the list
+                        else
+                        {
+                            dataList.add(dataSnapshot);
+                        }
                     }
-                    archiveAdapter.notifyDataSetChanged();
+                    archiveAdapter.setArchiveDataList(dataList);
                     mDialog.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
-
-
-
-
-
 
                 }
 
@@ -216,27 +216,11 @@ public class ArchiveGoalFragment extends Fragment {
     }
 
 
-    public static class StudentViewHolder3 extends  RecyclerView.ViewHolder
-    {
-      public StudentViewHolder3(@NonNull View itemView) {
-            super ( itemView );
-        }
-    }
-
-
-    public void deleteData(String dataKey) {
-
-        archiveDataRef.child(dataKey).removeValue();
-        // remove the value from dataList also
-        //dataList.remove(itemData);
-
-    }
-
     public boolean timeExceed(String firstWord) {
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/M/yyyy");
-        String secondWord = calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.YEAR);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
+        String secondWord = calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.YEAR)+" "+calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND);
         Date date1 = null, date2 = null;
 
         try {
@@ -249,11 +233,7 @@ public class ArchiveGoalFragment extends Fragment {
         long diff = date2.getTime() - date1.getTime();
         long diff_in_days = (diff / (1000 * 60 * 60 * 24)) % 365;
 
-        if (diff_in_days > 7)
-            return true;
-
-        else
-            return false;
+        return diff_in_days >= 7;
     }
 
 

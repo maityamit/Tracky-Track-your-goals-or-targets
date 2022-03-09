@@ -5,9 +5,14 @@ public class ArchiveClass {
 
 
 
-    private String Consistency,EndTime,GoalName;
+    private String Consistency;
+    private String EndTime;
+    private String GoalName;
+    private String deleteDate;
+    private boolean autoDelete=false;
 
-    public ArchiveClass() {
+    public ArchiveClass()
+    {
 
     }
 
@@ -43,4 +48,19 @@ public class ArchiveClass {
         GoalName = goalName;
     }
 
+    public boolean isAutoDelete() {
+        return autoDelete;
+    }
+
+    public void setAutoDelete(boolean autoDelete) {
+        this.autoDelete = autoDelete;
+    }
+
+    public String getDeleteDate() {
+        return deleteDate;
+    }
+
+    public void setDeleteDate(String deleteDate) {
+        this.deleteDate = deleteDate;
+    }
 }
