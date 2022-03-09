@@ -386,12 +386,6 @@ public class ProfileActivity extends AppCompatActivity {
                 .setTitle("Save PDF")
                 .setMessage("Enter a name for your PDF.")
                 .setIcon(R.drawable.ic_baseline_edit_24)
-                .setInputFilter("Wrong Input, please try again!", new LovelyTextInputDialog.TextFilter() {
-                    @Override
-                    public boolean check(String text) {
-                        return text.matches("\\w+");
-                    }
-                })
                 .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
                     @Override
                     public void onTextInputConfirmed(String text) {
