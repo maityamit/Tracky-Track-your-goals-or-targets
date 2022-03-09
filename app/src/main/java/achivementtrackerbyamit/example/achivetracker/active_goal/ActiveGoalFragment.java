@@ -124,6 +124,7 @@ public class ActiveGoalFragment extends Fragment {
                 // Making the no result text visible based on the size of the new list
                 if(!editable.toString().isEmpty() && newList.size()==0 && !(goalList.size() ==0))
                 {
+                    goalAdapter.setGoalList(newList);
                     noResultText.setVisibility(View.VISIBLE);
                 }
                 else
