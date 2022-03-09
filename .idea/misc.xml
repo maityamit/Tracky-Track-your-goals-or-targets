@@ -136,7 +136,7 @@
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/activity_verify_otp.xml" value="0.22" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/archive_goals_item_layout.xml" value="0.209375" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/dialog_fragment.xml" value="0.33" />
-        <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_active_goal.xml" value="0.209375" />
+        <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_active_goal.xml" value="0.33" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_archive_goal.xml" value="0.209375" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_rank.xml" value="0.25" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/fragment_settings.xml" value="0.22" />
@@ -147,6 +147,7 @@
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/rank_list_item.xml" value="0.5" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/reset_dialog.xml" value="0.22" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/show_log_dialog.xml" value="0.209375" />
+        <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/layout/user_display.xml" value="0.209375" />
         <entry key="..\:/Users/vinay/AndroidStudioProjects/Tracky-Track-your-goals-or-targets/app/src/main/res/menu/menu.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/back_for_dash.xml" value="0.31666666666666665" />
         <entry key="app/src/main/res/drawable/backgroud_grad.xml" value="0.31666666666666665" />

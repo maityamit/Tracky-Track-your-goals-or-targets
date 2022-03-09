@@ -1,5 +1,6 @@
 package achivementtrackerbyamit.example.achivetracker.rank;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import java.util.List;
 import achivementtrackerbyamit.example.achivetracker.ProfileActivity;
 import achivementtrackerbyamit.example.achivetracker.R;
 import achivementtrackerbyamit.example.achivetracker.auth.Users;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder> {
 
@@ -62,6 +64,43 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
 
         String key = snapshot.getKey();
+
+        String finalGoalName = goalName;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(view.getRootView().getContext());
+                View dialogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.user_display, null);
+                de.hdodenhof.circleimageview.CircleImageView cim = dialogView.findViewById(R.id.dialog_profile);
+                TextView username = dialogView.findViewById(R.id.dialog_name);
+                TextView desc = dialogView.findViewById(R.id.dialog_details);
+
+                reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.hasChild("name")) {
+                            String n = snapshot.child("name").getValue().toString();
+                            if(FirebaseAuth.getInstance().getUid().equals(key)) n="Me";
+                            username.setText(n);
+                            if(snapshot.hasChild("user_image")) {
+                                Picasso.get().load(snapshot.child("user_image").getValue().toString()).into(cim);
+                            }
+
+                            desc.setText(finalGoalName);
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                dialog.setView(dialogView);
+                dialog.setCancelable(true);
+                dialog.show();
+            }
+        });
 
         reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -7,4 +7,10 @@
     <string name="tracky">Tracky : Track your Goal</string>
     <string name="visulization">Easy visulization</string>
     <string name="create_and_go">Let\'s Create and Go</string>
+
+    <string-array name="Sort">
+        <item>A-Z</item>
+        <item>Date Added</item>
+        <item>Priority</item>
+    </string-array>
 </resources>
