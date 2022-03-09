@@ -1,5 +1,6 @@
 package achivementtrackerbyamit.example.achivetracker.rank;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -151,6 +152,8 @@ public class RankFragment extends Fragment {
 
                     String key = dataSnapshot.getKey();
 
+
+
                     reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshott) {
@@ -177,6 +180,46 @@ public class RankFragment extends Fragment {
                     String goalName = dataSnapshot.child("goal_Name").getValue(String.class);
                     String consistencyNode = dataSnapshot.child("consistency").getValue(String.class);
                     int consistency = 0;
+
+                    String finalGoalName = goalName;
+                    firstLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(view.getRootView().getContext());
+                            View dialogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.user_display, null);
+                            de.hdodenhof.circleimageview.CircleImageView cim = dialogView.findViewById(R.id.dialog_profile);
+                            TextView username = dialogView.findViewById(R.id.dialog_name);
+                            TextView desc = dialogView.findViewById(R.id.dialog_details);
+
+                            reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.hasChild("name")){
+                                        String name = snapshot.child("name").getValue().toString();
+                                        if(FirebaseAuth.getInstance().getUid().equals(key)) name="Me";
+                                        username.setText(name);
+                                    }
+                                    if(snapshot.hasChild("user_image")) {
+                                        Picasso.get().load(snapshot.child("user_image").getValue().toString()).into(cim);
+                                    }
+
+                                    desc.setText(finalGoalName);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                            dialog.setView(dialogView);
+                            dialog.setCancelable(true);
+                            dialog.show();
+
+                        }
+                    });
+
+
                     try{
                         consistency = Integer.parseInt(consistencyNode);
                     }catch (NumberFormatException e){
@@ -224,6 +267,48 @@ public class RankFragment extends Fragment {
                     String goalName = dataSnapshot.child("goal_Name").getValue(String.class);
                     String consistencyNode = dataSnapshot.child("consistency").getValue(String.class);
                     int consistency = 0;
+
+
+                    String finalGoalName = goalName;
+                    secondLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(view.getRootView().getContext());
+                            View dialogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.user_display, null);
+                            de.hdodenhof.circleimageview.CircleImageView cim = dialogView.findViewById(R.id.dialog_profile);
+                            TextView username = dialogView.findViewById(R.id.dialog_name);
+                            TextView desc = dialogView.findViewById(R.id.dialog_details);
+
+                            reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.hasChild("name")){
+                                        String name = snapshot.child("name").getValue().toString();
+                                        if(FirebaseAuth.getInstance().getUid().equals(key)) name="Me";
+                                        username.setText(name);
+                                    }
+                                    if(snapshot.hasChild("user_image")) {
+                                        Picasso.get().load(snapshot.child("user_image").getValue().toString()).into(cim);
+                                    }
+
+                                    desc.setText(finalGoalName);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                            dialog.setView(dialogView);
+                            dialog.setCancelable(true);
+                            dialog.show();
+
+                        }
+                    });
+
+
+
                     try{
                         consistency = Integer.parseInt(consistencyNode);
                     }catch (NumberFormatException e){
@@ -271,6 +356,47 @@ public class RankFragment extends Fragment {
                     String goalName = dataSnapshot.child("goal_Name").getValue(String.class);
                     String consistencyNode = dataSnapshot.child("consistency").getValue(String.class);
                     int consistency = 0;
+
+
+                    String finalGoalName = goalName;
+                    thirdLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(view.getRootView().getContext());
+                            View dialogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.user_display, null);
+                            de.hdodenhof.circleimageview.CircleImageView cim = dialogView.findViewById(R.id.dialog_profile);
+                            TextView username = dialogView.findViewById(R.id.dialog_name);
+                            TextView desc = dialogView.findViewById(R.id.dialog_details);
+
+                            reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.hasChild("name")){
+                                        String name = snapshot.child("name").getValue().toString();
+                                        if(FirebaseAuth.getInstance().getUid().equals(key)) name="Me";
+                                        username.setText(name);
+                                    }
+                                    if(snapshot.hasChild("user_image")) {
+                                        Picasso.get().load(snapshot.child("user_image").getValue().toString()).into(cim);
+                                    }
+
+                                    desc.setText(finalGoalName);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                            dialog.setView(dialogView);
+                            dialog.setCancelable(true);
+                            dialog.show();
+
+                        }
+                    });
+
+
                     try{
                         consistency = Integer.parseInt(consistencyNode);
                     }catch (NumberFormatException e){
