@@ -1,5 +1,9 @@
 # Tracky : Track your goals
 
+## 🔗 Download the App 
+
+<a href="https://play.google.com/store/apps/details?id=achivementtrackerbyamit.example.achivetracker"><img src="https://github.com/maityamit/Heritsm-Heritage_of_India-Application/blob/master/Demo/800px-Google_Play_Store_badge_EN.svg.png" width="20%" /></a>
+
 ## ⚙️ Technology Used
 
  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="Java" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank"> <img src="https://github.com/devicons/devicon/blob/master/icons/android/android-plain.svg" alt="Android" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank">  <img src="https://www.gstatic.com/devrel-devsite/prod/v70c9aa38be5a41f2acdfd6deb7424dc7b523d8a488274535f707585ca8d2cdd3/firebase/images/touchicon-180.png" alt="Android" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank">  
