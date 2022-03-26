@@ -99,7 +99,37 @@ If you are preparing to achive any goal or target then , one of the importance p
   
   
   
-  # How to Contribute
+  
+# App Description 
+  
+Tracky is an Android App that assists you in achieving success by keeping track of your daily goals.<br>
+It is a powerful productivity tool that integrates goals, tasks, and objectives to help you develop a routine, complete activities, maintain consistency, and achieve your goals.<br>
+
+Features:<br>
+• Supports Google/Email/Phone no. Sign in<br>
+• Simple and Clean UI for Users<br>
+• Goal Creation with Title, Description, Date, Priority Feature<br>
+• Consistency Tracker of your Goal<br>
+• Reminder to set manually & receive reminder before Goal End<br>
+• Reset Goal Feature to reset your selected Goals<br>
+• User can edit and delete goals when needed.<br>
+• User can take break from goal when required<br>
+• Leaderboard support<br>
+• Get your all Goal History/Logs<br>
+• Delete All Goals at once<br>
+• Share Active Goals list as PDF<br>
+• Share Goal Details with your friends with share feature<br>
+• Edit your profile in profile section<br>
+
+Tracky is a Java and XML-based native Android application. Authentication and other functionality were implemented using Firebase.<br>
+It's an Open Source Project to which individuals from all across India contributed with passion.<br>
+We frequently find ourselves skipping our daily routine/schedule for a different reasons. This is when Tracky comes into the picture. It assists you in keeping track of your objectives and achieving them. It reminds you of your objective and keeps you up to date on your progress. We've implemented a Leaderboard feature that allows users to compare their rankings in the Leaderboard based on consistency and goal completion percentage.
+With the use of the App's share feature, users may share their Goal status as a screenshot.
+We have also included a function that allows users to take breaks or postpone an ongoing break.<br>
+
+This concludes our discussion of Tracky. I hope you find it useful in achieving your objectives.<br>
+  
+# How to Contribute
 
 If you think that you can add a new feature or want to fix a bug, we invite you to contribute to FunwithPhysics and make this project better. To start contributing, follow the below instructions:
 
