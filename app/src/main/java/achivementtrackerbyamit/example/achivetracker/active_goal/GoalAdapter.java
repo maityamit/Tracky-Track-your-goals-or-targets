@@ -488,7 +488,16 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.StudentViewHol
         AlarmManager alarmManager = (AlarmManager) fragment.getContext().getSystemService(Context.ALARM_SERVICE); //Creating Alarm Manager
         Intent intent = new Intent(fragment.getContext(), AlarmReceiver.class);
         intent.putExtra("goal", name); //passing Goal name
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(fragment.getContext(), 1, intent, 0); //pending intent
+
+        PendingIntent pendingIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getBroadcast(fragment.getContext(), 1, intent, PendingIntent.FLAG_MUTABLE);
+        }
+        else
+        {
+            pendingIntent = PendingIntent.getBroadcast(fragment.getContext(), 1, intent, PendingIntent.FLAG_ONE_SHOT);
+        }
+
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent); //wakes device if sleep
     }
 

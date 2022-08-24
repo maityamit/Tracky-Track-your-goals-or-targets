@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "266570976970",
+    "firebase_url": "https://tracky---track-the-goal-default-rtdb.firebaseio.com",
+    "project_id": "tracky---track-the-goal",
+    "storage_bucket": "tracky---track-the-goal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266570976970:android:0d426690a29ca748936e33",
+        "android_client_info": {
+          "package_name": "achivementtrackerbyamit.example.achivetracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266570976970-o5s64e8k4v3dfjdlv4n73dap1k6qbb3e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "achivementtrackerbyamit.example.achivetracker",
+            "certificate_hash": "e198e844659db985db0dae0d36db72561095beab"
+          }
+        },
+        {
+          "client_id": "266570976970-pindr20utbjr6atgfam2u9tiem3scq6n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "achivementtrackerbyamit.example.achivetracker",
+            "certificate_hash": "c5cb33311a1250d56c4cc100c52638626ea70cdb"
+          }
+        },
+        {
+          "client_id": "266570976970-hqpuvsol8ojfn4m0j9usrhfa580p4mj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeQdhbrIUFfaSEX-1hCJVtNiY8QrlQ82k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266570976970-hqpuvsol8ojfn4m0j9usrhfa580p4mj5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
